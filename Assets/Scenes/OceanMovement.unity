@@ -267,7 +267,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.014225721}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -278,7 +278,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.0001, y: 0.0001}
+  m_Size: {x: 2.5664024, y: 2.532261}
   m_EdgeRadius: 0
 --- !u!212 &1751248705
 SpriteRenderer:
@@ -386,10 +386,8 @@ GameObject:
   - component: {fileID: 2115856467}
   - component: {fileID: 2115856469}
   - component: {fileID: 2115856466}
-  - component: {fileID: 2115856470}
   - component: {fileID: 2115856465}
   - component: {fileID: 2115856468}
-  - component: {fileID: 2115856471}
   m_Layer: 6
   m_Name: PlayerPlaceholder
   m_TagString: Untagged
@@ -461,7 +459,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.03024888, y: 0.37199947}
+  m_Offset: {x: -0.0674476, y: 0.000012308359}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -472,7 +470,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6949687, y: 0.52789026}
+  m_Size: {x: 0.76936615, y: 1.1379492}
   m_EdgeRadius: 0
 --- !u!4 &2115856467
 Transform:
@@ -499,25 +497,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2115856464}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1115493839f0e48498aa7266c36efb05, type: 3}
+  m_Script: {fileID: 11500000, guid: dc57473dc5b30914ba778710fe5eee76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_JumpForce: 400
-  m_CrouchSpeed: 0.36
-  m_MovementSmoothing: 0.05
-  m_AirControl: 1
-  m_WhatIsGround:
-    serializedVersion: 2
-    m_Bits: 183
-  m_GroundCheck: {fileID: 2012647122}
-  m_CeilingCheck: {fileID: 1656482795}
-  m_CrouchDisableCollider: {fileID: 2115856466}
-  OnLandEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnCrouchEvent:
-    m_PersistentCalls:
-      m_Calls: []
+  horizontalSpeed: 20
+  verticalSpeed: 20
 --- !u!50 &2115856469
 Rigidbody2D:
   serializedVersion: 4
@@ -539,33 +523,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &2115856470
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2115856464}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.1, y: -0.24000001}
-  serializedVersion: 2
-  m_Radius: 0.3177542
---- !u!114 &2115856471
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2115856464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e6b322f0d43efd45b3d0efa430e698b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controller: {fileID: 2115856468}
-  runSpeed: 40
