@@ -8,6 +8,10 @@ public class TurtleController : MonoBehaviour
     public Transform plasticBoss;
     public Transform player;
 
+    public GameObject plasticDrop;
+    public int plasticDropFreq = 30;
+    private int plasticDropCounter = 0;
+
     private bool spawned = false;
 
     // Keeps track of the position of the current target
@@ -15,27 +19,47 @@ public class TurtleController : MonoBehaviour
 
     private void Update()
     {
-        if(spawned == true)
+        if (spawned == true)
         {
+            // Checks when the turtle is close to its target
             if (Vector3.Distance(turtle.position, targetPosition) < 0.05f)
             {
+                // Checks if the turtle has finished its attack
+                if (targetPosition == plasticBoss.position)
+                {
+                    Destroy(gameObject);
+                }
+
+                // Sets the turtle's target back to the plastic boss to create boomerang effect
                 targetPosition = plasticBoss.position;
+
             }
 
             turtle.position = Vector3.MoveTowards(turtle.position, targetPosition, 0.05f);
+            DropTrash();
         }
+    }
+
+    private void DropTrash()
+    {
+        if(plasticDropCounter == plasticDropFreq)
+        {
+            GameObject plasticDropCopy = Instantiate(plasticDrop, turtle.position, turtle.rotation);
+            plasticDropCopy.SetActive(true);
+            plasticDropCopy.GetComponent<Rigidbody2D>().gravityScale = 0.01f;
+            plasticDropCounter = 0;
+            return;
+        }
+
+        plasticDropCounter++;
     }
 
     public void Spawn()
     {
-        // Updates the player position
-        targetPosition = player.position;
-
+        gameObject.SetActive(true);
         spawned = true;
-    }
 
-    public void SetActive(bool value)
-    {
-        gameObject.SetActive(value);
+        // Determines the target position based on the current position of the player
+        targetPosition = player.position;
     }
 }

@@ -10,20 +10,18 @@ public class PlasticBossAttack : MonoBehaviour
     public Transform plasticBoss;
     public Transform player;
 
-    // Start is called before the first frame update
-    void FixedUpdate()
+    void Update()
     {
-        if (Input.GetKey(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             GameObject plasticDropCopy = Instantiate(plasticDrop, plasticBoss.position, plasticBoss.rotation);
             plasticDropCopy.SetActive(true);
             plasticDropCopy.GetComponent<Rigidbody2D>().gravityScale = 0.01f;
         }
 
-        if (Input.GetKey(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.T))
         {
             TurtleController turtleCopy = Instantiate(turtle, plasticBoss.position, plasticBoss.rotation);
-            turtleCopy.SetActive(true);
             turtleCopy.Spawn();
         }
     }
