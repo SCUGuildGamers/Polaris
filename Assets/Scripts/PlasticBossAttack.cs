@@ -6,6 +6,7 @@ public class PlasticBossAttack : MonoBehaviour
 {
     public GameObject plasticDrop;
     public TurtleController turtle;
+    public UrchinController urchin;
 
     public Transform plasticBoss;
     public Transform player;
@@ -23,6 +24,12 @@ public class PlasticBossAttack : MonoBehaviour
         {
             TurtleController turtleCopy = Instantiate(turtle, plasticBoss.position, plasticBoss.rotation);
             turtleCopy.Spawn();
+        }
+
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            UrchinController urchinCopy = Instantiate(urchin, plasticBoss.position, plasticBoss.rotation);
+            urchinCopy.Spawn();
         }
     }
 }
