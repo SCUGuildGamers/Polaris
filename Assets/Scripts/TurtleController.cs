@@ -9,7 +9,7 @@ public class TurtleController : MonoBehaviour
     public Transform player;
 
     public GameObject plasticDrop;
-    public int plasticDropFreq = 90;
+    public int plasticDropFreq = 30;
     private int plasticDropCounter = 0;
 
     private bool spawned = false;
@@ -35,7 +35,7 @@ public class TurtleController : MonoBehaviour
 
             }
 
-            turtle.position = Vector3.MoveTowards(turtle.position, targetPosition, 0.015f);
+            turtle.position = Vector3.MoveTowards(turtle.position, targetPosition, 0.05f);
             DropTrash();
         }
     }
