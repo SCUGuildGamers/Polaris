@@ -10,7 +10,8 @@ public class UrchinController : MonoBehaviour
     public Transform player;
 
     public GameObject plasticDrop;
-    public int numPlasticSpawn = 6;
+    public int numPlasticSpawn = 9;
+    public float plasticProjectileSpeed = 2.0f;
 
     private bool spawned = false;
     private bool exploded = false;
@@ -42,14 +43,22 @@ public class UrchinController : MonoBehaviour
             for (int i = 0; i < numPlasticSpawn; i++)
             {
                 float spawnAngle = 360 / numPlasticSpawn * i;
+
+                // Spawns each plastic along a circular outline given an angle spawnAngle
                 Vector3 pos = SpawnInCircle(urchin.position, spawnAngle, 0.5f);
 
                 GameObject plasticDropCopy = Instantiate(plasticDrop, pos, urchin.rotation);
                 plasticDropCopy.SetActive(true);
-                //plasticDropCopy.GetComponent<Rigidbody2D>().velocity = Quaternion.AngleAxis(360/numPlasticSpawn*i, Vector3.forward) * transform.right;
+
+                // Adds velocity in the direction of the angle spawnAngle
+                Vector2 movementVelocity = new Vector2(Mathf.Sin(Mathf.Deg2Rad * spawnAngle), Mathf.Cos(Mathf.Deg2Rad * spawnAngle)) * plasticProjectileSpeed;
+                plasticDropCopy.GetComponent<Rigidbody2D>().velocity = movementVelocity;
+
+                StartCoroutine(ConfigurePlastic(plasticDropCopy, 1.0f));
+
             }
 
-            Destroy(gameObject);
+            GetComponent<Renderer>().enabled = !GetComponent<Renderer>().enabled;
         }
     }
 
@@ -61,6 +70,20 @@ public class UrchinController : MonoBehaviour
         pos.y = center.y + radius * Mathf.Cos(angle * Mathf.Deg2Rad);
         pos.z = center.z;
         return pos;
+    }
+
+    // Makes the velocity of the object (0, 0) and sets the gravity scale after the waitTime
+    private IEnumerator ConfigurePlastic(GameObject objectt, float waitTime)
+    { 
+        // Waits for waitTime seconds and then sets the velocity to 0 and sets the gravity scale
+        yield return new WaitForSeconds(waitTime);
+        Rigidbody2D objectRb = objectt.GetComponent<Rigidbody2D>();
+        objectRb.velocity = new Vector2(0, 0);
+        objectRb.gravityScale = 0.01f;
+
+        // Waits for a second to allow the velocity change to occur and then destroys the urchin object
+        yield return new WaitForSeconds(1.0f);
+        Destroy(gameObject);
     }
 
     public void Spawn()
