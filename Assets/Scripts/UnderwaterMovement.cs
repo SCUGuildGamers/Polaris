@@ -9,6 +9,7 @@ public class UnderwaterMovement : MonoBehaviour
 
 	public float horizontalSpeed = 10f;
 	public float verticalSpeed = 10f;
+	public float _health = 100;
 	
 	void Start()
 	{
