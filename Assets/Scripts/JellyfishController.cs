@@ -32,6 +32,10 @@ public class JellyfishController : MonoBehaviour
                 loop_counter_clockwise();
             } else if (attack_mode == 3){
                 straight_line();
+            } else if (attack_mode == 4){
+                straight_line_orbit();
+            } else if (attack_mode == 5){
+                straight_line_orbit_r();
             }
 
             if (duration > lifeSpan)
@@ -58,6 +62,25 @@ public class JellyfishController : MonoBehaviour
         jellyfish.position = Vector3.MoveTowards(jellyfish.position, targetPosition, 0.01f);
         duration++;
     }
+
+    private void straight_line_orbit(){
+        float delta_x = (targetPosition.x - startPosition.x) / lifeSpan;
+        float delta_y = (targetPosition.y - startPosition.y) / lifeSpan;
+        // Debug.Log(delta_x + " " + delta_y);
+        Vector2 center = new Vector2(startPosition.x + (delta_x * duration), startPosition.y + ( delta_y * duration));
+        jellyfish.RotateAround(center, new Vector3(0,0,-1) , 1.2f);
+        duration++;
+    }
+
+    private void straight_line_orbit_r(){
+        float delta_x = (targetPosition.x - startPosition.x) / lifeSpan;
+        float delta_y = (targetPosition.y - startPosition.y) / lifeSpan;
+        // Debug.Log(delta_x + " " + delta_y);
+        Vector2 center = new Vector2(startPosition.x + (delta_x * duration), startPosition.y + ( delta_y * duration));
+        jellyfish.RotateAround(center, new Vector3(0,0,1) , 1.2f);
+        duration++;
+    }
+
 
     private void DropTrash()
     {

@@ -30,56 +30,68 @@ public class PlasticBossAttack : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.J))
         {
-            StartCoroutine(ccw_spiral((int)plasticBoss.position.x, (int)plasticBoss.position.y - 10, 3, 0.6f));
+            StartCoroutine(ccw_spiral((int)plasticBoss.position.x, (int)plasticBoss.position.y - 10, 0.3f));
         }
 
         if (Input.GetKeyDown(KeyCode.K))
         {
-            StartCoroutine(cw_spiral((int)plasticBoss.position.x, (int)plasticBoss.position.y - 10, 3, 0.6f));
+            StartCoroutine(cw_spiral((int)plasticBoss.position.x, (int)plasticBoss.position.y - 10, 0.3f));
         }
 
         if (Input.GetKeyDown(KeyCode.L))
         {
             StartCoroutine(pincer(0.3f));
         }
-    }
 
-    private IEnumerator ccw_spiral(int x, int y, int mode, float sec){
-        for (int i = -5; i < 10; i++){
-            yield return new WaitForSecondsRealtime(sec);
-                JellyfishController jellyCopy1 = Instantiate(jelly, plasticBoss.position, plasticBoss.rotation);
-                jellyCopy1.Spawn(x + (i * 6) - 20, y, mode, 0);
-                JellyfishController jellyCopy2 = Instantiate(jelly, plasticBoss.position, plasticBoss.rotation);
-                jellyCopy2.Spawn(x + (i * 6) - 10, y, mode, 0);
-                JellyfishController jellyCopy3 = Instantiate(jelly, plasticBoss.position, plasticBoss.rotation);
-                jellyCopy3.Spawn(x + (i * 6), y, mode, 0);
-                JellyfishController jellyCopy4 = Instantiate(jelly, plasticBoss.position, plasticBoss.rotation);
-                jellyCopy4.Spawn(x + (i * 6) + 10, y, mode, 0);
-                JellyfishController jellyCopy5 = Instantiate(jelly, plasticBoss.position, plasticBoss.rotation);
-                jellyCopy5.Spawn(x + (i * 6) + 20, y, mode, 0);
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            StartCoroutine(helix(1f));
         }
     }
 
-    private IEnumerator cw_spiral(int x, int y, int mode, float sec){
+    private IEnumerator helix(float sec){
+        // Vector3 target = new Vector3();
+        Vector3 target;
+        target =  player.position - plasticBoss.position;
+        target = target.normalized;
+        target = new Vector3 (player.position.x + (target.x * 5), player.position.y + (target.y * 5), 0);
+        for (int i = 0; i < 5; i++){
+            yield return new WaitForSecondsRealtime(sec);
+                JellyfishController jellyCopy1 = Instantiate(jelly, plasticBoss.position, plasticBoss.rotation);
+                jellyCopy1.Spawn((int)target.x, (int)target.y, 4, 0);
+                JellyfishController jellyCopy2 = Instantiate(jelly, plasticBoss.position, plasticBoss.rotation);
+                jellyCopy2.Spawn((int)target.x, (int)target.y, 5, 0);
+        }
+    }
+
+    private IEnumerator ccw_spiral(int x, int y, float sec){
+        for (int i = -3; i < 7; i++){
+            yield return new WaitForSecondsRealtime(sec);
+                JellyfishController jellyCopy1 = Instantiate(jelly, plasticBoss.position, plasticBoss.rotation);
+                jellyCopy1.Spawn(x + (i * 6) - 20, y, 3, 0);
+                JellyfishController jellyCopy3 = Instantiate(jelly, plasticBoss.position, plasticBoss.rotation);
+                jellyCopy3.Spawn(x + (i * 6), y, 3, 0);
+                JellyfishController jellyCopy5 = Instantiate(jelly, plasticBoss.position, plasticBoss.rotation);
+                jellyCopy5.Spawn(x + (i * 6) + 20, y, 3, 0);
+        }
+    }
+
+    private IEnumerator cw_spiral(int x, int y, float sec){
         for (int i = -5; i < 10; i++){
             yield return new WaitForSecondsRealtime(sec);
                 JellyfishController jellyCopy1 = Instantiate(jelly, plasticBoss.position, plasticBoss.rotation);
-                jellyCopy1.Spawn(x - (i * 6) + 20, y, mode, 0);
-                JellyfishController jellyCopy2 = Instantiate(jelly, plasticBoss.position, plasticBoss.rotation);
-                jellyCopy2.Spawn(x - (i * 6) + 10, y, mode, 0);
+                jellyCopy1.Spawn(x - (i * 6) + 20, y, 3, 0);
                 JellyfishController jellyCopy3 = Instantiate(jelly, plasticBoss.position, plasticBoss.rotation);
-                jellyCopy3.Spawn(x - (i * 6), y, mode, 0);
-                JellyfishController jellyCopy4 = Instantiate(jelly, plasticBoss.position, plasticBoss.rotation);
-                jellyCopy4.Spawn(x - (i * 6) - 10, y, mode, 0);
+                jellyCopy3.Spawn(x - (i * 6), y, 3, 0);
                 JellyfishController jellyCopy5 = Instantiate(jelly, plasticBoss.position, plasticBoss.rotation);
-                jellyCopy5.Spawn(x - (i * 6) - 20, y, mode, 0);
+                jellyCopy5.Spawn(x - (i * 6) - 20, y, 3, 0);
         }
     }
 
     private IEnumerator pincer(float sec){
         int x = (int)player.position.x;
         int y = (int)player.position.y / 2;
-        for (int i = 0; i < 20; i++){
+        for (int i = 0; i < 10; i++){
             yield return new WaitForSecondsRealtime(sec);
                 JellyfishController jellyCopy1 = Instantiate(jelly, plasticBoss.position, plasticBoss.rotation);
                 JellyfishController jellyCopy2 = Instantiate(jelly, plasticBoss.position, plasticBoss.rotation);
