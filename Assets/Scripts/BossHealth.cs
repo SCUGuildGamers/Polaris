@@ -3,37 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Health : MonoBehaviour
+public class BossHealth : MonoBehaviour
 {
     public int health;
     public Text healthText;
+    public HealthBar healthBar;
 
     // Start is called before the first frame update
     void Start()
     {
         health = 100;
+        healthBar.SetMaxHealth(100);
+
         healthText.text = "Health : " + health;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void reduceHealth(int i)
     {
         health = health - i;
         healthText.text = "Health : " + health;
-    }
-    public void OnCollisionEnter2D(Collision2D collider)
-    {
 
-        if (collider.gameObject.name == "Plastic(Clone)")
-        {
-            Debug.Log("i touched the plastic");
-            reduceHealth(5);
-        }
-
+        healthBar.SetHealth(health);
     }
 }
 
