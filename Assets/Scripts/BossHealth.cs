@@ -24,6 +24,15 @@ public class BossHealth : MonoBehaviour
         healthText.text = "Health : " + health;
 
         healthBar.SetHealth(health);
+
+        if (health <= 0)
+            bossKilled();
+    }
+
+    private void bossKilled()
+    {
+        Debug.Log("The boss has been killed.");
+        return;
     }
 }
 
