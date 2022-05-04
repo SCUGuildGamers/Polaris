@@ -11,8 +11,6 @@ public class TurtleController : MonoBehaviour
     public GameObject plasticDrop;
     public int plasticDropFreq = 90;
     private int plasticDropCounter = 0;
-     
-    public float movementMultiplier = 1;
 
     private bool spawned = false;
 
@@ -23,8 +21,8 @@ public class TurtleController : MonoBehaviour
     public float maxRotationSpeed = 120.0f;
     public float minMovementSpeed = 3.5f;
     public float maxMovementSpeed = 5.0f;
-    private float rotationSpeed = 75.0f; // Degrees per second
-    private float movementSpeed = 4.5f; // Units per second;
+    private float rotationSpeed; // Degrees per second
+    private float movementSpeed; // Units per second;
     public Transform playerTransform;
     public Transform bossTransform;
     private Quaternion qTo;
@@ -32,7 +30,6 @@ public class TurtleController : MonoBehaviour
     private void Start()
     {
         targetPosition = playerTransform.position;
-        Debug.Log(targetPosition);
         rotationSpeed = Random.Range(minRotationSpeed, maxRotationSpeed);
         movementSpeed = Random.Range(minMovementSpeed, maxMovementSpeed);
     }

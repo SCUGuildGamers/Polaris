@@ -31,11 +31,12 @@ public class PlasticBossAttack : MonoBehaviour
         }
     }
 
-    public void TurtleAttack(float movementMultiplier=1)
+    public void TurtleAttack(float minMovementSpeed=3.5f, float maxMovementSpeed=5f)
     {
         TurtleController turtleCopy = Instantiate(turtle, plasticBoss.position, plasticBoss.rotation);
         turtleCopy.Spawn();
-        turtleCopy.movementMultiplier = movementMultiplier;
+        turtleCopy.minMovementSpeed = minMovementSpeed;
+        turtleCopy.maxMovementSpeed = maxMovementSpeed;
     }
 
     public void UrchinAttack()

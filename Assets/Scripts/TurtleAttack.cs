@@ -6,13 +6,14 @@ public class TurtleAttack : StateMachineBehaviour
 {
     private PlasticBossAttack plasticBoss;
 
-    public float movementMultiplier;
+    public float minMovementSpeed;
+    public float maxMovementSpeed;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         plasticBoss = animator.GetComponent<PlasticBossAttack>();
-        plasticBoss.TurtleAttack(movementMultiplier);
+        plasticBoss.TurtleAttack(minMovementSpeed, maxMovementSpeed);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
