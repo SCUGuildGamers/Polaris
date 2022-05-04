@@ -6,10 +6,10 @@ public class Seeker : MonoBehaviour
 
     public float minRotationSpeed = 80.0f;
     public float maxRotationSpeed = 120.0f;
-    public float minMovementSpeed = 1.75f;
-    public float maxMovementSpeed = 2.25f;
+    public float minMovementSpeed = 3.5f;
+    public float maxMovementSpeed = 5.0f;
     private float rotationSpeed = 75.0f; // Degrees per second
-    private float movementSpeed = 2.0f; // Units per second;
+    private float movementSpeed = 4.5f; // Units per second;
     public Transform playerTransform;
     public Transform bossTransform;
     private Vector3 targetPosition;
