@@ -19,7 +19,7 @@ public class PlasticBossAttack : MonoBehaviour
             plasticDropCopy.SetActive(true);
             plasticDropCopy.GetComponent<Rigidbody2D>().gravityScale = 0.01f;
         }
-
+        
         if (Input.GetKeyDown(KeyCode.T))
         {
             TurtleAttack();
@@ -39,9 +39,10 @@ public class PlasticBossAttack : MonoBehaviour
         turtleCopy.maxMovementSpeed = maxMovementSpeed;
     }
 
-    public void UrchinAttack()
+    public void UrchinAttack(int numPlasticSpawn = 9)
     {
         UrchinController urchinCopy = Instantiate(urchin, plasticBoss.position, plasticBoss.rotation);
         urchinCopy.Spawn();
+        urchinCopy.numPlasticSpawn = numPlasticSpawn;
     }
 }
