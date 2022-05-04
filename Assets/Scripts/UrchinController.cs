@@ -54,7 +54,7 @@ public class UrchinController : MonoBehaviour
                 Vector2 movementVelocity = new Vector2(Mathf.Sin(Mathf.Deg2Rad * spawnAngle), Mathf.Cos(Mathf.Deg2Rad * spawnAngle)) * plasticProjectileSpeed;
                 plasticDropCopy.GetComponent<Rigidbody2D>().velocity = movementVelocity;
 
-                StartCoroutine(ConfigurePlastic(plasticDropCopy, 1.0f));
+                StartCoroutine(WaitDestroy(plasticDropCopy, 3.0f));
 
             }
 
@@ -73,17 +73,11 @@ public class UrchinController : MonoBehaviour
     }
 
     // Makes the velocity of the object (0, 0) and sets the gravity scale after the waitTime
-    private IEnumerator ConfigurePlastic(GameObject objectt, float waitTime)
+    private IEnumerator WaitDestroy(GameObject projectile, float waitTime)
     { 
-        // Waits for waitTime seconds and then sets the velocity to 0 and sets the gravity scale
+        // Waits for waitTime seconds and then destroy the projectile
         yield return new WaitForSeconds(waitTime);
-        Rigidbody2D objectRb = objectt.GetComponent<Rigidbody2D>();
-        objectRb.velocity = new Vector2(0, 0);
-        objectRb.gravityScale = 0.01f;
-
-        // Waits for a second to allow the velocity change to occur and then destroys the urchin object
-        yield return new WaitForSeconds(1.0f);
-        Destroy(gameObject);
+        Destroy(projectile);
     }
 
     public void Spawn()
