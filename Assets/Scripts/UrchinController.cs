@@ -72,7 +72,7 @@ public class UrchinController : MonoBehaviour
         return pos;
     }
 
-    // Makes the velocity of the object (0, 0) and sets the gravity scale after the waitTime
+    // Waits to destroy the projectile object after waitTime seconds
     private IEnumerator WaitDestroy(GameObject projectile, float waitTime)
     { 
         // Waits for waitTime seconds and then destroy the projectile
