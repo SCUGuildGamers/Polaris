@@ -25,11 +25,14 @@ public class BossHealth : MonoBehaviour
 
         healthBar.SetHealth(health);
 
+        if (health <= 30)
+            GetComponent<Animator>().SetBool("isEnraged", true);
+
         if (health <= 0)
-            bossKilled();
+            Die();
     }
 
-    private void bossKilled()
+    private void Die()
     {
         Debug.Log("The boss has been killed.");
         return;
