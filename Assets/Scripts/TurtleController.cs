@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static MathParabola;
 
 public class TurtleController : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class TurtleController : MonoBehaviour
     public GameObject plasticDrop;
     public int plasticDropFreq = 90;
     private int plasticDropCounter = 0;
+     
+    public float movementMultiplier = 1;
 
     private bool spawned = false;
 
@@ -35,8 +38,10 @@ public class TurtleController : MonoBehaviour
 
             }
 
-            turtle.position = Vector3.MoveTowards(turtle.position, targetPosition, 0.015f);
-            DropTrash();
+            //turtle.position = MathParabola.Parabola(turtle.position,targetPosition,5f,1);
+            
+            turtle.position = Vector3.MoveTowards(turtle.position, targetPosition, 0.015f*movementMultiplier);
+            //DropTrash();
         }
     }
 

@@ -22,14 +22,25 @@ public class PlasticBossAttack : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.T))
         {
-            TurtleController turtleCopy = Instantiate(turtle, plasticBoss.position, plasticBoss.rotation);
-            turtleCopy.Spawn();
+            TurtleAttack();
         }
 
         if (Input.GetKeyDown(KeyCode.U))
         {
-            UrchinController urchinCopy = Instantiate(urchin, plasticBoss.position, plasticBoss.rotation);
-            urchinCopy.Spawn();
+            UrchinAttack();
         }
+    }
+
+    public void TurtleAttack(float movementMultiplier=1)
+    {
+        TurtleController turtleCopy = Instantiate(turtle, plasticBoss.position, plasticBoss.rotation);
+        turtleCopy.Spawn();
+        turtleCopy.movementMultiplier = movementMultiplier;
+    }
+
+    public void UrchinAttack()
+    {
+        UrchinController urchinCopy = Instantiate(urchin, plasticBoss.position, plasticBoss.rotation);
+        urchinCopy.Spawn();
     }
 }
