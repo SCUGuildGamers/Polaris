@@ -41,7 +41,6 @@ public class TurtleController : MonoBehaviour
         {
             if (Vector3.Distance(transform.position, targetPosition) < 0.05f)
             {
-                Debug.Log(targetPosition + bossTransform.position);
                 // Checks if the turtle has finished its attack
                 if (targetPosition == bossTransform.position)
                 {

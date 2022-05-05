@@ -45,7 +45,7 @@ public class UrchinController : MonoBehaviour
                 float spawnAngle = 360 / numPlasticSpawn * i;
 
                 // Spawns each plastic along a circular outline given an angle spawnAngle
-                Vector3 pos = SpawnInCircle(urchin.position, spawnAngle, 0.5f);
+                Vector3 pos = GetCirclePos(urchin.position, spawnAngle, 0.5f);
 
                 GameObject plasticDropCopy = Instantiate(plasticDrop, pos, urchin.rotation);
                 plasticDropCopy.SetActive(true);
@@ -63,7 +63,7 @@ public class UrchinController : MonoBehaviour
     }
 
     // Returns a Vector3 position which on the shape of the circle
-    private Vector3 SpawnInCircle(Vector3 center, float angle, float radius)
+    private Vector3 GetCirclePos(Vector3 center, float angle, float radius)
     {
         Vector3 pos;
         pos.x = center.x + radius * Mathf.Sin(angle * Mathf.Deg2Rad);
