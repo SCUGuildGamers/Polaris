@@ -1,4 +1,4 @@
-using System.Collections;
+    using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +9,7 @@ public class UrchinController : MonoBehaviour
     public Transform plasticBoss;
     public Transform player;
 
-    public GameObject plasticDrop;
+    public Plastic plastic;
     public int numPlasticSpawn = 9;
     public float plasticProjectileSpeed = 2.0f;
 
@@ -47,14 +47,13 @@ public class UrchinController : MonoBehaviour
                 // Spawns each plastic along a circular outline given an angle spawnAngle
                 Vector3 pos = GetCirclePos(urchin.position, spawnAngle, 0.5f);
 
-                GameObject plasticDropCopy = Instantiate(plasticDrop, pos, urchin.rotation);
-                plasticDropCopy.SetActive(true);
+                Plastic plasticCopy = plastic.Spawn();
 
                 // Adds velocity in the direction of the angle spawnAngle
                 Vector2 movementVelocity = new Vector2(Mathf.Sin(Mathf.Deg2Rad * spawnAngle), Mathf.Cos(Mathf.Deg2Rad * spawnAngle)) * plasticProjectileSpeed;
-                plasticDropCopy.GetComponent<Rigidbody2D>().velocity = movementVelocity;
+                plasticCopy.GetComponent<Rigidbody2D>().velocity = movementVelocity;
 
-                StartCoroutine(WaitDestroy(plasticDropCopy, 3.0f));
+                StartCoroutine(WaitDestroy(plasticCopy, 3.0f));
 
             }
 
@@ -73,7 +72,7 @@ public class UrchinController : MonoBehaviour
     }
 
     // Waits to destroy the projectile object after waitTime seconds
-    private IEnumerator WaitDestroy(GameObject projectile, float waitTime)
+    private IEnumerator WaitDestroy(Plastic projectile, float waitTime)
     { 
         // Waits for waitTime seconds and then destroy the projectile
         yield return new WaitForSeconds(waitTime);

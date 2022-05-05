@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlasticBossAttack : MonoBehaviour
 {
-    public GameObject plasticDrop;
+    public Plastic plastic;
     public TurtleController turtle;
     public UrchinController urchin;
 
@@ -15,9 +15,7 @@ public class PlasticBossAttack : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            GameObject plasticDropCopy = Instantiate(plasticDrop, plasticBoss.position, plasticBoss.rotation);
-            plasticDropCopy.SetActive(true);
-            plasticDropCopy.GetComponent<Rigidbody2D>().gravityScale = 0.01f;
+            plastic.Spawn();
         }
         
         if (Input.GetKeyDown(KeyCode.T))

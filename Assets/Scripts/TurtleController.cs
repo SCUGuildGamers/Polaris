@@ -4,14 +4,6 @@ using UnityEngine;
 
 public class TurtleController : MonoBehaviour
 {
-    public Transform turtle;
-    public Transform plasticBoss;
-    public Transform player;
-
-    public GameObject plasticDrop;
-    public int plasticDropFreq = 90;
-    private int plasticDropCounter = 0;
-
     private bool spawned = false;
 
     // Keeps track of the position of the current target
@@ -58,23 +50,7 @@ public class TurtleController : MonoBehaviour
             qTo = Quaternion.AngleAxis(angle, Vector3.forward);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, qTo, rotationSpeed * Time.deltaTime);
             transform.Translate(Vector3.right * movementSpeed * Time.deltaTime);
-            
-            //DropTrash();
         }
-    }
-
-    private void DropTrash()
-    {
-        if(plasticDropCounter == plasticDropFreq)
-        {
-            GameObject plasticDropCopy = Instantiate(plasticDrop, turtle.position, turtle.rotation);
-            plasticDropCopy.SetActive(true);
-            plasticDropCopy.GetComponent<Rigidbody2D>().gravityScale = 0.01f;
-            plasticDropCounter = 0;
-            return;
-        }
-
-        plasticDropCounter++;
     }
 
     public void Spawn()
@@ -83,6 +59,6 @@ public class TurtleController : MonoBehaviour
         spawned = true;
 
         // Determines the target position based on the current position of the player
-        targetPosition = player.position;
+        targetPosition = playerTransform.position;
     }
 }
