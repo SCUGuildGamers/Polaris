@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class UnderwaterMovement : MonoBehaviour
 {
-	private Rigidbody2D m_Rigidbody2D;
-	private bool m_FacingRight = true;
+	private Rigidbody2D rb;
+	private bool facingRight = true;
 
 	public float horizontalSpeed = 10f;
 	public float verticalSpeed = 10f;
-	public float _health = 100;
 	
 	void Start()
 	{
-		m_Rigidbody2D = GetComponent<Rigidbody2D>();
+		rb = GetComponent<Rigidbody2D>();
 	}
 
 	void FixedUpdate()
@@ -26,16 +25,16 @@ public class UnderwaterMovement : MonoBehaviour
 	{
 		float horizontalDirection = Input.GetAxis("Horizontal");
 		float verticalDirection = Input.GetAxis("Vertical");
-		m_Rigidbody2D.velocity = new Vector2(horizontalDirection * horizontalSpeed, verticalDirection * verticalSpeed);
+		rb.velocity = new Vector2(horizontalDirection * horizontalSpeed, verticalDirection * verticalSpeed);
 
 		// If the input is moving the player right and the player is facing left, then correct the character orientation
-		if (horizontalDirection > 0 && !m_FacingRight)
+		if (horizontalDirection > 0 && !facingRight)
 		{
 			Flip();
 		}
 
 		// Otherwise if the input is moving the player left and the player is facing right, then correct the character orientation
-		else if (horizontalDirection < 0 && m_FacingRight)
+		else if (horizontalDirection < 0 && facingRight)
 		{
 			Flip();
 		}
@@ -45,7 +44,7 @@ public class UnderwaterMovement : MonoBehaviour
 	private void Flip()
 	{
 		// Switch the way the player is labelled as facing.
-		m_FacingRight = !m_FacingRight;
+		facingRight = !facingRight;
 
 		// Multiply the player's x local scale by -1.
 		Vector3 theScale = transform.localScale;
