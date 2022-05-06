@@ -15,16 +15,12 @@ public class Health : MonoBehaviour
         healthText.text = "Health : " + health;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void reduceHealth(int i)
     {
         health = health - i;
         healthText.text = "Health : " + health;
     }
+
     public void OnCollisionEnter2D(Collision2D collider)
     {
 

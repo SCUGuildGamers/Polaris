@@ -13,32 +13,38 @@ public class UrchinController : MonoBehaviour
     public int numPlasticSpawn = 9;
     public float plasticProjectileSpeed = 2.0f;
 
-    private bool spawned = false;
+    // Flag that ensures that the explosion only occurs once
     private bool exploded = false;
 
     // Keeps track of the position of the current target
     private Vector3 targetPosition;
 
+    private void Start()
+    {
+        // Determines the target position based on the current position of the player
+        targetPosition = player.position;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if (spawned == true)
+        // Checks when the turtle is close to its target
+        if (Vector3.Distance(urchin.position, targetPosition) < 0.05f)
         {
-            // Checks when the turtle is close to its target
-            if (Vector3.Distance(urchin.position, targetPosition) < 0.05f)
-            {
-                Invoke("Explode", 2);
-            }
-
-            urchin.position = Vector3.MoveTowards(urchin.position, targetPosition, 0.01f);
+            StartCoroutine(Explode());
         }
+
+        urchin.position = Vector3.MoveTowards(urchin.position, targetPosition, 0.01f);
     }
 
-    private void Explode()
+    private IEnumerator Explode()
     {
         if (exploded == false)
         {
             exploded = true;
+
+            // A wait period before the urchin explodes
+            yield return new WaitForSeconds(2.0f);
 
             for (int i = 0; i < numPlasticSpawn; i++)
             {
@@ -58,6 +64,10 @@ public class UrchinController : MonoBehaviour
             }
 
             GetComponent<SpriteRenderer>().enabled = false;
+
+            // Gives the urchin object enough time to destroy all its projectiles before destroying itself; should be equal to the amount of time the projectiles last
+            yield return new WaitForSeconds(3.0f);
+            Destroy(gameObject);
         }
     }
 
@@ -79,12 +89,11 @@ public class UrchinController : MonoBehaviour
         projectile.Destroy();
     }
 
-    public void Spawn()
+    public void Spawn(int numPlasticSpawn)
     {
-        gameObject.SetActive(true);
-        spawned = true;
-
-        // Determines the target position based on the current position of the player
-        targetPosition = player.position;
+        GameObject urchinCopy = Instantiate(gameObject);
+        urchinCopy.SetActive(true);
+        UrchinController urchinObjCopy = urchinCopy.GetComponent<UrchinController>();
+        urchinObjCopy.numPlasticSpawn = numPlasticSpawn;
     }
 }
