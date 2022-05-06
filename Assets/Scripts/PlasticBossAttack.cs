@@ -15,7 +15,7 @@ public class PlasticBossAttack : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            plastic.Spawn();
+            plastic.Spawn(transform.position);
         }
         
         if (Input.GetKeyDown(KeyCode.T))

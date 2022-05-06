@@ -45,9 +45,9 @@ public class UrchinController : MonoBehaviour
                 float spawnAngle = 360 / numPlasticSpawn * i;
 
                 // Spawns each plastic along a circular outline given an angle spawnAngle
-                Vector3 pos = GetCirclePos(urchin.position, spawnAngle, 0.5f);
+                Vector3 position = GetCirclePos(urchin.position, spawnAngle, 0.5f);
 
-                Plastic plasticCopy = plastic.Spawn();
+                Plastic plasticCopy = plastic.Spawn(position);
 
                 // Adds velocity in the direction of the angle spawnAngle
                 Vector2 movementVelocity = new Vector2(Mathf.Sin(Mathf.Deg2Rad * spawnAngle), Mathf.Cos(Mathf.Deg2Rad * spawnAngle)) * plasticProjectileSpeed;
@@ -57,7 +57,7 @@ public class UrchinController : MonoBehaviour
 
             }
 
-            GetComponent<Renderer>().enabled = !GetComponent<Renderer>().enabled;
+            GetComponent<SpriteRenderer>().enabled = false;
         }
     }
 
@@ -76,7 +76,7 @@ public class UrchinController : MonoBehaviour
     { 
         // Waits for waitTime seconds and then destroy the projectile
         yield return new WaitForSeconds(waitTime);
-        Destroy(projectile);
+        projectile.Destroy();
     }
 
     public void Spawn()

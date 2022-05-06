@@ -5,20 +5,20 @@ using UnityEngine;
 public class Plastic : MonoBehaviour
 {
     public bool isCopy = false;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        Renderer spriteRenderer = GetComponent<Renderer>();
-        spriteRenderer.enabled = false;
-    }
 
-    public Plastic Spawn()
+    public Plastic Spawn(Vector3 position)
     {
         GameObject plasticCopy = Instantiate(gameObject);
-        Plastic plasticObjCopy = GetComponent<Plastic>();
+
+        Plastic plasticObjCopy = plasticCopy.GetComponent<Plastic>();
         plasticObjCopy.isCopy = true;
-        plasticObjCopy.GetComponent<Renderer>().enabled = true;
+        plasticObjCopy.GetComponent<Transform>().position = position;
+        plasticObjCopy.GetComponent<SpriteRenderer>().enabled = true;
         return plasticObjCopy;
+    }
+
+    public void Destroy()
+    {
+        Destroy(gameObject);
     }
 }

@@ -30,7 +30,6 @@ public class Health : MonoBehaviour
 
         if (collider.gameObject.name == "Plastic(Clone)")
         {
-            Debug.Log("i touched the plastic");
             reduceHealth(5);
         }
 
