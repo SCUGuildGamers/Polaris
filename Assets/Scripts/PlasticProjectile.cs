@@ -36,8 +36,21 @@ public class PlasticProjectile : Plastic
 
     private void loop_clockwise()
     {
-        jellyfish.RotateAround(targetPosition, new Vector3(0, 0, 1), 0.03f);
+        transform.RotateAround(targetPosition, new Vector3(0, 0, 1), 0.03f);
         targetPosition.x += delta;
+        duration++;
+    }
+
+    private void loop_counter_clockwise()
+    {
+        transform.RotateAround(targetPosition, new Vector3(0, 0, -1), 0.03f);
+        targetPosition.x -= delta;
+        duration++;
+    }
+
+    private void straight_line()
+    {
+        transform.position += (targetPosition - transform.position).normalized * speed;
         duration++;
     }
 }
