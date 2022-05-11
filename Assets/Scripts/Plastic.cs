@@ -9,7 +9,7 @@ public class Plastic : MonoBehaviour
     private Vector3 targetPosition;
 
     private float delta;
-    private float speed = 0.0004f;
+    private float speed = 0.004f;
 
     private int duration = 0;
     private int lifeSpan = 4000;

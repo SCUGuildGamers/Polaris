@@ -74,7 +74,7 @@ public class BossController : MonoBehaviour
     }
 
     // Layers the sweep left attack by calling the sweep_left with different offsets
-    private void sweep_left_layered()
+    public void sweep_left_layered()
     {
         StartCoroutine(sweep_left(30, -10, 1.2f));
         StartCoroutine(sweep_left(15, -20, 1.2f));
@@ -84,7 +84,7 @@ public class BossController : MonoBehaviour
     }
 
     // Layers the sweep right attack by calling the sweep_left with different offsets
-    private void sweep_right_layered()
+    public void sweep_right_layered()
     {
         StartCoroutine(sweep_right(30, -10, 1.2f));
         StartCoroutine(sweep_right(15, -20, 1.2f));
@@ -94,7 +94,7 @@ public class BossController : MonoBehaviour
     }
 
     // Performs the fan pattern projectile attack with a sec delay between each wave
-    private IEnumerator fan(float sec)
+    public IEnumerator fan(float sec)
     {
         Vector3 target = plasticBoss.position;
         target.y = target.y - 100;
@@ -118,7 +118,7 @@ public class BossController : MonoBehaviour
     }
 
     // Performs the pincer pattern projectile attack with a sec delay between each wave
-    private IEnumerator pincer(float sec)
+    public IEnumerator pincer(float sec)
     {
         int x = (int)plasticBoss.position.x;
         int y1 = (int)plasticBoss.position.y - 5;
