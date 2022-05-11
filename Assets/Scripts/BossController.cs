@@ -30,7 +30,7 @@ public class BossController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.H))
         {
-            StartCoroutine(fan(1.4f));
+            fan_attack();
         }
 
         if (Input.GetKeyDown(KeyCode.J))
@@ -45,7 +45,7 @@ public class BossController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.L))
         {
-            StartCoroutine(pincer(1.2f));
+            pincer_attack();
         }
     }
 
@@ -61,6 +61,16 @@ public class BossController : MonoBehaviour
         }
     }
 
+    // Layers the sweep left attack by calling the sweep_left with different offsets
+    public void sweep_left_layered()
+    {
+        StartCoroutine(sweep_left(30, -10, 1.2f));
+        StartCoroutine(sweep_left(15, -20, 1.2f));
+        StartCoroutine(sweep_left(0, -20, 1.2f));
+        StartCoroutine(sweep_left(-15, -20, 1.2f));
+        StartCoroutine(sweep_left(-30, -10, 1.2f));
+    }
+
     // Performs the sweep right projectile attack with a sec delay between each wave adjusted by a xOffset and yOffset
     private IEnumerator sweep_right(int x_offset, int y_offset, float sec)
     {
@@ -71,16 +81,6 @@ public class BossController : MonoBehaviour
             index += Time.deltaTime;
             plastic.spawn(plasticBoss.position, plasticBoss.position + new Vector3(x_offset + (int)(i * 6 * Mathf.Cos(index) - 40),y_offset,0),3,0);
         }
-    }
-
-    // Layers the sweep left attack by calling the sweep_left with different offsets
-    public void sweep_left_layered()
-    {
-        StartCoroutine(sweep_left(30, -10, 1.2f));
-        StartCoroutine(sweep_left(15, -20, 1.2f));
-        StartCoroutine(sweep_left(0, -20, 1.2f));
-        StartCoroutine(sweep_left(-15, -20, 1.2f));
-        StartCoroutine(sweep_left(-30, -10, 1.2f));
     }
 
     // Layers the sweep right attack by calling the sweep_left with different offsets
@@ -94,7 +94,7 @@ public class BossController : MonoBehaviour
     }
 
     // Performs the fan pattern projectile attack with a sec delay between each wave
-    public IEnumerator fan(float sec)
+    private IEnumerator fan(float sec)
     {
         Vector3 target = plasticBoss.position;
         target.y = target.y - 100;
@@ -117,8 +117,14 @@ public class BossController : MonoBehaviour
         }
     }
 
+    // Calls the IEnumerator fan function
+    public void fan_attack()
+    {
+        StartCoroutine(fan(1.4f));
+    }
+
     // Performs the pincer pattern projectile attack with a sec delay between each wave
-    public IEnumerator pincer(float sec)
+    private IEnumerator pincer(float sec)
     {
         int x = (int)plasticBoss.position.x;
         int y1 = (int)plasticBoss.position.y - 5;
@@ -135,6 +141,12 @@ public class BossController : MonoBehaviour
             plastic.spawn(plasticBoss.position, plasticBoss.position + new Vector3(x, y2, 0), 2, 0.002f);
             plastic.spawn(plasticBoss.position, plasticBoss.position + new Vector3(x, y3, 0), 2, 0.0005f);
         }
+    }
+
+    // Calls the IEnumerator pincer function
+    public void pincer_attack()
+    {
+        StartCoroutine(pincer(1.2f));
     }
 
     // Summons the turtle spawn boss attack with a given minMovementSpeed and maxMovementSpeed
