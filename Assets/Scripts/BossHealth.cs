@@ -13,17 +13,17 @@ public class BossHealth : MonoBehaviour
     void Start()
     {
         health = 100;
-        healthBar.SetMaxHealth(100);
+        healthBar.set_max_health(100);
 
         healthText.text = "Health : " + health;
     }
 
-    public void reduceHealth(int i)
+    public void reduce_health(int i)
     {
         health = health - i;
         healthText.text = "Health : " + health;
 
-        healthBar.SetHealth(health);
+        healthBar.set_health(health);
 
         if (health <= 30)
         {
@@ -34,10 +34,10 @@ public class BossHealth : MonoBehaviour
             
 
         if (health <= 0)
-            Die();
+            die();
     }
 
-    private void Die()
+    private void die()
     {
         Debug.Log("The boss has been killed.");
         return;

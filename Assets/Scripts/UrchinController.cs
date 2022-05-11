@@ -53,20 +53,12 @@ public class UrchinController : MonoBehaviour
                 // Spawns each plastic along a circular outline given an angle spawnAngle
                 Vector3 position = GetCirclePos(urchin.position, spawnAngle, 0.5f);
 
-                Plastic plasticCopy = plastic.Spawn(position);
+                Plastic plasticCopy = plastic.spawn(position);
 
                 // Adds velocity in the direction of the angle spawnAngle
                 Vector2 movementVelocity = new Vector2(Mathf.Sin(Mathf.Deg2Rad * spawnAngle), Mathf.Cos(Mathf.Deg2Rad * spawnAngle)) * plasticProjectileSpeed;
                 plasticCopy.GetComponent<Rigidbody2D>().velocity = movementVelocity;
-
-                StartCoroutine(WaitDestroy(plasticCopy, 3.0f));
-
             }
-
-            GetComponent<SpriteRenderer>().enabled = false;
-
-            // Gives the urchin object enough time to destroy all its projectiles before destroying itself; should be equal to the amount of time the projectiles last
-            yield return new WaitForSeconds(3.0f);
             Destroy(gameObject);
         }
     }
@@ -81,19 +73,11 @@ public class UrchinController : MonoBehaviour
         return pos;
     }
 
-    // Waits to destroy the projectile object after waitTime seconds
-    private IEnumerator WaitDestroy(Plastic projectile, float waitTime)
-    { 
-        // Waits for waitTime seconds and then destroy the projectile
-        yield return new WaitForSeconds(waitTime);
-        projectile.Destroy();
-    }
-
-    public void Spawn(int numPlasticSpawn)
+    public void Spawn(int num_plastic_spawn)
     {
         GameObject urchinCopy = Instantiate(gameObject);
         urchinCopy.SetActive(true);
         UrchinController urchinObjCopy = urchinCopy.GetComponent<UrchinController>();
-        urchinObjCopy.numPlasticSpawn = numPlasticSpawn;
+        urchinObjCopy.numPlasticSpawn = num_plastic_spawn;
     }
 }

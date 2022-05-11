@@ -48,13 +48,13 @@ public class TurtleController : MonoBehaviour
         transform.Translate(Vector3.right * movementSpeed * Time.deltaTime);
     }
 
-    public void Spawn(float minMovementSpeed, float maxMovementSpeed)
+    public void Spawn(float min_movement_speed, float max_movement_speed)
     {
         GameObject turtleCopy = Instantiate(gameObject);
         turtleCopy.SetActive(true);
         TurtleController turtleObjCopy = turtleCopy.GetComponent<TurtleController>();
 
-        turtleObjCopy.minMovementSpeed = minMovementSpeed;
-        turtleObjCopy.maxMovementSpeed = maxMovementSpeed;
+        turtleObjCopy.minMovementSpeed = min_movement_speed;
+        turtleObjCopy.maxMovementSpeed = max_movement_speed;
     }
 }

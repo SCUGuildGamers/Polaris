@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TurtleAttack : StateMachineBehaviour
 {
-    private PlasticBossAttack plasticBoss;
+    private BossController plasticBoss;
 
     public float minMovementSpeed;
     public float maxMovementSpeed;
@@ -12,8 +12,8 @@ public class TurtleAttack : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        plasticBoss = animator.GetComponent<PlasticBossAttack>();
-        plasticBoss.TurtleAttack(minMovementSpeed, maxMovementSpeed);
+        plasticBoss = animator.GetComponent<BossController>();
+        plasticBoss.turtle_attack(minMovementSpeed, maxMovementSpeed);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
