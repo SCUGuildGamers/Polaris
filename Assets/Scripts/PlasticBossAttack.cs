@@ -18,7 +18,7 @@ public class PlasticBossAttack : MonoBehaviour
         {
             plastic.Spawn(transform.position);
         }
-        
+
         if (Input.GetKeyDown(KeyCode.T))
         {
             TurtleAttack();
@@ -33,16 +33,29 @@ public class PlasticBossAttack : MonoBehaviour
         {
             StartCoroutine(fan(1.4f));
         }
-    }
 
-    public void TurtleAttack(float minMovementSpeed=3.5f, float maxMovementSpeed=5f)
-    {
-        turtle.Spawn(minMovementSpeed, maxMovementSpeed);
-    }
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            StartCoroutine(sweep_right(30, -10, 1.2f));
+            StartCoroutine(sweep_right(15, -20, 1.2f));
+            StartCoroutine(sweep_right(0, -20, 1.2f));
+            StartCoroutine(sweep_right(-15, -20, 1.2f));
+            StartCoroutine(sweep_right(-30, -10, 1.2f));
+        }
 
-    public void UrchinAttack(int numPlasticSpawn = 9)
-    {
-        urchin.Spawn(numPlasticSpawn);
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            StartCoroutine(sweep_left(30, -10, 1.2f));
+            StartCoroutine(sweep_left(15, -20, 1.2f));
+            StartCoroutine(sweep_left(0, -20, 1.2f));
+            StartCoroutine(sweep_left(-15, -20, 1.2f));
+            StartCoroutine(sweep_left(-30, -10, 1.2f));
+        }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            StartCoroutine(pincer(1.2f));
+        }
     }
 
     private IEnumerator fan(float sec)
@@ -57,14 +70,65 @@ public class PlasticBossAttack : MonoBehaviour
             if (i % 2 == 0)
             {
                 plasticProjectile.Spawn(plasticBoss.position, target, 3, 0);
-                plasticProjectile.Spawn(plasticBoss.position + new Vector3(30,0,0), target, 3, 0);
-                plasticProjectile.Spawn(plasticBoss.position + new Vector3(-30, 0, 0), target, 3, 0);
+                plasticProjectile.Spawn(plasticBoss.position, target + new Vector3(30, 0, 0), 3, 0);
+                plasticProjectile.Spawn(plasticBoss.position, target + new Vector3(-30, 0, 0), 3, 0);
             }
             else
             {
-                plasticProjectile.Spawn(plasticBoss.position + new Vector3(-12, 0, 0), target, 3, 0);
-                plasticProjectile.Spawn(plasticBoss.position + new Vector3(12, 0, 0), target, 3, 0);
+                plasticProjectile.Spawn(plasticBoss.position, target + new Vector3(12, 0, 0), 3, 0);
+                plasticProjectile.Spawn(plasticBoss.position, target + new Vector3(-12, 0, 0), 3, 0);
             }
         }
+    }
+
+    private IEnumerator sweep_left(int xOffset, int yOffset, float sec)
+    {
+        float index = 0;
+        for (int i = 5; i < 10; i++)
+        {
+            yield return new WaitForSecondsRealtime(sec);
+            index += Time.deltaTime;
+            plasticProjectile.Spawn(plasticBoss.position, plasticBoss.position + new Vector3(xOffset - (int)(i * 6 * Mathf.Cos(index) - 40), yOffset, 0), 3, 0);
+        }
+    }
+
+    private IEnumerator sweep_right(int xOffset, int yOffset, float sec)
+    {
+        float index = 0;
+        for (int i = 5; i < 10; i++)
+        {
+            yield return new WaitForSecondsRealtime(sec);
+            index += Time.deltaTime;
+            plasticProjectile.Spawn(plasticBoss.position, plasticBoss.position + new Vector3(xOffset + (int)(i * 6 * Mathf.Cos(index) - 40),yOffset,0),3,0);
+        }
+    }
+
+    private IEnumerator pincer(float sec)
+    {
+        int x = (int)plasticBoss.position.x;
+        int y1 = (int)plasticBoss.position.y - 5;
+        int y2 = (int)plasticBoss.position.y - 7;
+        int y3 = (int)plasticBoss.position.y - 10;
+
+        for (int i = 0; i < 10; i++)
+        {
+            yield return new WaitForSecondsRealtime(sec);
+            plasticProjectile.Spawn(plasticBoss.position, plasticBoss.position + new Vector3(x, y1, 0), 1, 0.01f);
+            plasticProjectile.Spawn(plasticBoss.position, plasticBoss.position + new Vector3(x, y2, 0), 1, 0.002f);
+            plasticProjectile.Spawn(plasticBoss.position, plasticBoss.position + new Vector3(x, y3, 0), 1, 0.0005f);
+            plasticProjectile.Spawn(plasticBoss.position, plasticBoss.position + new Vector3(x, y1, 0), 2, 0.01f);
+            plasticProjectile.Spawn(plasticBoss.position, plasticBoss.position + new Vector3(x, y2, 0), 2, 0.002f);
+            plasticProjectile.Spawn(plasticBoss.position, plasticBoss.position + new Vector3(x, y3, 0), 2, 0.0005f);
+        }
+    }
+
+    public void TurtleAttack(float minMovementSpeed=3.5f, float maxMovementSpeed=5f)
+    {
+        turtle.Spawn(minMovementSpeed, maxMovementSpeed);
+    }
+
+    public void UrchinAttack(int numPlasticSpawn = 9)
+    {
+        urchin.Spawn(numPlasticSpawn);
     }
 }
