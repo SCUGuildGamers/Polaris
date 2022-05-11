@@ -14,6 +14,31 @@ public class PlasticProjectile : Plastic
     
     private int attack_mode;
 
+    private void Update()
+    {
+        if (attack_mode == 1)
+        {
+            loop_clockwise();
+        }
+        else if (attack_mode == 2)
+        {
+            loop_counter_clockwise();
+        }
+        else if (attack_mode == 3)
+        {
+            straight_line();
+        }
+        else if (attack_mode == 4)
+        {
+
+            to_target();
+        }
+
+        if (duration > lifeSpan)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     public PlasticProjectile Spawn(Vector3 spawnPosition, Vector3 targetPosition, int attack_mode, float delta)
     {
@@ -27,6 +52,7 @@ public class PlasticProjectile : Plastic
         plasticObjCopy.targetPosition = targetPosition;
         plasticObjCopy.attack_mode = attack_mode;
         plasticObjCopy.delta = delta;
+        plasticObjCopy.speed = 0.004f;
 
         plasticObjCopy.duration = 0;
         plasticObjCopy.lifeSpan = 4000;
@@ -52,5 +78,14 @@ public class PlasticProjectile : Plastic
     {
         transform.position += (targetPosition - transform.position).normalized * speed;
         duration++;
+    }
+
+    private void to_target()
+    {
+        if (transform.position == targetPosition)
+        {
+            Destroy(gameObject);
+        }
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, 0.003f);
     }
 }
