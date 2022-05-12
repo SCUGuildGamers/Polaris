@@ -30,7 +30,7 @@ public class BossController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.H))
         {
-            FanAttack();
+            FanAttack(1.4f,10,5);
         }
 
         if (Input.GetKeyDown(KeyCode.J))
@@ -61,7 +61,7 @@ public class BossController : MonoBehaviour
         }
     }
 
-    // Layers the sweep left attack by calling the SweepLeft with different offsets and with numProjectiles projectiles per wave
+    // Layers the sweep left attack by calling the SweepLeft with different offsets and with numProjectiles projectiles per wave; numProjectiles should be an ODD NUMBER
     public void SweepLeftLayered(int numProjectiles = 5)
     {
         // Generates the xOffset and yOffset values to achieve the layered effect
@@ -88,7 +88,7 @@ public class BossController : MonoBehaviour
         }
     }
 
-    // Layers the sweep right attack by calling the SweepRight with different offsets and with numProjectiles projectiles per wave
+    // Layers the sweep right attack by calling the SweepRight with different offsets and with numProjectiles projectiles per wave; numProjectiles should be an ODD NUMBER
     public void SweepRightLayered(int numProjectiles=5)
     {
         // Generates the xOffset and yOffset values to achieve the layered effect
@@ -103,34 +103,44 @@ public class BossController : MonoBehaviour
         }
     }
 
-    // Performs the fan pattern projectile attack with a sec delay between each wave
-    private IEnumerator Fan(float sec)
+    // Performs the fan pattern projectile attack with a sec delay between each wave with numProjectiles projectiles per wave; numProjectiles should be an ODD NUMBER
+    private IEnumerator Fan(float sec, int numWaves, int numProjectiles)
     {
         Vector3 target = PlasticBoss.position;
         target.y = target.y - 100;
         target = target.normalized;
         target = new Vector3(Player.position.x + (target.x * 5), Player.position.y + (target.y * 5), 0);
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < numWaves; i++)
         {
+            // Alternates between shooting three projectiles and two projectiles at a time
             yield return new WaitForSecondsRealtime(sec);
             if (i % 2 == 0)
             {
-                Plastic.Spawn(PlasticBoss.position, target, 3, 0);
-                Plastic.Spawn(PlasticBoss.position, target + new Vector3(30, 0, 0), 3, 0);
-                Plastic.Spawn(PlasticBoss.position, target + new Vector3(-30, 0, 0), 3, 0);
+                // Generates the xOffset to achieve the fan effect
+                int split = numProjectiles / 2;
+                for (int j = split; j >= -split; j--)
+                {
+                    Plastic.Spawn(PlasticBoss.position, target + new Vector3(j*15, 0, 0), 3, 0);
+                }
             }
             else
             {
-                Plastic.Spawn(PlasticBoss.position, target + new Vector3(12, 0, 0), 3, 0);
-                Plastic.Spawn(PlasticBoss.position, target + new Vector3(-12, 0, 0), 3, 0);
+                // Generates the xOffset to achieve the fan effect
+                int split = numProjectiles / 2;
+                for (int j = split; j >= -split; j--)
+                {
+                    // Ignore the middle spawn
+                    if (j != 0)
+                        Plastic.Spawn(PlasticBoss.position, target + new Vector3(j * 6, 0, 0), 3, 0);
+                }
             }
         }
     }
 
     // Calls the IEnumerator fan function
-    public void FanAttack()
+    public void FanAttack(float sec = 1.4f, int numWaves = 10, int numProjectiles = 3)
     {
-        StartCoroutine(Fan(1.4f));
+        StartCoroutine(Fan(sec,numWaves,numProjectiles));
     }
 
     // Performs the pincer pattern projectile attack with a sec delay between each wave
