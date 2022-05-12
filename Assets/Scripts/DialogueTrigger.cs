@@ -5,12 +5,12 @@ using UnityEngine;
 public class DialogueTrigger : MonoBehaviour
 {
     // Field for targeting the dialogue that is affected by this trigger.
-    public Dialogue dialogue;
+    public Dialogue Dialogue;
 
     // Loads and runs the dialogue given by the dialogue variable.
     public void TriggerDialogue()
     {
-        FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
+        FindObjectOfType<DialogueManager>().StartDialogue(Dialogue);
     }
     
     // Runs the dialogue given by the dialogue variable if it has been loaded.

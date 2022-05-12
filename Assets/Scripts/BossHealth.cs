@@ -5,27 +5,27 @@ using UnityEngine.UI;
 
 public class BossHealth : MonoBehaviour
 {
-    public int health;
-    public Text healthText;
-    public HealthBar healthBar;
+    public int Health;
+    public Text HealthText;
+    public HealthBar HealthBar;
 
     // Start is called before the first frame update
     void Start()
     {
-        health = 100;
-        healthBar.set_max_health(100);
+        Health = 100;
+        HealthBar.set_max_health(100);
 
-        healthText.text = "Health : " + health;
+        HealthText.text = "Health : " + Health;
     }
 
-    public void reduce_health(int i)
+    public void ReduceHealth(int i)
     {
-        health = health - i;
-        healthText.text = "Health : " + health;
+        Health = Health - i;
+        HealthText.text = "Health : " + Health;
 
-        healthBar.set_health(health);
+        HealthBar.set_health(Health);
 
-        if (health <= 30)
+        if (Health <= 30)
         {
             GetComponent<Animator>().SetBool("isEnraged", true);
             SpriteRenderer sprite = GetComponent<SpriteRenderer>();
@@ -33,11 +33,11 @@ public class BossHealth : MonoBehaviour
         }
             
 
-        if (health <= 0)
-            die();
+        if (Health <= 0)
+            Die();
     }
 
-    private void die()
+    private void Die()
     {
         Debug.Log("The boss has been killed.");
         return;

@@ -7,9 +7,9 @@ using UnityEngine;
 public class Dialogue
 {
     // String field for declaring who is speaking this dialogue.
-    public string name;
+    public string Name;
 
     // String field for organizing each sentence of dialogue.
     [TextArea(3, 10)]
-    public string[] sentences;
+    public string[] Sentences;
 }

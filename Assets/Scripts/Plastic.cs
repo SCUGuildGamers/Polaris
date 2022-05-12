@@ -4,37 +4,37 @@ using UnityEngine;
 
 public class Plastic : MonoBehaviour
 {
-    public bool isCopy = false;
+    public bool IsCopy = false;
 
-    private Vector3 targetPosition;
+    private Vector3 _targetPosition;
 
-    private float delta;
-    private float speed = 0.004f;
+    private float _delta;
+    private float _speed = 0.004f;
 
-    private int duration = 0;
-    private int lifeSpan = 4000;
+    private int _duration = 0;
+    private int _lifeSpan = 4000;
     
-    private int movementMode;
+    private int _movementMode;
 
     // Constantly checks the movement_mode to check how the projectile should be moving and increments the duration of the projectile
     private void Update()
     {
-        if (movementMode == 1)
+        if (_movementMode == 1)
         {
-            loop_clockwise();
+            LoopClockwise();
         }
-        else if (movementMode == 2)
+        else if (_movementMode == 2)
         {
-            loop_counter_clockwise();
+            LoopCounterClockwise();
         }
-        else if (movementMode == 3)
+        else if (_movementMode == 3)
         {
-            straight_line();
+            StraightLine();
         }
-        else if (movementMode == 4)
+        else if (_movementMode == 4)
         {
 
-            to_target();
+            ToTarget();
         }
 
         else
@@ -42,59 +42,59 @@ public class Plastic : MonoBehaviour
             // Do nothing
         }
 
-        duration++;
+        _duration++;
 
         // Destroys the projectile when it is past its life span (and ensures the base projectile is not destroyed)
-        if (duration > lifeSpan && isCopy)
+        if (_duration > _lifeSpan && IsCopy)
         {
             Destroy(gameObject);
         }
     }
 
     // Spawns and returns a copy of the Plastic object with values given by parameters spawnPosition, targetPosition, movement_mode, and delta
-    public Plastic spawn(Vector3 spawn_position, Vector3 target_position = default(Vector3), int movement_mode = 0, float delta = 0)
+    public Plastic Spawn(Vector3 spawnPosition, Vector3 targetPosition = default(Vector3), int movementMode = 0, float delta = 0)
     {
         GameObject plasticCopy = Instantiate(gameObject);
 
         Plastic plasticObjCopy = plasticCopy.GetComponent<Plastic>();
-        plasticObjCopy.isCopy = true;
-        plasticObjCopy.GetComponent<Transform>().position = spawn_position;
+        plasticObjCopy.IsCopy = true;
+        plasticObjCopy.GetComponent<Transform>().position = spawnPosition;
         plasticObjCopy.GetComponent<SpriteRenderer>().enabled = true;
 
-        plasticObjCopy.targetPosition = target_position;
-        plasticObjCopy.movementMode = movement_mode;
-        plasticObjCopy.delta = delta;
+        plasticObjCopy._targetPosition = targetPosition;
+        plasticObjCopy._movementMode = movementMode;
+        plasticObjCopy._delta = delta;
 
         return plasticObjCopy;
     }
 
     // Moves the projectile clockwise
-    private void loop_clockwise()
+    private void LoopClockwise()
     {
-        transform.RotateAround(targetPosition, new Vector3(0, 0, 1), 0.03f);
-        targetPosition.x += delta;
+        transform.RotateAround(_targetPosition, new Vector3(0, 0, 1), 0.03f);
+        _targetPosition.x += _delta;
     }
 
     // Moves the projectile counter clockwise
-    private void loop_counter_clockwise()
+    private void LoopCounterClockwise()
     {
-        transform.RotateAround(targetPosition, new Vector3(0, 0, -1), 0.03f);
-        targetPosition.x -= delta;
+        transform.RotateAround(_targetPosition, new Vector3(0, 0, -1), 0.03f);
+        _targetPosition.x -= _delta;
     }
 
     // Moves the projectile forward
-    private void straight_line()
+    private void StraightLine()
     {
-        transform.position += (targetPosition - transform.position).normalized * speed;
+        transform.position += (_targetPosition - transform.position).normalized * _speed;
     }
 
     // Moves the projectile towards the target given by targetPosition
-    private void to_target()
+    private void ToTarget()
     {
-        if (transform.position == targetPosition)
+        if (transform.position == _targetPosition)
         {
             Destroy(gameObject);
         }
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, 0.003f);
+        transform.position = Vector3.MoveTowards(transform.position, _targetPosition, 0.003f);
     }
 }

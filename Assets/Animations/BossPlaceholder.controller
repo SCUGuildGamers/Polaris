@@ -37,8 +37,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bff7450458b5c5c4686f154ca18102d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minMovementSpeed: 3.5
-  maxMovementSpeed: 5
+  MinMovementSpeed: 3.5
+  MaxMovementSpeed: 5
 --- !u!1102 &-8651468710411454380
 AnimatorState:
   serializedVersion: 6
@@ -540,7 +540,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c35c7001e0e4d904d92427453dc187f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numPlasticSpawn: 12
+  NumPlasticSpawn: 12
 --- !u!1101 &-299081090597742437
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -597,8 +597,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bff7450458b5c5c4686f154ca18102d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minMovementSpeed: 5
-  maxMovementSpeed: 6
+  MinMovementSpeed: 4.5
+  MaxMovementSpeed: 6
 --- !u!1102 &-6674795126750265
 AnimatorState:
   serializedVersion: 6
@@ -640,13 +640,13 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: isBossRun
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 1
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -763,7 +763,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c35c7001e0e4d904d92427453dc187f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numPlasticSpawn: 9
+  NumPlasticSpawn: 9
 --- !u!1101 &2787704517362515233
 AnimatorStateTransition:
   m_ObjectHideFlags: 1

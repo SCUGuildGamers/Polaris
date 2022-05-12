@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class UrchinAttack : StateMachineBehaviour
 {
-    private BossController plasticBoss;
+    private BossController _plasticBoss;
 
-    public int numPlasticSpawn;
+    public int NumPlasticSpawn;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        plasticBoss = animator.GetComponent<BossController>();
-        plasticBoss.urchin_attack(numPlasticSpawn);
+        _plasticBoss = animator.GetComponent<BossController>();
+        _plasticBoss.UrchinAttack(NumPlasticSpawn);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

@@ -4,160 +4,160 @@ using UnityEngine;
 
 public class BossController : MonoBehaviour
 {
-    public Plastic plastic;
-    public TurtleController turtle;
-    public UrchinController urchin;
+    public Plastic Plastic;
+    public TurtleController Turtle;
+    public UrchinController Urchin;
 
-    public Transform plasticBoss;
-    public Transform player;
+    public Transform PlasticBoss;
+    public Transform Player;
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            plastic.spawn(transform.position);
+            Plastic.Spawn(transform.position);
         }
 
         if (Input.GetKeyDown(KeyCode.T))
         {
-            turtle_attack();
+            TurtleAttack();
         }
 
         if (Input.GetKeyDown(KeyCode.U))
         {
-            urchin_attack();
+            UrchinAttack();
         }
 
         if (Input.GetKeyDown(KeyCode.H))
         {
-            fan_attack();
+            FanAttack();
         }
 
         if (Input.GetKeyDown(KeyCode.J))
         {
-            sweep_right_layered();
+            SweepRightLayered();
         }
 
         if (Input.GetKeyDown(KeyCode.K))
         {
-            sweep_left_layered();
+            SweepLeftLayered();
         }
 
         if (Input.GetKeyDown(KeyCode.L))
         {
-            pincer_attack();
+            PincerAttack();
         }
     }
 
     // Performs the sweep left projectile attack with a sec delay between each wave adjusted by a xOffset and yOffset
-    private IEnumerator sweep_left(int x_offset, int y_offset, float sec)
+    private IEnumerator SweepLeft(int xOffset, int yOffset, float sec)
     {
         float index = 0;
         for (int i = 5; i < 10; i++)
         {
             yield return new WaitForSecondsRealtime(sec);
             index += Time.deltaTime;
-            plastic.spawn(plasticBoss.position, plasticBoss.position + new Vector3(x_offset - (int)(i * 6 * Mathf.Cos(index) - 40), y_offset, 0), 3, 0);
+            Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(xOffset - (int)(i * 6 * Mathf.Cos(index) - 40), yOffset, 0), 3, 0);
         }
     }
 
     // Layers the sweep left attack by calling the sweep_left with different offsets
-    public void sweep_left_layered()
+    public void SweepLeftLayered()
     {
-        StartCoroutine(sweep_left(30, -10, 1.2f));
-        StartCoroutine(sweep_left(15, -20, 1.2f));
-        StartCoroutine(sweep_left(0, -20, 1.2f));
-        StartCoroutine(sweep_left(-15, -20, 1.2f));
-        StartCoroutine(sweep_left(-30, -10, 1.2f));
+        StartCoroutine(SweepLeft(30, -10, 1.2f));
+        StartCoroutine(SweepLeft(15, -20, 1.2f));
+        StartCoroutine(SweepLeft(0, -20, 1.2f));
+        StartCoroutine(SweepLeft(-15, -20, 1.2f));
+        StartCoroutine(SweepLeft(-30, -10, 1.2f));
     }
 
     // Performs the sweep right projectile attack with a sec delay between each wave adjusted by a xOffset and yOffset
-    private IEnumerator sweep_right(int x_offset, int y_offset, float sec)
+    private IEnumerator SweepRight(int xOffset, int yOffset, float sec)
     {
         float index = 0;
         for (int i = 5; i < 10; i++)
         {
             yield return new WaitForSecondsRealtime(sec);
             index += Time.deltaTime;
-            plastic.spawn(plasticBoss.position, plasticBoss.position + new Vector3(x_offset + (int)(i * 6 * Mathf.Cos(index) - 40),y_offset,0),3,0);
+            Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(xOffset + (int)(i * 6 * Mathf.Cos(index) - 40),yOffset,0),3,0);
         }
     }
 
     // Layers the sweep right attack by calling the sweep_left with different offsets
-    public void sweep_right_layered()
+    public void SweepRightLayered()
     {
-        StartCoroutine(sweep_right(30, -10, 1.2f));
-        StartCoroutine(sweep_right(15, -20, 1.2f));
-        StartCoroutine(sweep_right(0, -20, 1.2f));
-        StartCoroutine(sweep_right(-15, -20, 1.2f));
-        StartCoroutine(sweep_right(-30, -10, 1.2f));
+        StartCoroutine(SweepRight(30, -10, 1.2f));
+        StartCoroutine(SweepRight(15, -20, 1.2f));
+        StartCoroutine(SweepRight(0, -20, 1.2f));
+        StartCoroutine(SweepRight(-15, -20, 1.2f));
+        StartCoroutine(SweepRight(-30, -10, 1.2f));
     }
 
     // Performs the fan pattern projectile attack with a sec delay between each wave
-    private IEnumerator fan(float sec)
+    private IEnumerator Fan(float sec)
     {
-        Vector3 target = plasticBoss.position;
+        Vector3 target = PlasticBoss.position;
         target.y = target.y - 100;
         target = target.normalized;
-        target = new Vector3(player.position.x + (target.x * 5), player.position.y + (target.y * 5), 0);
+        target = new Vector3(Player.position.x + (target.x * 5), Player.position.y + (target.y * 5), 0);
         for (int i = 0; i < 10; i++)
         {
             yield return new WaitForSecondsRealtime(sec);
             if (i % 2 == 0)
             {
-                plastic.spawn(plasticBoss.position, target, 3, 0);
-                plastic.spawn(plasticBoss.position, target + new Vector3(30, 0, 0), 3, 0);
-                plastic.spawn(plasticBoss.position, target + new Vector3(-30, 0, 0), 3, 0);
+                Plastic.Spawn(PlasticBoss.position, target, 3, 0);
+                Plastic.Spawn(PlasticBoss.position, target + new Vector3(30, 0, 0), 3, 0);
+                Plastic.Spawn(PlasticBoss.position, target + new Vector3(-30, 0, 0), 3, 0);
             }
             else
             {
-                plastic.spawn(plasticBoss.position, target + new Vector3(12, 0, 0), 3, 0);
-                plastic.spawn(plasticBoss.position, target + new Vector3(-12, 0, 0), 3, 0);
+                Plastic.Spawn(PlasticBoss.position, target + new Vector3(12, 0, 0), 3, 0);
+                Plastic.Spawn(PlasticBoss.position, target + new Vector3(-12, 0, 0), 3, 0);
             }
         }
     }
 
     // Calls the IEnumerator fan function
-    public void fan_attack()
+    public void FanAttack()
     {
-        StartCoroutine(fan(1.4f));
+        StartCoroutine(Fan(1.4f));
     }
 
     // Performs the pincer pattern projectile attack with a sec delay between each wave
-    private IEnumerator pincer(float sec)
+    private IEnumerator Pincer(float sec)
     {
-        int x = (int)plasticBoss.position.x;
-        int y1 = (int)plasticBoss.position.y - 5;
-        int y2 = (int)plasticBoss.position.y - 7;
-        int y3 = (int)plasticBoss.position.y - 10;
+        int x = (int)PlasticBoss.position.x;
+        int y1 = (int)PlasticBoss.position.y - 5;
+        int y2 = (int)PlasticBoss.position.y - 7;
+        int y3 = (int)PlasticBoss.position.y - 10;
 
         for (int i = 0; i < 10; i++)
         {
             yield return new WaitForSecondsRealtime(sec);
-            plastic.spawn(plasticBoss.position, plasticBoss.position + new Vector3(x, y1, 0), 1, 0.01f);
-            plastic.spawn(plasticBoss.position, plasticBoss.position + new Vector3(x, y2, 0), 1, 0.002f);
-            plastic.spawn(plasticBoss.position, plasticBoss.position + new Vector3(x, y3, 0), 1, 0.0005f);
-            plastic.spawn(plasticBoss.position, plasticBoss.position + new Vector3(x, y1, 0), 2, 0.01f);
-            plastic.spawn(plasticBoss.position, plasticBoss.position + new Vector3(x, y2, 0), 2, 0.002f);
-            plastic.spawn(plasticBoss.position, plasticBoss.position + new Vector3(x, y3, 0), 2, 0.0005f);
+            Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x, y1, 0), 1, 0.01f);
+            Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x, y2, 0), 1, 0.002f);
+            Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x, y3, 0), 1, 0.0005f);
+            Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x, y1, 0), 2, 0.01f);
+            Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x, y2, 0), 2, 0.002f);
+            Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x, y3, 0), 2, 0.0005f);
         }
     }
 
     // Calls the IEnumerator pincer function
-    public void pincer_attack()
+    public void PincerAttack()
     {
-        StartCoroutine(pincer(1.2f));
+        StartCoroutine(Pincer(1.2f));
     }
 
     // Summons the turtle spawn boss attack with a given minMovementSpeed and maxMovementSpeed
-    public void turtle_attack(float min_movement_speed=3.5f, float max_movement_speed = 5f)
+    public void TurtleAttack(float minMovementSpeed=3.5f, float maxMovementSpeed = 5f)
     {
-        turtle.Spawn(min_movement_speed, max_movement_speed);
+        Turtle.Spawn(minMovementSpeed, maxMovementSpeed);
     }
 
     // Summons the urchin spawn boss attack that shoots out numPlasticSpawn projectiles
-    public void urchin_attack(int num_plastic_spawn = 9)
+    public void UrchinAttack(int numPlasticSpawn = 9)
     {
-        urchin.Spawn(num_plastic_spawn);
+        Urchin.Spawn(numPlasticSpawn);
     }
 }

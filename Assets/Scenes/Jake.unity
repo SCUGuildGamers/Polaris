@@ -153,12 +153,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84c66d96100f9364c9e6e0ee7afed832, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  urchin: {fileID: 6462563}
-  plasticBoss: {fileID: 135253523}
-  player: {fileID: 2115856467}
-  plastic: {fileID: 254576557}
-  numPlasticSpawn: 9
-  plasticProjectileSpeed: 2
+  Urchin: {fileID: 6462563}
+  PlasticBoss: {fileID: 135253523}
+  Player: {fileID: 2115856467}
+  Plastic: {fileID: 254576557}
+  NumPlasticSpawn: 9
+  PlasticProjectileSpeed: 2
 --- !u!212 &6462562
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -331,11 +331,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3801e0943ca7647408393bf728c1aaa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plastic: {fileID: 254576557}
-  turtle: {fileID: 2064644026}
-  urchin: {fileID: 6462561}
-  plasticBoss: {fileID: 135253523}
-  player: {fileID: 2115856467}
+  Plastic: {fileID: 254576557}
+  Turtle: {fileID: 2064644026}
+  Urchin: {fileID: 6462561}
+  PlasticBoss: {fileID: 135253523}
+  Player: {fileID: 2115856467}
 --- !u!212 &135253522
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -413,9 +413,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e09cfd72f22fb14f9f3e9debc4632aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
-  healthText: {fileID: 916278718}
-  healthBar: {fileID: 1321503337}
+  Health: 100
+  HealthText: {fileID: 916278718}
+  HealthBar: {fileID: 1321503337}
 --- !u!95 &135253525
 Animator:
   serializedVersion: 3
@@ -658,7 +658,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 847bf95497800a247bec12c7ff0b56d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCopy: 0
+  IsCopy: 0
 --- !u!1 &414442441
 GameObject:
   m_ObjectHideFlags: 0
@@ -754,9 +754,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1d7804dcbbf50b499cf4df836d7b39d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameText: {fileID: 567048283}
-  dialogueText: {fileID: 1395706266}
-  typingDelay: 0.2
+  NameText: {fileID: 567048283}
+  DialogueText: {fileID: 1395706266}
+  TypingDelay: 0.1
 --- !u!4 &554903913
 Transform:
   m_ObjectHideFlags: 0
@@ -1624,7 +1624,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 135253524}
         m_TargetAssemblyTypeName: BossHealth, Assembly-CSharp
-        m_MethodName: reduce_health
+        m_MethodName: ReduceHealth
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1806,7 +1806,7 @@ GameObject:
   - component: {fileID: 1530022161}
   - component: {fileID: 1530022160}
   m_Layer: 5
-  m_Name: ContinueDialogue
+  m_Name: ContinueDialogueButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1955,11 +1955,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33e3ba81376f064438fc270bf3818e09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogue:
-    name: Test
-    sentences:
-    - Hello world!
-    - Deez nuts!
+  Dialogue:
+    Name: Jeff
+    Sentences:
+    - My name
+    - Jeff
 --- !u!4 &1565153160
 Transform:
   m_ObjectHideFlags: 0
@@ -2096,7 +2096,7 @@ GameObject:
   - component: {fileID: 1772729218}
   - component: {fileID: 1772729217}
   m_Layer: 5
-  m_Name: TriggerDialogue
+  m_Name: TriggerDialogueButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2350,12 +2350,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 341b6d2a0890f36488f1ef1fcefa1ee0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minRotationSpeed: 300
-  maxRotationSpeed: 300
-  minMovementSpeed: 3.5
-  maxMovementSpeed: 5
-  player: {fileID: 2115856467}
-  boss: {fileID: 135253523}
+  MinRotationSpeed: 80
+  MaxRotationSpeed: 120
+  MinMovementSpeed: 3.5
+  MaxMovementSpeed: 5
+  Player: {fileID: 2115856467}
+  Boss: {fileID: 135253523}
 --- !u!212 &2064644027
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2545,8 +2545,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc57473dc5b30914ba778710fe5eee76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontalSpeed: 20
-  verticalSpeed: 20
+  HorizontalSpeed: 10
+  VerticalSpeed: 10
 --- !u!50 &2115856469
 Rigidbody2D:
   serializedVersion: 4
@@ -2580,5 +2580,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ff84b18a0c74cf448c55a622fd6b42d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
-  healthText: {fileID: 934534179}
+  Health: 100
+  HealthText: {fileID: 934534179}

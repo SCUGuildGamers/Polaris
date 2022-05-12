@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class RightSweepAttack : StateMachineBehaviour
 {
-    private BossController plasticBoss;
+    private BossController _plasticBoss;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        plasticBoss = animator.GetComponent<BossController>();
-        plasticBoss.sweep_right_layered();
+        _plasticBoss = animator.GetComponent<BossController>();
+        _plasticBoss.SweepRightLayered();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

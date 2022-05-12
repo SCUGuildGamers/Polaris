@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Health : MonoBehaviour
+public class PlayerHealth : MonoBehaviour
 {
-    public int health;
-    public Text healthText;
+    public int Health;
+    public Text HealthText;
 
     // Start is called before the first frame update
     void Start()
     {
-        health = 100;
-        healthText.text = "Health : " + health;
+        Health = 100;
+        HealthText.text = "Health : " + Health;
     }
 
-    public void reduceHealth(int i)
+    public void ReduceHealth(int i)
     {
-        health = health - i;
-        healthText.text = "Health : " + health;
+        Health = Health - i;
+        HealthText.text = "Health : " + Health;
     }
 
     public void OnCollisionEnter2D(Collision2D collider)
@@ -26,7 +26,7 @@ public class Health : MonoBehaviour
 
         if (collider.gameObject.name == "Plastic(Clone)")
         {
-            reduceHealth(5);
+            ReduceHealth(5);
         }
 
     }
