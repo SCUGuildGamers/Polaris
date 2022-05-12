@@ -49,11 +49,11 @@ public class BossController : MonoBehaviour
         }
     }
 
-    // Performs the sweep left projectile attack with a sec delay between each wave adjusted by a xOffset and yOffset
-    private IEnumerator SweepLeft(int xOffset, int yOffset, float sec)
+    // Performs a single sweep left projectile attack with a sec delay between each wave adjusted by a xOffset and yOffset
+    private IEnumerator SweepLeft(int xOffset, int yOffset, float sec, int numWaves)
     {
         float index = 0;
-        for (int i = 5; i < 10; i++)
+        for (int i = 5; i < 5 + numWaves; i++)
         {
             yield return new WaitForSecondsRealtime(sec);
             index += Time.deltaTime;
@@ -61,21 +61,26 @@ public class BossController : MonoBehaviour
         }
     }
 
-    // Layers the sweep left attack by calling the sweep_left with different offsets
-    public void SweepLeftLayered()
+    // Layers the sweep left attack by calling the SweepLeft with different offsets and with numProjectiles projectiles per wave
+    public void SweepLeftLayered(int numProjectiles = 5)
     {
-        StartCoroutine(SweepLeft(30, -10, 1.2f));
-        StartCoroutine(SweepLeft(15, -20, 1.2f));
-        StartCoroutine(SweepLeft(0, -20, 1.2f));
-        StartCoroutine(SweepLeft(-15, -20, 1.2f));
-        StartCoroutine(SweepLeft(-30, -10, 1.2f));
+        // Generates the xOffset and yOffset values to achieve the layered effect
+        int split = numProjectiles / 2;
+        for (int i = split; i >= -split; i--)
+        {
+            if (i == split || i == -split)
+                StartCoroutine(SweepLeft(i * 15, -10, 1.2f, 5));
+
+            else
+                StartCoroutine(SweepLeft(i * 15, -20, 1.2f, 5));
+        }
     }
 
-    // Performs the sweep right projectile attack with a sec delay between each wave adjusted by a xOffset and yOffset
-    private IEnumerator SweepRight(int xOffset, int yOffset, float sec)
+    // Performs a single sweep right projectile attack with a sec delay between each wave adjusted by a xOffset and yOffset
+    private IEnumerator SweepRight(int xOffset, int yOffset, float sec, int numWaves)
     {
         float index = 0;
-        for (int i = 5; i < 10; i++)
+        for (int i = 5; i < 5 + numWaves; i++)
         {
             yield return new WaitForSecondsRealtime(sec);
             index += Time.deltaTime;
@@ -83,14 +88,19 @@ public class BossController : MonoBehaviour
         }
     }
 
-    // Layers the sweep right attack by calling the sweep_left with different offsets
-    public void SweepRightLayered()
+    // Layers the sweep right attack by calling the SweepRight with different offsets and with numProjectiles projectiles per wave
+    public void SweepRightLayered(int numProjectiles=5)
     {
-        StartCoroutine(SweepRight(30, -10, 1.2f));
-        StartCoroutine(SweepRight(15, -20, 1.2f));
-        StartCoroutine(SweepRight(0, -20, 1.2f));
-        StartCoroutine(SweepRight(-15, -20, 1.2f));
-        StartCoroutine(SweepRight(-30, -10, 1.2f));
+        // Generates the xOffset and yOffset values to achieve the layered effect
+        int split = numProjectiles / 2;
+        for (int i = split; i >= -split; i--)
+        {
+            if (i == split||i == -split)
+                StartCoroutine(SweepRight(i*15, -10, 1.2f, 5));
+
+            else
+                StartCoroutine(SweepRight(i * 15, -20, 1.2f, 5));
+        }
     }
 
     // Performs the fan pattern projectile attack with a sec delay between each wave
