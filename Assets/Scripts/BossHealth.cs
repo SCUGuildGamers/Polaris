@@ -40,7 +40,7 @@ public class BossHealth : MonoBehaviour
     private void Die()
     {
         Debug.Log("The boss has been killed.");
-        return;
+        GetComponent<Animator>().SetBool("isBossDead", true);
     }
 }
 

@@ -144,7 +144,7 @@ public class BossController : MonoBehaviour
     }
 
     // Performs the pincer pattern projectile attack with a sec delay between each wave
-    private IEnumerator Pincer(float sec)
+    private IEnumerator Pincer(float sec, int numWaves)
     {
         int x = (int)PlasticBoss.position.x;
         int y1 = (int)PlasticBoss.position.y - 5;
@@ -164,9 +164,9 @@ public class BossController : MonoBehaviour
     }
 
     // Calls the IEnumerator pincer function
-    public void PincerAttack()
+    public void PincerAttack(int numWaves = 7)
     {
-        StartCoroutine(Pincer(1.2f));
+        StartCoroutine(Pincer(1.2f, numWaves));
     }
 
     // Summons the turtle spawn boss attack with a given minMovementSpeed and maxMovementSpeed

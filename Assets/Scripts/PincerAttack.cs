@@ -5,12 +5,13 @@ using UnityEngine;
 public class PincerAttack : StateMachineBehaviour
 {
     private BossController _plasticBoss;
+    public int numWaves;
     
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         _plasticBoss = animator.GetComponent<BossController>();
-        _plasticBoss.PincerAttack();
+        _plasticBoss.PincerAttack(numWaves);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
