@@ -25,7 +25,7 @@ public class BossHealth : MonoBehaviour
 
         HealthBar.set_health(Health);
 
-        if (Health <= 30)
+        if (Health <= 50)
         {
             GetComponent<Animator>().SetBool("isEnraged", true);
             SpriteRenderer sprite = GetComponent<SpriteRenderer>();

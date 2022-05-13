@@ -27,7 +27,7 @@ public class TurtleController : MonoBehaviour
     void Update()
     {
         // Checks when the turtle is close to its target
-        if (Vector3.Distance(transform.position, _targetPosition) < 0.1f)
+        if (Vector3.Distance(transform.position, _targetPosition) < 0.3f)
         {
             // Checks if the turtle has finished its attack
             if (_targetPosition == Boss.position)
