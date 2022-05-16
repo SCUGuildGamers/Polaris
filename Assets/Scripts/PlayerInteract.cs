@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour
 {
-    private float range = 5;
+    private float _interactRange = 5;
 
     // Update is called once per frame
     void Update()
@@ -18,17 +18,33 @@ public class PlayerInteract : MonoBehaviour
     // Finds the nearest interactable within the range
     private void Interact()
     {
-        float minDistance = range;
-
-        Interactable minInteractable;
         Interactable[] interactables = FindObjectsOfType<Interactable>();
-        foreach (Interactable interactable in interactables)
-        {
-            float distance = Vector3.Distance(transform.position, interactable.transform.position);
-            if (distance <= minDistance)
-                minInteractable = interactable;
-        }
 
-        Debug.Log(minInteractable);
+        // Ensures that there are interactables in the scene
+        if (interactables.Length != 0)
+        {
+            // Iterate through the interactables to find the closest interactable to the player
+            int minInteractIndex = 0;
+            float minDistance = Vector3.Distance(transform.position, interactables[0].transform.position);
+            for (int i = 0; i < interactables.Length; i++)
+            { 
+                float distance = Vector3.Distance(transform.position, interactables[i].transform.position);
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    minInteractIndex = i;
+                }
+            }
+
+            // Ensures that the player only interacts with interactables that are within their range
+            if (minDistance <= _interactRange)
+            {
+                bool canPlayerMove = interactables[minInteractIndex].Interact();
+
+                // Updates whether or not the player can move or not
+                GetComponent<PlayerMovement>().CanPlayerMove = canPlayerMove;
+            }
+                
+        }
     }
 }

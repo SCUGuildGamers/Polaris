@@ -50,6 +50,19 @@ public class DialogueManager : MonoBehaviour
         StartCoroutine(TypeSentence(sentence));
     }
 
+    // Clears the dialogue box
+    public void ClearDialogue()
+    {
+        NameText.text = "";
+        DialogueText.text = "";
+    }
+
+    //Returns the length of the _sentences queue
+    public int GetQueueLength()
+    {
+        return _sentences.Count;
+    }
+
     // Animates the typing of the sentence.
     IEnumerator TypeSentence(string sentence)
     {

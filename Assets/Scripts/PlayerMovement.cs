@@ -7,6 +7,8 @@ public class PlayerMovement : MonoBehaviour
 	private Rigidbody2D rb;
 	private bool _facingRight = true;
 
+	public bool CanPlayerMove = true;
+
 	public float HorizontalSpeed = 10f;
 	public float VerticalSpeed = 10f;
 	
@@ -23,6 +25,9 @@ public class PlayerMovement : MonoBehaviour
 
 	void Move()
 	{
+		if (CanPlayerMove == false)
+			return;
+
 		float horizontalDirection = Input.GetAxis("Horizontal");
 		float verticalDirection = Input.GetAxis("Vertical");
 		rb.velocity = new Vector2(horizontalDirection * HorizontalSpeed, verticalDirection * VerticalSpeed);
