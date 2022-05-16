@@ -26,7 +26,11 @@ public class PlayerMovement : MonoBehaviour
 	void Move()
 	{
 		if (CanPlayerMove == false)
+		{
+			rb.velocity = new Vector2(0, 0);
 			return;
+		}
+			
 
 		float horizontalDirection = Input.GetAxis("Horizontal");
 		float verticalDirection = Input.GetAxis("Vertical");
