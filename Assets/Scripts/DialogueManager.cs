@@ -13,28 +13,24 @@ public class DialogueManager : MonoBehaviour
     public float TypingDelay;
 
     // Queue for the sentences/dialogue that need to be displayed.
-    private Queue<string> _sentences;    
+    private Queue<Pair<string, string>> _sentences;    
 
     // Start is called before the first frame update.
     void Start()
     {
-        _sentences = new Queue<string>();
+        _sentences = new Queue<Pair<string, string>>();
     }
 
     // Loads the dialogue into the dialogue manager and displays the first sentence.
-    public void StartDialogue(Dialogue dialogue)
+    public void StartDialogue(Dialogue Dialogue)
     {
-        NameText.text = dialogue.Name;
-
         _sentences.Clear();
-
         // Loads all sentences.
-        foreach (string sentence in dialogue.Sentences)
+        foreach (Pair<string, string> sentence in Dialogue.Sentences)
         {
             _sentences.Enqueue(sentence);
         }
         DisplayNextSentence();
-
     }
 
     // Displays the next sentence.
@@ -45,9 +41,10 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        string sentence = _sentences.Dequeue();
+        Pair<string, string> sentence = _sentences.Dequeue();
         StopAllCoroutines();
-        StartCoroutine(TypeSentence(sentence));
+        NameText.text = sentence.First;
+        StartCoroutine(TypeSentence(sentence.Second));
     }
 
     // Clears the dialogue box
@@ -73,8 +70,15 @@ public class DialogueManager : MonoBehaviour
         {
             DialogueText.text += letter;
 
+            bool wait = true;
             //yield return null;
-            yield return new WaitForSeconds(TypingDelay);
+            if (wait){
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    wait = false;
+                }
+                yield return new WaitForSeconds(TypingDelay);
+            } 
         }
     }
 }

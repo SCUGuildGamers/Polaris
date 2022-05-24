@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
-    // Field for targeting the dialogue that is affected by this trigger.
-    public Dialogue Dialogue;
-
     // Bool field to allow the player to clear the dialogue when pressing the interact button
     private bool _isStall = false;
 
@@ -20,7 +17,7 @@ public class DialogueTrigger : MonoBehaviour
     }
 
     // Loads and runs the dialogue given by the dialogue variable.
-    public void TriggerDialogue()
+    public void TriggerDialogue(Dialogue Dialogue)
     {
         _dialogueManager.StartDialogue(Dialogue);
         _dialogueBoxManager.SetVisibility(true);
@@ -33,7 +30,7 @@ public class DialogueTrigger : MonoBehaviour
     }
 
     // Runs the dialogue, handles the logic for how the dialogue runs, and returns whether or not the player can move or not
-    public bool SayDialogue()
+    public bool SayDialogue(Dialogue Dialogue)
     {
         // Allows that player to press the interact key to clear the dialogue (Edge case)
         if (_isStall)
@@ -44,12 +41,11 @@ public class DialogueTrigger : MonoBehaviour
             return true;
         }
             
-
         int oldQueueLength = _dialogueManager.GetQueueLength();
 
         // If the dialogue queue is empty, load the queue with the dialogue and run the first dialogue line
         if (oldQueueLength == 0)
-            TriggerDialogue();
+            TriggerDialogue(Dialogue);
 
         // If the dialogue queue is not empty, run the next dialogue line
         else
