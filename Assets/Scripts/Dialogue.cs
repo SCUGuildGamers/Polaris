@@ -4,13 +4,15 @@ using UnityEngine;
 
 // Class for organizing dialogue.
 [System.Serializable]
-public class Dialogue
+[CreateAssetMenu(fileName = "Dialogue", menuName = "DialogueObjects/Dialogue")]
+public class Dialogue : ScriptableObject
 {
-    // String field for organizing each sentence of dialogue.
-    [TextArea(3, 10)]
-    public Pair<string, string>[] Sentences;
-
-    public Dialogue(Pair<string, string>[] sentences){
-        Sentences = sentences;
+    [System.Serializable]
+    public class DialogueLine
+    {
+        public string speaker;
+        public string line;
     }
+
+    public List<DialogueLine> lines; 
 }

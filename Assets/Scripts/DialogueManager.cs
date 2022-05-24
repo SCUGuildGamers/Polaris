@@ -26,9 +26,9 @@ public class DialogueManager : MonoBehaviour
     {
         _sentences.Clear();
         // Loads all sentences.
-        foreach (Pair<string, string> sentence in Dialogue.Sentences)
+        foreach (var lines in Dialogue.lines)
         {
-            _sentences.Enqueue(sentence);
+            _sentences.Enqueue(new Pair<string,string>(lines.speaker,lines.line));
         }
         DisplayNextSentence();
     }
