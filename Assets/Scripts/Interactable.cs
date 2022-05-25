@@ -35,9 +35,9 @@ public class Interactable : MonoBehaviour
     {
         if(IsInteractable()){
             _indicatorCopy.GetComponent<Renderer>().enabled = true;
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && !_dialogueManager.InDialogue)
             {
-                _dialogueManager.SayDialogue(Dialogue);
+                _dialogueManager.StartDialogue(Dialogue);
             }
         } else {
             _indicatorCopy.GetComponent<Renderer>().enabled = false;

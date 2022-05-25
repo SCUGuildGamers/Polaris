@@ -8,15 +8,19 @@ public class EventManager : MonoBehaviour
 
     private Dictionary<string, bool> _flags;
 
-    // Temporary field to implement the net crafting event
+    // Temporary fields to implement the net crafting event
     private DialogueManager _dialogueManager;
+    public Dialogue Dialogue;
 
     void Start()
     {
+        // Intialize the flag dictionary
         _flags = new Dictionary<string, bool>();
 
         foreach (string key in flag_keys)
             _flags.Add(key, false);
+
+        _dialogueManager = FindObjectOfType<DialogueManager>();
     }
 
     // Parses the string flag and updates the _flags dictionary appropriately
@@ -39,12 +43,11 @@ public class EventManager : MonoBehaviour
     public void InternalUpdate()
     {
         // Constructed Net case
-        if (_flags["Net"] && _flags["Stick"] && _flags["Loop"])
+        if (_flags["Net"] && _flags["Stick"] && _flags["Loop"] && !_flags["ConstructedNet"])
         {
             _flags["ConstructedNet"] = true;
-            _dialogueManager.SayDialogue(GetComponent<Interactable>().Dialogue);
+            _dialogueManager.StartDialogue(Dialogue);
         }
-            
     }
 
     // Helper function to debug and check the current value of all flags

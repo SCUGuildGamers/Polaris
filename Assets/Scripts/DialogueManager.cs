@@ -8,8 +8,8 @@ public class DialogueManager : MonoBehaviour
     // Queue for the sentences/dialogue that need to be displayed.
     private Queue<Pair<string, string>> _sentences;
 
-    // Boolean field to keep track of whether dialogue is currently playing or not
-    private bool _inDialogue = false;
+    // Public boolean field to keep track of whether dialogue is currently playing or not
+    public bool InDialogue = false;
 
     // Boolean field to keep track of whether or not the dialogue is stalling or not (in order to simulate the clearing of the textbox on the last dialogue line)
     private bool _isStall = false;
@@ -28,11 +28,8 @@ public class DialogueManager : MonoBehaviour
     public Text NameText;
     public Text DialogueText;
 
-
     private EventManager _eventManager;
 
-
-    // Start is called before the first frame update.
     void Start()
     {
         _sentences = new Queue<Pair<string, string>>();
@@ -41,24 +38,41 @@ public class DialogueManager : MonoBehaviour
         _dialogueBoxManager = FindObjectOfType<DialogueBoxManager>();
     }
 
-    // Loads the dialogue into the dialogue manager and displays the first sentence.
-    private void StartDialogue(Dialogue Dialogue)
+    void Update()
     {
-        _inDialogue = true;
-
-        _sentences.Clear();
-        // Loads all sentences.
-        foreach (var lines in Dialogue.lines)
+        // If the dialogue button is clicked and there is dialogue to be played
+        if (InDialogue && Input.GetKeyDown(KeyCode.Space))
         {
-            _sentences.Enqueue(new Pair<string, string>(lines.speaker, lines.line));
+            SayDialogue();
         }
-        DisplayNextSentence();
+    }
 
-        // Calls the ProcessFlag function to let the EventManager handle any special flags/events
-        if (Dialogue.flag != "")
+    // Public function which loads the dialogue into the dialogue manager and displays the first sentence.
+    public void StartDialogue(Dialogue Dialogue)
+    {
+        Debug.Log(!InDialogue);
+        if (!InDialogue)
         {
-            _eventManager.ProcessFlag(Dialogue.flag);
+            InDialogue = true;
+
+            _dialogueBoxManager.SetVisibility(true);
+            _playerMovement.CanPlayerMove = false;
+
+            _sentences.Clear();
+            // Loads all sentences.
+            foreach (var lines in Dialogue.lines)
+            {
+                _sentences.Enqueue(new Pair<string, string>(lines.speaker, lines.line));
+            }
+            DisplayNextSentence();
+
+            // Calls the ProcessFlag function to let the EventManager handle any special flags/events
+            if (Dialogue.flag != "")
+            {
+                _eventManager.ProcessFlag(Dialogue.flag);
+            }
         }
+        
     }
 
     // Displays the next sentence.
@@ -75,35 +89,19 @@ public class DialogueManager : MonoBehaviour
         StartCoroutine(TypeSentence(sentence.Second));
     }
 
-    // Public function to be universally called by other functions when a button is pressed to simulate the textbox logic; Always takes the Dialogue parameter in case the new Dialogue needs to be loaded in
-    public void SayDialogue(Dialogue dialogue)
+    // Public function to be universally called by other functions when a button is pressed to simulate the textbox logic
+    private void SayDialogue()
     {
-        // If not in dialogue, add a new set of dialogue lines
-        if (!_inDialogue)
-        {
-            StartDialogue(dialogue);
-
-            _dialogueBoxManager.SetVisibility(true);
-            _inDialogue = true;
-            _playerMovement.CanPlayerMove = false;
-            return;
-        }
-
-
         // Allows that player to press the dialogue button again to clear the textbox
-        else if (_isStall)
+        if (_isStall)
         {
             ClearDialogue();
             _dialogueBoxManager.SetVisibility(false);
 
             _isStall = false;
-            _inDialogue = false;
-
             _playerMovement.CanPlayerMove = true;
 
-            // Checks if any special events should occur
-            _eventManager.InternalUpdate();
-            return;
+            StartCoroutine(DelayedInDialogueSet(false, 0.1f));
         }
 
         // Else, there is still dialogue left in the queue
@@ -116,6 +114,16 @@ public class DialogueManager : MonoBehaviour
                 _isStall = true;
             }
         }
+    }
+
+    // Helper function which delays the set of the InDialogue boolean field to properly clear the textbox after the last dialogue line
+    private IEnumerator DelayedInDialogueSet(bool value, float time)
+    {
+        yield return new WaitForSeconds(time);
+        InDialogue = value;
+
+        // Performs the internal update delayed in case any dialogue needs to be played after
+        _eventManager.InternalUpdate();
     }
 
     // Clears the dialogue box
