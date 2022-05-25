@@ -39,10 +39,10 @@ public class PlayerInteract : MonoBehaviour
             // Ensures that the player only interacts with interactables that are within their range
             if (minDistance <= _interactRange)
             {
-                bool canPlayerMove = interactables[minInteractIndex].SayDialogue();
+                interactables[minInteractIndex].SayDialogue();
 
                 // Updates whether or not the player can move or not
-                GetComponent<PlayerMovement>().CanPlayerMove = canPlayerMove;
+                //GetComponent<PlayerMovement>().CanPlayerMove = canPlayerMove;
             }
                 
         }

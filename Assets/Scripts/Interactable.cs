@@ -7,8 +7,8 @@ public class Interactable : MonoBehaviour
     private DialogueManager _dialogueManager;
     private DialogueBoxManager _dialogueBoxManager;
 
-    private Transform _player;
-    private float _interactRange = 1.5f; // Max distance player can be from the interactable to still interact
+    private PlayerMovement _player;
+    protected float _interactRange = 1.5f; // Max distance player can be from the interactable to still interact
 
     // Bool field to allow the player to clear the dialogue when pressing the interact button
     private bool _isStall = false;
@@ -23,7 +23,7 @@ public class Interactable : MonoBehaviour
         _dialogueManager = FindObjectOfType<DialogueManager>();
         _dialogueBoxManager = FindObjectOfType<DialogueBoxManager>();
 
-        _player = FindObjectOfType<PlayerInteract>().transform;
+        _player = FindObjectOfType<PlayerMovement>();
 
         // Sets the position of the indicator above the NPC
         _indicatorCopy = Instantiate(Indicator);
@@ -58,7 +58,7 @@ public class Interactable : MonoBehaviour
     }
 
     // Runs the dialogue, handles the logic for how the dialogue runs, and returns whether or not the player can move or not
-    public bool SayDialogue()
+    public void SayDialogue()
     {
         // Allows that player to press the interact key to clear the dialogue (Edge case)
         if (_isStall)
@@ -66,7 +66,8 @@ public class Interactable : MonoBehaviour
             _dialogueManager.ClearDialogue();
             _dialogueBoxManager.SetVisibility(false);
             _isStall = false;
-            return true;
+            _player.CanPlayerMove = true;
+            return;
         }
 
         _dialogueManager = FindObjectOfType<DialogueManager>();
@@ -74,8 +75,11 @@ public class Interactable : MonoBehaviour
 
         // If the dialogue queue is empty, load the queue with the dialogue and run the first dialogue line
         if (oldQueueLength == 0)
+        {
+            Debug.Log(gameObject.name);
             TriggerDialogue();
-
+        }
+            
         // If the dialogue queue is not empty, run the next dialogue line
         else
             ContinueDialogue();
@@ -83,18 +87,18 @@ public class Interactable : MonoBehaviour
         // Logic for determining if the dialogue trigger needs to stall or not (In reference to the edge case)
         int newQueueLength = _dialogueManager.GetQueueLength();
         if (newQueueLength > 0)
-            return false;
+            _player.CanPlayerMove = false;
 
         else
         {
             _isStall = true;
-            return false;
+            _player.CanPlayerMove = false;
         }
     }
 
     // Determines whether or not the player is in range of the interactabl
     private bool IsInteractable(){
-        if (Vector3.Distance(transform.position, _player.position) <= _interactRange){
+        if (Vector3.Distance(transform.position, _player.transform.position) <= _interactRange){
             return true;
         }
         return false;

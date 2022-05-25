@@ -11,8 +11,12 @@ public class Dialogue : ScriptableObject
     public class DialogueLine
     {
         public string speaker;
+
+        [TextArea(3,10)]
         public string line;
     }
 
-    public List<DialogueLine> lines; 
+    public List<DialogueLine> lines;
+
+    public string flag;
 }

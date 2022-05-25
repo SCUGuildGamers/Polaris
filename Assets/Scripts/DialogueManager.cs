@@ -13,12 +13,15 @@ public class DialogueManager : MonoBehaviour
     public float TypingDelay;
 
     // Queue for the sentences/dialogue that need to be displayed.
-    private Queue<Pair<string, string>> _sentences;    
+    private Queue<Pair<string, string>> _sentences;
+
+    private EventManager _eventManager;
 
     // Start is called before the first frame update.
     void Start()
     {
         _sentences = new Queue<Pair<string, string>>();
+        _eventManager = FindObjectOfType<EventManager>();
     }
 
     // Loads the dialogue into the dialogue manager and displays the first sentence.
@@ -31,6 +34,22 @@ public class DialogueManager : MonoBehaviour
             _sentences.Enqueue(new Pair<string,string>(lines.speaker,lines.line));
         }
         DisplayNextSentence();
+
+        // Checks the Dialogue flag to see if the events need to be updated
+        string flag = Dialogue.flag;
+        if (flag != null)
+        {
+            if (flag == "gotNet")
+                _eventManager.Net = true;
+
+            if (flag == "gotStick")
+                _eventManager.Stick = true;
+
+            if (flag == "gotLoop")
+                _eventManager.Loop = true;
+
+            Debug.Log(flag);
+        }
     }
 
     // Displays the next sentence.
