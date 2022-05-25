@@ -45,14 +45,14 @@ public class Interactable : MonoBehaviour
     }
 
     // Loads and runs the dialogue into the dialogue manager
-    private void TriggerDialogue()
+    public void TriggerDialogue()
     {
         _dialogueManager.StartDialogue(Dialogue);
         _dialogueBoxManager.SetVisibility(true);
     }
 
     // Runs the next dialogue in the dialogue manager
-    private void ContinueDialogue()
+    public void ContinueDialogue()
     {
         _dialogueManager.DisplayNextSentence();
     }
