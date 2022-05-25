@@ -4,25 +4,25 @@ using UnityEngine;
 
 public class Interactable : MonoBehaviour
 {
-    private DialogueManager _dialogueManager;
-    private DialogueBoxManager _dialogueBoxManager;
-
-    private PlayerMovement _player;
-    protected float _interactRange = 1.5f; // Max distance player can be from the interactable to still interact
-
-    // Bool field to allow the player to clear the dialogue when pressing the interact button
-    private bool _isStall = false;
-
+    // Dialogue field to hold the dialogue that the interactable can say
     public Dialogue Dialogue;
+
+    // Holds the object for the indicator
     public Transform Indicator;
-
     private Transform _indicatorCopy;
+    
+    // Interact range of player
+    private float _interactRange = 1.5f; // Max distance player can be from the interactable to still interact
 
+    // Reference for the DialogueManager object
+    private DialogueManager _dialogueManager;
+
+    // Reference for the PlayerMovement object to get its position
+    private PlayerMovement _player;
+    
     void Start()
     {
         _dialogueManager = FindObjectOfType<DialogueManager>();
-        _dialogueBoxManager = FindObjectOfType<DialogueBoxManager>();
-
         _player = FindObjectOfType<PlayerMovement>();
 
         // Sets the position of the indicator above the NPC
@@ -37,66 +37,14 @@ public class Interactable : MonoBehaviour
             _indicatorCopy.GetComponent<Renderer>().enabled = true;
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                SayDialogue();
+                _dialogueManager.SayDialogue(Dialogue);
             }
         } else {
             _indicatorCopy.GetComponent<Renderer>().enabled = false;
         }
     }
 
-    // Loads and runs the dialogue into the dialogue manager
-    public void TriggerDialogue()
-    {
-        _dialogueManager.StartDialogue(Dialogue);
-        _dialogueBoxManager.SetVisibility(true);
-    }
-
-    // Runs the next dialogue in the dialogue manager
-    public void ContinueDialogue()
-    {
-        _dialogueManager.DisplayNextSentence();
-    }
-
-    // Runs the dialogue, handles the logic for how the dialogue runs, and returns whether or not the player can move or not
-    public void SayDialogue()
-    {
-        // Allows that player to press the interact key to clear the dialogue (Edge case)
-        if (_isStall)
-        {
-            _dialogueManager.ClearDialogue();
-            _dialogueBoxManager.SetVisibility(false);
-            _isStall = false;
-            _player.CanPlayerMove = true;
-            return;
-        }
-
-        _dialogueManager = FindObjectOfType<DialogueManager>();
-        int oldQueueLength = _dialogueManager.GetQueueLength();
-
-        // If the dialogue queue is empty, load the queue with the dialogue and run the first dialogue line
-        if (oldQueueLength == 0)
-        {
-            Debug.Log(gameObject.name);
-            TriggerDialogue();
-        }
-            
-        // If the dialogue queue is not empty, run the next dialogue line
-        else
-            ContinueDialogue();
-
-        // Logic for determining if the dialogue trigger needs to stall or not (In reference to the edge case)
-        int newQueueLength = _dialogueManager.GetQueueLength();
-        if (newQueueLength > 0)
-            _player.CanPlayerMove = false;
-
-        else
-        {
-            _isStall = true;
-            _player.CanPlayerMove = false;
-        }
-    }
-
-    // Determines whether or not the player is in range of the interactabl
+    // Determines whether or not the player is in range of the interactable
     private bool IsInteractable(){
         if (Vector3.Distance(transform.position, _player.transform.position) <= _interactRange){
             return true;

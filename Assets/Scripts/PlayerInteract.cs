@@ -4,19 +4,17 @@ using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour
 {
-    private float _interactRange = 5;
 
-    // Update is called once per frame
+    //private float _interactRange = 5;
+
+    /*// Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            Interact();
-        }
-    }
+        
+    }*/
 
-    // Finds the nearest interactable within the range
-    private void Interact()
+    /*// Finds the nearest interactable within the range
+    //private void Interact()
     {
         Interactable[] interactables = FindObjectsOfType<Interactable>();
 
@@ -46,5 +44,5 @@ public class PlayerInteract : MonoBehaviour
             }
                 
         }
-    }
+    }*/
 }
