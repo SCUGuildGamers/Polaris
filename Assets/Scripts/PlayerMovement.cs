@@ -9,9 +9,11 @@ public class PlayerMovement : MonoBehaviour
 
 	public bool CanPlayerMove = true;
 
+	public bool IsOceanMovement = false;
+
 	public float HorizontalSpeed = 10f;
 	public float VerticalSpeed = 10f;
-	
+
 	void Start()
 	{
 		rb = GetComponent<Rigidbody2D>();
@@ -24,16 +26,23 @@ public class PlayerMovement : MonoBehaviour
 	}
 
 	void Move()
-	{
+	{	
+		// Check if the player can move or not
 		if (CanPlayerMove == false)
 		{
 			rb.velocity = new Vector2(0, 0);
 			return;
 		}
 			
-
 		float horizontalDirection = Input.GetAxis("Horizontal");
-		float verticalDirection = Input.GetAxis("Vertical");
+
+		// Controls whether or not the player can do underwater movement or not
+		float verticalDirection;
+		if (IsOceanMovement)
+			verticalDirection = Input.GetAxis("Vertical");
+		else
+			verticalDirection = 0;
+
 		rb.velocity = new Vector2(horizontalDirection * HorizontalSpeed, verticalDirection * VerticalSpeed);
 
 		// If the input is moving the player right and the player is facing left, then correct the character orientation
