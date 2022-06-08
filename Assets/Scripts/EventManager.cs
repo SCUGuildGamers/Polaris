@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EventManager : MonoBehaviour
 {
-    private string[] flag_keys = new string[] { "Net", "Stick", "Loop", "ConstructedNet" };
+    public string[] flag_keys = new string[] { "Net", "Stick", "Loop", "ConstructedNet" };
 
     private Dictionary<string, bool> _flags;
 
@@ -34,7 +35,7 @@ public class EventManager : MonoBehaviour
 
         else if (flag == "gotLoop")
             _flags["Loop"] = true;
-        
+
         // Debug statement to check the current value of all flags
         ShowFlags();
     }
@@ -55,5 +56,10 @@ public class EventManager : MonoBehaviour
     {
         foreach (string key in flag_keys)
             Debug.Log(key + ", " + _flags[key]);
+    }
+
+    public bool NetCompleted()
+    {
+        return _flags["ConstructedNet"];
     }
 }
