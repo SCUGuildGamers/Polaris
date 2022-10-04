@@ -11,6 +11,8 @@ public class BossController : MonoBehaviour
     public Transform PlasticBoss;
     public Transform Player;
 
+    public Transform Test;
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.R))
