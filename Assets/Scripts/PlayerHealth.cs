@@ -7,6 +7,8 @@ public class PlayerHealth : MonoBehaviour
 {
     public int Health;
     public Text HealthText;
+    public HealthBar HealthBar;
+    private SpriteRenderer sprite;
 
     private int _plasticHealthLoss = 10;
     private int _urchinHealthLoss = 20;
@@ -15,14 +17,17 @@ public class PlayerHealth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        sprite = GetComponent<SpriteRenderer>();
         Health = 100;
+        HealthBar.set_max_health(100);
         HealthText.text = "Health: " + Health;
     }
 
     public void ReduceHealth(int i)
     {
+        sprite.color = new Color(1,0,0,1);
         Health = Health - i;
-        
+        HealthBar.set_health(Health);        
 
         if (Health <= 0)
         {
@@ -31,6 +36,11 @@ public class PlayerHealth : MonoBehaviour
         }
 
         HealthText.text = "Health: " + Health;
+        Invoke("ResetColor", .25f);
+    }
+
+    void ResetColor(){
+        sprite.color = new Color(1,1,1,1);
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
