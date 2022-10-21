@@ -36,7 +36,7 @@ public class CraftingManager : MonoBehaviour
         }
     }
 
-    // Handles crafting logic
+    // Handles crafting logic; bug when the same drop is used to create an item
     private void CraftingHandler(Drop drop1, Drop drop2) {
         foreach (Craftable craftable in bible.recipes) {
             if (craftable.items.Contains(drop1) & craftable.items.Contains(drop2)) {
