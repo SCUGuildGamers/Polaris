@@ -10,6 +10,5 @@ public class Craftable : ScriptableObject
     public Sprite icon;
 
 
-    public Drop item1;
-    public Drop item2;
+    public List<Drop> items;
 }

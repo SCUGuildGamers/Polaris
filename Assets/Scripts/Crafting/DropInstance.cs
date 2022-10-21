@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class DropInstance : MonoBehaviour
 {
-    public Drop dropType;
+    public Drop DropType;
 
     private void Start()
     {
         SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-        spriteRenderer.sprite = dropType.icon;
+        spriteRenderer.sprite = DropType.icon;
     }
 }
