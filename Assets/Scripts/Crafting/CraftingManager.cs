@@ -8,6 +8,7 @@ public class CraftingManager : MonoBehaviour
     private Item _item;
 
     public CraftingBible bible;
+    public PartInstance partInstance;
 
     private void Start() {
         _part = null;
@@ -47,5 +48,12 @@ public class CraftingManager : MonoBehaviour
                 return;
             }
         }   
+    }
+
+    // Debugging script for random part spawning
+    private void Update() {
+        if (Input.GetKeyDown("u")) {
+            partInstance.Spawn(transform.position);
+        }
     }
 }
