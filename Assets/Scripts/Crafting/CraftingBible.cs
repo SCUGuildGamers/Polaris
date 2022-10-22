@@ -5,5 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "CraftingBible")]
 public class CraftingBible : ScriptableObject
 {
-    public List<Craftable> recipes;
+    public List<Item> recipes;
 }

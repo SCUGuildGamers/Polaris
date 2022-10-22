@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Drop")]
-public class Drop : ScriptableObject
+[CreateAssetMenu(menuName = "Item")]
+public class Item : ScriptableObject
 {
-    public string id;
     public string displayName;
     public Sprite icon;
+
+
+    public List<Part> parts;
 }

@@ -4,44 +4,47 @@ using UnityEngine;
 
 public class CraftingManager : MonoBehaviour
 {
-    private Drop _drop;
-    private Craftable _item;
+    private Part _part;
+    private Item _item;
 
     public CraftingBible bible;
 
     private void Start() {
-        _drop = null;
+        _part = null;
         _item = null;
     }    
 
-    // Checks if the collided object is a drop, if so, then it handles the drop pickup
+    // Checks if the collided object is a part, if so, then it calls a function to handle the part pickup
     private void OnTriggerEnter2D(Collider2D collider) {
-        DropInstance dropInstance = collider.gameObject.GetComponent<DropInstance>();
-        if (dropInstance) {
-            PickupDrop(dropInstance.DropType);
+        PartInstance partInstance = collider.gameObject.GetComponent<PartInstance>();
+        if (partInstance) {
+            PickupDrop(partInstance.PartType);
         }
     }
 
-    // Handles logic when the player picks up a drop
-    private void PickupDrop(Drop drop) {
+    // Handles logic when the player picks up a part
+    private void PickupDrop(Part part) {
         // Player not holding item
         if (!_item) {
-            Debug.Log(drop.displayName + " was picked up.");
-            // Player not holding drop
-            if (!_drop)
-                _drop = drop;
+            Debug.Log(part.displayName + " was picked up.");
+            // Player not holding part
+            if (!_part)
+                _part = part;
             // Player crafting
             else
-                CraftingHandler(_drop, drop);
+                CraftingHandler(_part, part);
         }
     }
 
-    // Handles crafting logic; bug when the same drop is used to create an item
-    private void CraftingHandler(Drop drop1, Drop drop2) {
-        foreach (Craftable craftable in bible.recipes) {
-            if (craftable.items.Contains(drop1) & craftable.items.Contains(drop2)) {
-                _item = craftable;
-                Debug.Log(craftable.displayName + " was crafted.");
+    // Handles crafting logic
+    private void CraftingHandler(Part part1, Part part2) {
+        foreach (Item item in bible.recipes) {
+            // Checks for the correct combination of materials
+            if ((item.parts[0] == part1 & item.parts[1] == part2) || (item.parts[1] == part1 & item.parts[0] == part2)) {
+                _part = null;
+                _item = item;
+                Debug.Log(item.displayName + " was crafted.");
+                return;
             }
         }   
     }

@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DropInstance : MonoBehaviour
+public class PartInstance : MonoBehaviour
 {
-    public Drop DropType;
+    public Part PartType;
 
     private void Start()
     {
         SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-        spriteRenderer.sprite = DropType.icon;
+        spriteRenderer.sprite = PartType.icon;
     }
 }
