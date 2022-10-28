@@ -41,7 +41,7 @@ public class InteractableTransition : MonoBehaviour
             _indicatorCopy.GetComponent<Renderer>().enabled = true;
             if (Input.GetKeyDown(KeyCode.Space) && !_dialogueManager.InDialogue)
             {
-                if (!_eventManager.NetCompleted())
+                if (!_eventManager.GetEvent("ConstructedNet"))
                 {
                     _dialogueManager.StartDialogue(Dialogue);
                 } else {

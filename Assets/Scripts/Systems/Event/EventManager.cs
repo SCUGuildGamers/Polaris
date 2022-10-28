@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class EventManager : MonoBehaviour
 {
-    public string[] flag_keys = new string[] { "Net", "Stick", "Loop", "ConstructedNet" };
+    public List<string> flag_keys = new List<string> { "Net", "Stick", "Loop", "ConstructedNet" };
 
     private Dictionary<string, bool> _flags;
 
@@ -27,17 +27,13 @@ public class EventManager : MonoBehaviour
     // Parses the string flag and updates the _flags dictionary appropriately
     public void ProcessFlag(string flag)
     {
-        if (flag == "gotNet")
-            _flags["Net"] = true;
+        if (flag_keys.Contains(flag)) {
+            _flags[flag] = true;
+            ShowFlags(); // Debug
+        }
 
-        else if (flag == "gotStick")
-            _flags["Stick"] = true;
-
-        else if (flag == "gotLoop")
-            _flags["Loop"] = true;
-
-        // Debug statement to check the current value of all flags
-        ShowFlags();
+        else 
+            throw new KeyNotFoundException("Event key not found");
     }
 
     // Internally reviews the current state of the flags to check for any special cases
@@ -58,8 +54,11 @@ public class EventManager : MonoBehaviour
             Debug.Log(key + ", " + _flags[key]);
     }
 
-    public bool NetCompleted()
+    // Returns the boolean for the event
+    public bool GetEvent(string flag)
     {
-        return _flags["ConstructedNet"];
+        if (flag_keys.Contains(flag))
+            return _flags[flag];
+        throw new KeyNotFoundException("Event key not found");
     }
 }
