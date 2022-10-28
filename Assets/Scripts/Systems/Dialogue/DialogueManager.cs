@@ -69,7 +69,7 @@ public class DialogueManager : MonoBehaviour
             // Calls the ProcessFlag function to let the EventManager handle any special flags/events
             if (Dialogue.flag != "")
             {
-                _eventManager.ProcessFlag(Dialogue.flag);
+                _eventManager.UpdateFlag(Dialogue.flag);
             }
         }
         
@@ -123,7 +123,7 @@ public class DialogueManager : MonoBehaviour
         InDialogue = value;
 
         // Performs the internal update delayed in case any dialogue needs to be played after
-        _eventManager.InternalUpdate();
+        _eventManager.InternalEventUpdate();
     }
 
     // Clears the dialogue box
