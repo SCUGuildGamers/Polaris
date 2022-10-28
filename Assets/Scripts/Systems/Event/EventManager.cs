@@ -25,11 +25,11 @@ public class EventManager : MonoBehaviour
     }
 
     // Parses the string flag and updates the _flags dictionary appropriately
-    public void ProcessFlag(string flag)
+    public void UpdateFlag(string flag)
     {
         if (flag_keys.Contains(flag)) {
             _flags[flag] = true;
-            ShowFlags(); // Debug
+            PrintFlags(); // Debug
         }
 
         else 
@@ -37,7 +37,7 @@ public class EventManager : MonoBehaviour
     }
 
     // Internally reviews the current state of the flags to check for any special cases
-    public void InternalUpdate()
+    public void InternalEventUpdate()
     {
         // Constructed Net case
         if (_flags["Net"] && _flags["Stick"] && _flags["Loop"] && !_flags["ConstructedNet"])
@@ -48,7 +48,7 @@ public class EventManager : MonoBehaviour
     }
 
     // Helper function to debug and check the current value of all flags
-    private void ShowFlags()
+    private void PrintFlags()
     {
         foreach (string key in flag_keys)
             Debug.Log(key + ", " + _flags[key]);
