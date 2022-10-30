@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class EventManager : MonoBehaviour
 {
-    public string[] flag_keys = new string[] { "Net", "Stick", "Loop", "ConstructedNet" };
+    public string[] flag_keys = new string[] { "Net", "Stick", "Loop", "ConstructedNet", "Test choice 1", "Test choice 2" };
 
     private Dictionary<string, bool> _flags;
 
@@ -35,8 +35,10 @@ public class EventManager : MonoBehaviour
 
         else if (flag == "gotLoop")
             _flags["Loop"] = true;
+    }
 
-        // Debug statement to check the current value of all flags
+    public void ProcessChoice(string flag){
+        _flags[flag] = true;
         ShowFlags();
     }
 
@@ -56,6 +58,12 @@ public class EventManager : MonoBehaviour
     {
         foreach (string key in flag_keys)
             Debug.Log(key + ", " + _flags[key]);
+    }
+
+    public bool FlagValue(string flag){
+        ShowFlags();
+
+        return _flags[flag];
     }
 
     public bool NetCompleted()
