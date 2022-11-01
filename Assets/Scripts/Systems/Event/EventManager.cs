@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class EventManager : MonoBehaviour
 {
-    public List<string> flag_keys = new List<string> { "Net", "Stick", "Loop", "ConstructedNet" };
+    public string[] flag_keys = new string[] { "Net", "Stick", "Loop", "ConstructedNet", "Test choice 1", "Test choice 2" };
 
     private Dictionary<string, bool> _flags;
 
@@ -25,19 +25,26 @@ public class EventManager : MonoBehaviour
     }
 
     // Parses the string flag and updates the _flags dictionary appropriately
-    public void UpdateFlag(string flag)
+    public void ProcessFlag(string flag)
     {
-        if (flag_keys.Contains(flag)) {
-            _flags[flag] = true;
-            PrintFlags(); // Debug
-        }
+        if (flag == "gotNet")
+            _flags["Net"] = true;
 
-        else 
-            throw new KeyNotFoundException("Event key not found");
+        else if (flag == "gotStick")
+            _flags["Stick"] = true;
+
+        else if (flag == "gotLoop")
+            _flags["Loop"] = true;
+    }
+
+    public void ProcessChoice(string flag)
+    {
+        _flags[flag] = true;
+        ShowFlags();
     }
 
     // Internally reviews the current state of the flags to check for any special cases
-    public void InternalEventUpdate()
+    public void InternalUpdate()
     {
         // Constructed Net case
         if (_flags["Net"] && _flags["Stick"] && _flags["Loop"] && !_flags["ConstructedNet"])
@@ -48,17 +55,20 @@ public class EventManager : MonoBehaviour
     }
 
     // Helper function to debug and check the current value of all flags
-    private void PrintFlags()
+    private void ShowFlags()
     {
         foreach (string key in flag_keys)
             Debug.Log(key + ", " + _flags[key]);
     }
 
-    // Returns the boolean for the event
-    public bool GetEvent(string flag)
+    public bool FlagValue(string flag)
     {
-        if (flag_keys.Contains(flag))
-            return _flags[flag];
-        throw new KeyNotFoundException("Event key not found");
+        ShowFlags();
+
+        return _flags[flag];
+    }
+    public bool NetCompleted()
+    {
+        return _flags["ConstructedNet"];
     }
 }

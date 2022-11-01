@@ -14,6 +14,12 @@ public class Dialogue : ScriptableObject
 
         [TextArea(3,10)]
         public string line;
+
+        public string [] choices;
+
+        public string [] flags;
+
+        public string [] prerequisites;
     }
 
     public List<DialogueLine> lines;
