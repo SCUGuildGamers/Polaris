@@ -2,25 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Interactable : MonoBehaviour
+public abstract class Interactable : MonoBehaviour
 {
-    // Dialogue field to hold the dialogue that the interactable can say
-    public Dialogue Dialogue;
-
     // Holds the object for the indicator
     public Transform Indicator;
-    private Transform _indicatorCopy;
+    protected Transform _indicatorCopy;
     
     // Interact range of player
     private float _interactRange = 1.5f; // Max distance player can be from the interactable to still interact
 
     // Reference for the DialogueManager object
-    private DialogueManager _dialogueManager;
+    protected DialogueManager _dialogueManager;
 
     // Reference for the PlayerMovement object to get its position
-    private PlayerMovement _player;
-    
-    void Start()
+    protected PlayerMovement _player;
+
+    protected void Start()
     {
         _dialogueManager = FindObjectOfType<DialogueManager>();
         _player = FindObjectOfType<PlayerMovement>();
@@ -31,21 +28,24 @@ public class Interactable : MonoBehaviour
         _indicatorCopy.GetComponent<Renderer>().enabled = false;
     }
 
-    void Update()
+    protected void Update()
     {
         if(IsInteractable()){
             _indicatorCopy.GetComponent<Renderer>().enabled = true;
             if (Input.GetKeyUp(KeyCode.Space) && !_dialogueManager.InDialogue)
             {
-                _dialogueManager.StartDialogue(Dialogue);
+                OnInteract();
             }
         } else {
             _indicatorCopy.GetComponent<Renderer>().enabled = false;
         }
     }
 
+    // Placeholder for superclass implementation
+    protected abstract void OnInteract();
+
     // Determines whether or not the player is in range of the interactable
-    private bool IsInteractable(){
+    protected bool IsInteractable(){
         if (Vector3.Distance(transform.position, _player.transform.position) <= _interactRange){
             return true;
         }
