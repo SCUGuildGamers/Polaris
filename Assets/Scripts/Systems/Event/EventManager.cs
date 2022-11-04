@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class EventManager : MonoBehaviour
 {
-    public string[] flag_keys = new string[] { "Net", "Stick", "Loop", "ConstructedNet", "Test choice 1", "Test choice 2" };
+    private string[] flag_keys = new string[] { "Net", "Stick", "Loop", "ConstructedNet", "Test choice 1", "Test choice 2", "boss1beat", "boss2beat" };
 
     private Dictionary<string, bool> _flags;
 
@@ -67,6 +67,7 @@ public class EventManager : MonoBehaviour
 
         return _flags[flag];
     }
+
     public bool NetCompleted()
     {
         return _flags["ConstructedNet"];

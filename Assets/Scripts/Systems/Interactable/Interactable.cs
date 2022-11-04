@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Interactable : MonoBehaviour
+public class Interactable : MonoBehaviour
 {
     // Holds the object for the indicator
     public Transform Indicator;
-    protected Transform _indicatorCopy;
-    
+    private Transform _indicatorCopy;
+
     // Interact range of player
     private float _interactRange = 1.5f; // Max distance player can be from the interactable to still interact
 
@@ -15,7 +15,7 @@ public abstract class Interactable : MonoBehaviour
     protected DialogueManager _dialogueManager;
 
     // Reference for the PlayerMovement object to get its position
-    protected PlayerMovement _player;
+    private PlayerMovement _player;
 
     protected void Start()
     {
@@ -26,7 +26,11 @@ public abstract class Interactable : MonoBehaviour
         _indicatorCopy = Instantiate(Indicator);
         _indicatorCopy.position = transform.position + new Vector3(0,1.6f,0);
         _indicatorCopy.GetComponent<Renderer>().enabled = false;
+
+        OnStart();
     }
+
+    protected virtual void OnStart() { }
 
     protected void Update()
     {
@@ -42,7 +46,7 @@ public abstract class Interactable : MonoBehaviour
     }
 
     // Placeholder for superclass implementation
-    protected abstract void OnInteract();
+    protected virtual void OnInteract() { }
 
     // Determines whether or not the player is in range of the interactable
     protected bool IsInteractable(){
