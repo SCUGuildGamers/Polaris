@@ -10,43 +10,48 @@ public class BossController : MonoBehaviour
 
     public Transform PlasticBoss;
     public Transform Player;
+	
+	public static bool GameIsPaused;
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Plastic.Spawn(transform.position);
-        }
+		if(GameIsPaused == false)
+		{
+			if (Input.GetKeyDown(KeyCode.R))
+			{
+				Plastic.Spawn(transform.position);
+			}
 
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            TurtleAttack();
-        }
+			if (Input.GetKeyDown(KeyCode.T))
+			{
+				TurtleAttack();
+			}
 
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            UrchinAttack();
-        }
+			if (Input.GetKeyDown(KeyCode.U))
+			{
+				UrchinAttack();
+			}
 
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            FanAttack(1.4f,10,5);
-        }
+			if (Input.GetKeyDown(KeyCode.H))
+			{
+				FanAttack(1.4f,10,5);
+			}
 
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            SweepRightLayered();
-        }
+			if (Input.GetKeyDown(KeyCode.J))
+			{
+				SweepRightLayered();
+			}
 
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            SweepLeftLayered();
-        }
+			if (Input.GetKeyDown(KeyCode.K))
+			{
+				SweepLeftLayered();
+			}
 
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            PincerAttack();
-        }
+			if (Input.GetKeyDown(KeyCode.L))
+			{
+				PincerAttack();
+			}
+		}	
     }
 
     // Performs a single sweep left projectile attack with a sec delay between each wave adjusted by a xOffset and yOffset

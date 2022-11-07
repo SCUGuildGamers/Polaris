@@ -11,13 +11,7 @@ public class PauseMenu : MonoBehaviour
 	void Update (){
 		if(Input.GetKeyDown(KeyCode.Escape))
 		{
-			if (GameIsPaused)
-			{
-				Resume();
-			}else
-			{
-				Pause();
-			}
+			Pause();
 		}
 	}
 	
@@ -35,6 +29,7 @@ public class PauseMenu : MonoBehaviour
 	
 	public void LoadMenu()
 	{
+		Resume();
 		SceneManager.LoadScene("TitleProduction");
 	}
 	
