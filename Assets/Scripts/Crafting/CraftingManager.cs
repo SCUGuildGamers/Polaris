@@ -9,6 +9,7 @@ public class CraftingManager : MonoBehaviour
 
     public CraftingBible bible;
     public PartInstance partInstance;
+    public ItemInstance ItemInstance;
 
     private void Start() {
         _part = null;
@@ -54,6 +55,10 @@ public class CraftingManager : MonoBehaviour
     private void Update() {
         if (Input.GetKeyDown("u")) {
             partInstance.Spawn(transform.position);
+        }
+
+        if (Input.GetKeyDown("i")) {
+            ItemInstance.Spawn(bible.recipes[0]);
         }
     }
 }
