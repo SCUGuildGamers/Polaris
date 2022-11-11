@@ -19,6 +19,7 @@ public class TurtleController : MonoBehaviour
 
     private void Start()
     {
+        transform.position = Boss.transform.position;
         _targetPosition = Player.position;
         _rotationSpeed = Random.Range(MinRotationSpeed, MaxRotationSpeed);
         _movementSpeed = Random.Range(MinMovementSpeed, MaxMovementSpeed);
