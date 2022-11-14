@@ -44,6 +44,8 @@ public class BossHealth : MonoBehaviour
         Debug.Log("The boss has been killed.");
         //GetComponent<Animator>().SetBool("isBossDead", true);
         GetComponent<Explodable>().explode();
+        ExplosionForce ef = GameObject.FindObjectOfType<ExplosionForce>();
+        ef.doExplosion(transform.position);
     }
 
     void OnMouseDown()
