@@ -35,14 +35,24 @@ public class BossHealth : MonoBehaviour
 
         if (Health <= 0)
             Die();
+
+        
     }
 
     private void Die()
     {
         Debug.Log("The boss has been killed.");
-        GetComponent<Animator>().SetBool("isBossDead", true);
+        //GetComponent<Animator>().SetBool("isBossDead", true);
+        GetComponent<Explodable>().explode();
+        ExplosionForce ef = GameObject.FindObjectOfType<ExplosionForce>();
+        ef.doExplosion(transform.position);
     }
 
+    void OnMouseDown()
+    {
+        ReduceHealth(25);
+    }
+    
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.gameObject.name == "ProjectileInstance(Clone)")
