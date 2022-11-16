@@ -13,6 +13,14 @@ public class PlayerMovement : MonoBehaviour
 
 	public float HorizontalSpeed = 10f;
 	public float VerticalSpeed = 10f;
+	
+	// Dashing vairables
+	public bool canDash = true;
+	public bool isDashing;
+	public float dashingPower = 50f;
+	public float dashingTime = 0.2f;
+	public float dashCooldown = 0.1f;
+	Vector3 worldPosition;
 
 	void Start()
 	{
@@ -21,8 +29,19 @@ public class PlayerMovement : MonoBehaviour
 
 	void FixedUpdate()
 	{
+		// Stops all other actions while dashing is occuring
+		while (isDashing) return;
+		// Initiates dashing
+		if ((Input.GetMouseButtonDown(0) && canDash))
+		{
+			StartCoroutine(Dash());
+			Debug.Log("Dashing!");
+		}
 		// Move our character
-		Move();
+		else
+		{
+			Move();
+		}
 	}
 
 	void Move()
@@ -33,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
 			rb.velocity = new Vector2(0, 0);
 			return;
 		}
-			
+		
 		float horizontalDirection = Input.GetAxis("Horizontal");
 
 		// Controls whether or not the player can do underwater movement or not
@@ -68,5 +87,25 @@ public class PlayerMovement : MonoBehaviour
 		Vector3 theScale = transform.localScale;
 		theScale.x *= -1;
 		transform.localScale = theScale;
+	}
+	
+	private IEnumerator Dash()
+	{
+		canDash = false;
+		isDashing = true;
+		
+		Vector3 mousePosition = Input.mousePosition;
+		worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+		
+		var dashDirection = worldPosition - PlayerPlaceholder.position;
+		var distance = dashDirection.magnitutude;
+		var direction = dashDirection / distance;
+		yield return new WaitForSeconds(dashingTime);
+		
+		
+		isDashing = false;
+		yield return new WaitForSeconds(dashCooldown);
+		canDash = true;
+		Debug.Log("Dashing part 2");
 	}
 }
