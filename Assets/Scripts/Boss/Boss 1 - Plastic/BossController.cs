@@ -10,12 +10,11 @@ public class BossController : MonoBehaviour
 
     public Transform PlasticBoss;
     public Transform Player;
-	
-	public static bool GameIsPaused;
+
 
     void Update()
     {
-		if(GameIsPaused == false)
+		if(PauseMenu.GameIsPaused == false)
 		{
 			if (Input.GetKeyDown(KeyCode.R))
 			{
@@ -50,8 +49,8 @@ public class BossController : MonoBehaviour
 			if (Input.GetKeyDown(KeyCode.L))
 			{
 				PincerAttack();
-			}
-		}	
+			}	
+		}
     }
 
     // Performs a single sweep left projectile attack with a sec delay between each wave adjusted by a xOffset and yOffset
