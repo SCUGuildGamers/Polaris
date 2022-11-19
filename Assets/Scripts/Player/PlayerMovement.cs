@@ -15,31 +15,33 @@ public class PlayerMovement : MonoBehaviour
 	public float VerticalSpeed = 10f;
 	
 	// Dashing vairables
-	public bool canDash = true;
-	public bool isDashing;
+	[Header("Dash Variables")]
+	public static bool canDash = false;
+	public bool isDashing = false;
 	public float dashingPower = 50f;
 	public float dashingTime = 0.2f;
 	public float dashCooldown = 0.1f;
-	Vector3 worldPosition;
+	//public float iFrameTime = 0.3f;
+
 
 	void Start()
 	{
 		rb = GetComponent<Rigidbody2D>();
 	}
 
+	void Update()
+	{
+		if ((Input.GetMouseButtonDown(0) && canDash))
+			{
+				StartCoroutine(Dash());
+			}
+	}
 	void FixedUpdate()
 	{
 		// Stops all other actions while dashing is occuring
-		while (isDashing) return;
-		// Initiates dashing
-		if ((Input.GetMouseButtonDown(0) && canDash))
+		if (isDashing == false)
 		{
-			StartCoroutine(Dash());
-			Debug.Log("Dashing!");
-		}
 		// Move our character
-		else
-		{
 			Move();
 		}
 	}
@@ -93,19 +95,35 @@ public class PlayerMovement : MonoBehaviour
 	{
 		canDash = false;
 		isDashing = true;
-		
-		Vector3 mousePosition = Input.mousePosition;
-		worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-		
-		var dashDirection = worldPosition - PlayerPlaceholder.position;
-		var distance = dashDirection.magnitutude;
-		var direction = dashDirection / distance;
+
+		// I-Frame Activation
+		Physics2D.IgnoreLayerCollision(6,7,true);
+
+		// Direction of dash is the unit vector of mouse position - rigidbody position
+		Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		mousePos.z = transform.position.z;
+		var dashDirection = mousePos - transform.position;
+
+		// Copied Flip instructions but with x value of dashDirection
+		if (dashDirection.x > 0 && !_facingRight)
+		{
+			Flip();
+		}
+		else if (dashDirection.x < 0 && _facingRight)
+		{
+			Flip();
+		}
+
+		// Dash initiated
+		rb.velocity = new Vector2(dashDirection.normalized.x * dashingPower, dashDirection.normalized.y * dashingPower);
 		yield return new WaitForSeconds(dashingTime);
 		
-		
+		//I-Frame deactivaton and reset variables
 		isDashing = false;
+		Physics2D.IgnoreLayerCollision(6,7,false);
+
+		// Below dashCooldown may not be necessary depending on what is necessary for crafting system
 		yield return new WaitForSeconds(dashCooldown);
-		canDash = true;
-		Debug.Log("Dashing part 2");
+		// Debugging code:     canDash = true;
 	}
 }
