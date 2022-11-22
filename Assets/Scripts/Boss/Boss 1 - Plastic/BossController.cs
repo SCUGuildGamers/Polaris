@@ -14,7 +14,7 @@ public class BossController : MonoBehaviour
 
     void Update()
     {
-		if(PauseMenu.GameIsPaused == false)
+		if(!PauseMenu.GameIsPaused)
 		{
 			if (Input.GetKeyDown(KeyCode.R))
 			{
@@ -49,7 +49,7 @@ public class BossController : MonoBehaviour
 			if (Input.GetKeyDown(KeyCode.L))
 			{
 				PincerAttack();
-			}	
+			}
 		}
     }
 
@@ -59,7 +59,7 @@ public class BossController : MonoBehaviour
         float index = 0;
         for (int i = 5; i < 5 + numWaves; i++)
         {
-            yield return new WaitForSecondsRealtime(sec);
+            yield return new WaitForSeconds(sec);
             index += Time.deltaTime;
             Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(xOffset - (int)(i * 6 * Mathf.Cos(index) - 40), yOffset, 0), 3, 0);
         }
@@ -86,7 +86,7 @@ public class BossController : MonoBehaviour
         float index = 0;
         for (int i = 5; i < 5 + numWaves; i++)
         {
-            yield return new WaitForSecondsRealtime(sec);
+            yield return new WaitForSeconds(sec);
             index += Time.deltaTime;
             Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(xOffset + (int)(i * 6 * Mathf.Cos(index) - 40),yOffset,0),3,0);
         }
@@ -117,7 +117,7 @@ public class BossController : MonoBehaviour
         for (int i = 0; i < numWaves; i++)
         {
             // Alternates between shooting three projectiles and two projectiles at a time
-            yield return new WaitForSecondsRealtime(sec);
+            yield return new WaitForSeconds(sec);
             if (i % 2 == 0)
             {
                 // Generates the xOffset to achieve the fan effect
@@ -157,7 +157,7 @@ public class BossController : MonoBehaviour
 
         for (int i = 0; i < 10; i++)
         {
-            yield return new WaitForSecondsRealtime(sec);
+            yield return new WaitForSeconds(sec);
             Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x, y1, 0), 1, 0.01f);
             Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x, y2, 0), 1, 0.002f);
             Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x, y3, 0), 1, 0.0005f);

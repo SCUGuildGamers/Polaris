@@ -46,12 +46,12 @@ public class Plastic : MonoBehaviour
 
             // Duration of object increases only if game is not paused
             _duration++;
-            
+
             // Destroys the projectile when it is past its life span (and ensures the base projectile is not destroyed)
             if (_duration > _lifeSpan && IsCopy)
             {
                 Destroy(gameObject);
-            }    
+            }
 		}
     }
 
@@ -75,7 +75,7 @@ public class Plastic : MonoBehaviour
         {
             MakePickup(plasticObjCopy);
         }
-            
+
         return plasticObjCopy;
     }
 
