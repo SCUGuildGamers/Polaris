@@ -27,26 +27,26 @@ public class TurtleController : MonoBehaviour
 
     void Update()
     {
-        // Checks when the turtle is close to its target
-        if (Vector3.Distance(transform.position, _targetPosition) < 0.3f)
-        {
-            // Checks if the turtle has finished its attack
-            if (_targetPosition == Boss.position)
-            {
-                Destroy(gameObject);
-            }
+          // Checks when the turtle is close to its target
+          if (Vector3.Distance(transform.position, _targetPosition) < 0.3f)
+          {
+              // Checks if the turtle has finished its attack
+              if (_targetPosition == Boss.position)
+              {
+                  Destroy(gameObject);
+              }
 
-            // Sets the turtle's target back to the plastic boss to create boomerang effect
-            _targetPosition = Boss.position;
+              // Sets the turtle's target back to the plastic boss to create boomerang effect
+              _targetPosition = Boss.position;
 
-        }
+          }
 
-        // Logic for parabolic movement
-        Vector3 v3 = _targetPosition - transform.position;
-        float angle = Mathf.Atan2(v3.y, v3.x) * Mathf.Rad2Deg;
-        _qTo = Quaternion.AngleAxis(angle, Vector3.forward);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, _qTo, _rotationSpeed * Time.deltaTime);
-        transform.Translate(Vector3.right * _movementSpeed * Time.deltaTime);
+          // Logic for parabolic movement
+          Vector3 v3 = _targetPosition - transform.position;
+          float angle = Mathf.Atan2(v3.y, v3.x) * Mathf.Rad2Deg;
+          _qTo = Quaternion.AngleAxis(angle, Vector3.forward);
+          transform.rotation = Quaternion.RotateTowards(transform.rotation, _qTo, _rotationSpeed * Time.deltaTime);
+          transform.Translate(Vector3.right * _movementSpeed * Time.deltaTime);
     }
 
     public void Spawn(float minMovementSpeed, float maxMovementSpeed)

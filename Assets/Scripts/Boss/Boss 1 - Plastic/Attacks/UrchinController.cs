@@ -29,13 +29,16 @@ public class UrchinController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Checks when the turtle is close to its target
-        if (Vector3.Distance(Urchin.position, _targetPosition) < 0.05f)
+        if(!PauseMenu.GameIsPaused)
         {
-            StartCoroutine(Explode());
-        }
+        // Checks when the turtle is close to its target
+          if (Vector3.Distance(Urchin.position, _targetPosition) < 0.05f)
+          {
+              StartCoroutine(Explode());
+          }
 
-        Urchin.position = Vector3.MoveTowards(Urchin.position, _targetPosition, 0.01f);
+          Urchin.position = Vector3.MoveTowards(Urchin.position, _targetPosition, 0.01f);
+        }
     }
 
     private IEnumerator Explode()
