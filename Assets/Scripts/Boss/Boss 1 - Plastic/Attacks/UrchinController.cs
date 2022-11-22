@@ -1,4 +1,4 @@
-    using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,7 +22,8 @@ public class UrchinController : MonoBehaviour
     private void Start()
     {
         // Determines the target position based on the current position of the player
-        _targetPosition = Player.position;
+        transform.position = PlasticBoss.transform.position;
+        // _targetPosition = Player.position;
     }
 
     // Update is called once per frame
@@ -76,11 +77,12 @@ public class UrchinController : MonoBehaviour
         return pos;
     }
 
-    public void Spawn(int numPlasticSpawn)
+    public void Spawn(int numPlasticSpawn, Vector3 targetPosition)
     {
         GameObject urchinCopy = Instantiate(gameObject);
         urchinCopy.SetActive(true);
         UrchinController urchinObjCopy = urchinCopy.GetComponent<UrchinController>();
         urchinObjCopy.NumPlasticSpawn = numPlasticSpawn;
+        urchinObjCopy._targetPosition = targetPosition;
     }
 }

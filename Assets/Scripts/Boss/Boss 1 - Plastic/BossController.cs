@@ -61,7 +61,7 @@ public class BossController : MonoBehaviour
         {
             yield return new WaitForSeconds(sec);
             index += Time.deltaTime;
-            Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(xOffset - (int)(i * 6 * Mathf.Cos(index) - 40), yOffset, 0), 3, 0);
+            Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(xOffset, yOffset - (int)(i * 6 * Mathf.Cos(index) - 40), 0), 3, 0);
         }
     }
 
@@ -73,10 +73,10 @@ public class BossController : MonoBehaviour
         for (int i = split; i >= -split; i--)
         {
             if (i == split || i == -split)
-                StartCoroutine(SweepLeft(i * 15, -10, 1.2f, 5));
+                StartCoroutine(SweepLeft(-10, i * 15, 1.2f, 5));
 
             else
-                StartCoroutine(SweepLeft(i * 15, -20, 1.2f, 5));
+                StartCoroutine(SweepLeft(-20, i * 15, 1.2f, 5));
         }
     }
 
@@ -88,7 +88,7 @@ public class BossController : MonoBehaviour
         {
             yield return new WaitForSeconds(sec);
             index += Time.deltaTime;
-            Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(xOffset + (int)(i * 6 * Mathf.Cos(index) - 40),yOffset,0),3,0);
+            Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(xOffset, yOffset + (int)(i * 6 * Mathf.Cos(index) - 40),0),3,0);
         }
     }
 
@@ -100,10 +100,10 @@ public class BossController : MonoBehaviour
         for (int i = split; i >= -split; i--)
         {
             if (i == split||i == -split)
-                StartCoroutine(SweepRight(i*15, -10, 1.2f, 5));
+                StartCoroutine(SweepRight(-10, i*15, 1.2f, 5));
 
             else
-                StartCoroutine(SweepRight(i * 15, -20, 1.2f, 5));
+                StartCoroutine(SweepRight(-20, i * 15, 1.2f, 5));
         }
     }
 
@@ -124,7 +124,7 @@ public class BossController : MonoBehaviour
                 int split = numProjectiles / 2;
                 for (int j = split; j >= -split; j--)
                 {
-                    Plastic.Spawn(PlasticBoss.position, target + new Vector3(j*15, 0, 0), 3, 0);
+                    Plastic.Spawn(PlasticBoss.position, target + new Vector3(0, j*15, 0), 3, 0);
                 }
             }
             else
@@ -135,7 +135,7 @@ public class BossController : MonoBehaviour
                 {
                     // Ignore the middle spawn
                     if (j != 0)
-                        Plastic.Spawn(PlasticBoss.position, target + new Vector3(j * 6, 0, 0), 3, 0);
+                        Plastic.Spawn(PlasticBoss.position, target + new Vector3(0, j * 6, 0), 3, 0);
                 }
             }
         }
@@ -150,10 +150,10 @@ public class BossController : MonoBehaviour
     // Performs the pincer pattern projectile attack with a sec delay between each wave
     private IEnumerator Pincer(float sec, int numWaves)
     {
-        int x = (int)PlasticBoss.position.x;
-        int y1 = (int)PlasticBoss.position.y - 5;
-        int y2 = (int)PlasticBoss.position.y - 7;
-        int y3 = (int)PlasticBoss.position.y - 10;
+        int y = (int)PlasticBoss.position.y;
+        int x1 = (int)PlasticBoss.position.x - 5;
+        int x2 = (int)PlasticBoss.position.x - 7;
+        int x3 = (int)PlasticBoss.position.x - 10;
 
         for (int i = 0; i < 10; i++)
         {
@@ -182,6 +182,28 @@ public class BossController : MonoBehaviour
     // Summons the urchin spawn boss attack that shoots out numPlasticSpawn projectiles
     public void UrchinAttack(int numPlasticSpawn = 9)
     {
-        Urchin.Spawn(numPlasticSpawn);
+        Urchin.Spawn(numPlasticSpawn, Player.position);
+    }
+
+    public void cluster(){
+        Plastic.Spawn(PlasticBoss.position, Player.position, 3, 0.1f);
+        Plastic.Spawn(PlasticBoss.position, Player.position + new Vector3 (0, .5f, 0), 3, 0.1f);
+        Plastic.Spawn(PlasticBoss.position, Player.position + new Vector3 (0, 1f, 0), 3, 0.1f);
+        Plastic.Spawn(PlasticBoss.position, Player.position + new Vector3 (0, 1.5f, 0), 3, 0.1f);
+        Plastic.Spawn(PlasticBoss.position, Player.position + new Vector3 (0, -.5f, 0), 3, 0.1f);
+        Plastic.Spawn(PlasticBoss.position, Player.position + new Vector3 (0, -1f, 0), 3, 0.1f);
+        Plastic.Spawn(PlasticBoss.position, Player.position + new Vector3 (0, -1.5f, 0), 3, 0.1f);
+    }
+
+    public void Minefield(int num, float sec){
+        StartCoroutine(PlantMines(num, sec));
+    }
+
+    private IEnumerator PlantMines(int num, float sec){
+        for (int i = 0; i < num; i++){
+            yield return new WaitForSecondsRealtime(sec);
+            Urchin.Spawn(12, PlasticBoss.position + new Vector3(-5 * (i + 1), 4, 0));
+            Urchin.Spawn(12, PlasticBoss.position + new Vector3(-5 * (i + 1), -4, 0));
+        }
     }
 }

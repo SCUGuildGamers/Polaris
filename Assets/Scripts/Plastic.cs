@@ -11,6 +11,7 @@ public class Plastic : MonoBehaviour
     private int _pickupChance = 10;
 
     private Vector3 _targetPosition;
+    private Vector3 _targetDirection;
 
     // _speed determines how fast the projectile moves
     private float _delta;
@@ -60,12 +61,14 @@ public class Plastic : MonoBehaviour
     {
         GameObject plasticCopy = Instantiate(gameObject);
 
+        plasticCopy.gameObject.SetActive(true);
         Plastic plasticObjCopy = plasticCopy.GetComponent<Plastic>();
         plasticObjCopy.IsCopy = true;
         plasticObjCopy.GetComponent<Transform>().position = spawnPosition;
         plasticObjCopy.GetComponent<SpriteRenderer>().enabled = true;
 
         plasticObjCopy._targetPosition = targetPosition;
+        plasticObjCopy._targetDirection = (targetPosition - spawnPosition).normalized;
         plasticObjCopy._movementMode = movementMode;
         plasticObjCopy._delta = delta;
 
@@ -100,21 +103,21 @@ public class Plastic : MonoBehaviour
     // Moves the projectile clockwise
     private void LoopClockwise()
     {
-        transform.RotateAround(_targetPosition, new Vector3(0, 0, 1), 0.03f);
-        _targetPosition.x += _delta;
+        transform.RotateAround(_targetPosition, new Vector3(0, 0, -1), 0.03f);
+        _targetPosition.y += _delta;
     }
 
     // Moves the projectile counter clockwise
     private void LoopCounterClockwise()
     {
-        transform.RotateAround(_targetPosition, new Vector3(0, 0, -1), 0.03f);
-        _targetPosition.x -= _delta;
+        transform.RotateAround(_targetPosition, new Vector3(0, 0, 1), 0.03f);
+        _targetPosition.y -= _delta;
     }
 
     // Moves the projectile forward
     private void StraightLine()
     {
-        transform.position += (_targetPosition - transform.position).normalized * _speed;
+        transform.position += _targetDirection * _speed;
     }
 
     // Moves the projectile towards the target given by targetPosition

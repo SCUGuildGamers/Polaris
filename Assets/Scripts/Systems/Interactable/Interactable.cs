@@ -4,23 +4,20 @@ using UnityEngine;
 
 public class Interactable : MonoBehaviour
 {
-    // Dialogue field to hold the dialogue that the interactable can say
-    public Dialogue Dialogue;
-
     // Holds the object for the indicator
     public Transform Indicator;
     private Transform _indicatorCopy;
-    
+
     // Interact range of player
     private float _interactRange = 1.5f; // Max distance player can be from the interactable to still interact
 
     // Reference for the DialogueManager object
-    private DialogueManager _dialogueManager;
+    protected DialogueManager _dialogueManager;
 
     // Reference for the PlayerMovement object to get its position
     private PlayerMovement _player;
-    
-    void Start()
+
+    protected void Start()
     {
         _dialogueManager = FindObjectOfType<DialogueManager>();
         _player = FindObjectOfType<PlayerMovement>();
@@ -29,23 +26,30 @@ public class Interactable : MonoBehaviour
         _indicatorCopy = Instantiate(Indicator);
         _indicatorCopy.position = transform.position + new Vector3(0,1.6f,0);
         _indicatorCopy.GetComponent<Renderer>().enabled = false;
+
+        OnStart();
     }
 
-    void Update()
+    protected virtual void OnStart() { }
+
+    protected void Update()
     {
         if(IsInteractable()){
             _indicatorCopy.GetComponent<Renderer>().enabled = true;
             if (Input.GetKeyUp(KeyCode.Space) && !_dialogueManager.InDialogue)
             {
-                _dialogueManager.StartDialogue(Dialogue);
+                OnInteract();
             }
         } else {
             _indicatorCopy.GetComponent<Renderer>().enabled = false;
         }
     }
 
+    // Placeholder for superclass implementation
+    protected virtual void OnInteract() { }
+
     // Determines whether or not the player is in range of the interactable
-    private bool IsInteractable(){
+    protected bool IsInteractable(){
         if (Vector3.Distance(transform.position, _player.transform.position) <= _interactRange){
             return true;
         }
