@@ -158,12 +158,12 @@ public class BossController : MonoBehaviour
         for (int i = 0; i < 10; i++)
         {
             yield return new WaitForSeconds(sec);
-            Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x, y1, 0), 1, 0.01f);
-            Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x, y2, 0), 1, 0.002f);
-            Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x, y3, 0), 1, 0.0005f);
-            Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x, y1, 0), 2, 0.01f);
-            Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x, y2, 0), 2, 0.002f);
-            Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x, y3, 0), 2, 0.0005f);
+            Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x1, y, 0), 1, 0.01f);
+            Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x2, y, 0), 1, 0.002f);
+            Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x3, y, 0), 1, 0.0005f);
+            Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x1, y, 0), 2, 0.01f);
+            Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x2, y, 0), 2, 0.002f);
+            Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x3, y, 0), 2, 0.0005f);
         }
     }
 
