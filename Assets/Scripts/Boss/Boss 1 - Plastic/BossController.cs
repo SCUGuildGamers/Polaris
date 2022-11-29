@@ -11,46 +11,46 @@ public class BossController : MonoBehaviour
     public Transform PlasticBoss;
     public Transform Player;
 
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Plastic.Spawn(transform.position);
-        }
+		if(!PauseMenu.GameIsPaused)
+		{
+			if (Input.GetKeyDown(KeyCode.R))
+			{
+				Plastic.Spawn(transform.position);
+			}
 
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            TurtleAttack();
-        }
+			if (Input.GetKeyDown(KeyCode.T))
+			{
+				TurtleAttack();
+			}
 
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            Minefield(3, 0.5f);
-        }
+			if (Input.GetKeyDown(KeyCode.U))
+			{
+				UrchinAttack();
+			}
 
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            FanAttack(1.4f,10,5);
-        }
+			if (Input.GetKeyDown(KeyCode.H))
+			{
+				FanAttack(1.4f,10,5);
+			}
 
-        if (Input.GetKeyDown(KeyCode.G)){
-            cluster();
-        }
+			if (Input.GetKeyDown(KeyCode.J))
+			{
+				SweepRightLayered();
+			}
 
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            SweepRightLayered();
-        }
+			if (Input.GetKeyDown(KeyCode.K))
+			{
+				SweepLeftLayered();
+			}
 
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            SweepLeftLayered();
-        }
-
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            PincerAttack();
-        }
+			if (Input.GetKeyDown(KeyCode.L))
+			{
+				PincerAttack();
+			}
+		}
     }
 
     // Performs a single sweep left projectile attack with a sec delay between each wave adjusted by a xOffset and yOffset
@@ -59,7 +59,7 @@ public class BossController : MonoBehaviour
         float index = 0;
         for (int i = 5; i < 5 + numWaves; i++)
         {
-            yield return new WaitForSecondsRealtime(sec);
+            yield return new WaitForSeconds(sec);
             index += Time.deltaTime;
             Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(xOffset, yOffset - (int)(i * 6 * Mathf.Cos(index) - 40), 0), 3, 0);
         }
@@ -86,7 +86,7 @@ public class BossController : MonoBehaviour
         float index = 0;
         for (int i = 5; i < 5 + numWaves; i++)
         {
-            yield return new WaitForSecondsRealtime(sec);
+            yield return new WaitForSeconds(sec);
             index += Time.deltaTime;
             Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(xOffset, yOffset + (int)(i * 6 * Mathf.Cos(index) - 40),0),3,0);
         }
@@ -117,7 +117,7 @@ public class BossController : MonoBehaviour
         for (int i = 0; i < numWaves; i++)
         {
             // Alternates between shooting three projectiles and two projectiles at a time
-            yield return new WaitForSecondsRealtime(sec);
+            yield return new WaitForSeconds(sec);
             if (i % 2 == 0)
             {
                 // Generates the xOffset to achieve the fan effect
@@ -155,8 +155,9 @@ public class BossController : MonoBehaviour
         int x2 = (int)PlasticBoss.position.x - 7;
         int x3 = (int)PlasticBoss.position.x - 10;
 
-        for (int i = 0; i < 10; i++){
-            yield return new WaitForSecondsRealtime(sec);
+        for (int i = 0; i < 10; i++)
+        {
+            yield return new WaitForSeconds(sec);
             Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x1, y, 0), 1, 0.01f);
             Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x2, y, 0), 1, 0.002f);
             Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x3, y, 0), 1, 0.0005f);
