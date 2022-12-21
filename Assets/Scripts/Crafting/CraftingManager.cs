@@ -14,7 +14,7 @@ public class CraftingManager : MonoBehaviour
     private void Start() {
         _part = null;
         _item = null;
-    }    
+    }
 
     // Checks if the collided object is a part, if so, then it calls a function to handle the part pickup
     private void OnTriggerEnter2D(Collider2D collider) {
@@ -48,17 +48,7 @@ public class CraftingManager : MonoBehaviour
                 Debug.Log(item.displayName + " was crafted.");
                 return;
             }
-            // Below Code is what I could figure out would be the correct code for the dash item, will leave as comment for now.
-            // Dash would be 2 of item 1
-            /*
-            else if (item.parts[0] == part1 && item.parts[1] == part1)
-            {
-                _part = null;
-                PlayerMovement.canDash == true;
-                return;
-            }
-            */
-        }   
+        }
     }
 
     // Debugging script for random part spawning
