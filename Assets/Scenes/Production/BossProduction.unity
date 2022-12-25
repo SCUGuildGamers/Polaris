@@ -496,6 +496,7 @@ MonoBehaviour:
   Urchin: {fileID: 6462561}
   PlasticBoss: {fileID: 135253523}
   Player: {fileID: 2115856467}
+  partInstance: {fileID: 437432765}
 --- !u!212 &135253522
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1533,7 +1534,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &437432764
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1579,7 +1580,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.4, y: 4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -1630,8 +1631,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.56, y: 2.56}
-    newSize: {x: 2.56, y: 2.56}
+    oldSize: {x: 0.4, y: 4}
+    newSize: {x: 0.4, y: 4}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -4541,7 +4542,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c891169f7e228d47a831ba1b15e95e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTransform: {fileID: 2115856467}
   player: {fileID: 2115856473}
 --- !u!61 &1862425423
 BoxCollider2D:

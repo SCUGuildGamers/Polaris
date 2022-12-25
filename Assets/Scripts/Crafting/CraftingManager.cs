@@ -46,6 +46,7 @@ public class CraftingManager : MonoBehaviour
                 _part = null;
                 _item = item;
                 Debug.Log(item.displayName + " was crafted.");
+                ItemInstance.Spawn(item);
                 return;
             }
         }   
@@ -54,7 +55,8 @@ public class CraftingManager : MonoBehaviour
     // Debugging script for random part spawning
     private void Update() {
         if (Input.GetKeyDown("u")) {
-            partInstance.Spawn(transform.position);
+            Vector3 target = new Vector3(Random.Range(-1f, -0.2f), Random.Range(-0.8f, 0.8f));
+            partInstance.Spawn(transform.position, target);
         }
 
         if (Input.GetKeyDown("i")) {
