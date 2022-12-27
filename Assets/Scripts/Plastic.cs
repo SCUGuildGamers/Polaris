@@ -11,6 +11,7 @@ public class Plastic : MonoBehaviour
     private int _pickupChance = 10;
 
     private Vector3 _targetPosition;
+    private Vector3 _targetDirection;
 
     // _speed determines how fast the projectile moves
     private float _delta;
@@ -19,42 +20,40 @@ public class Plastic : MonoBehaviour
     // _lifeSpan determines how long the projectile stays before it disappears
     private int _duration = 0;
     private int _lifeSpan = 4000;
-
     private int _movementMode;
 
     // Constantly checks the movement_mode to check how the projectile should be moving and increments the duration of the projectile
     private void Update()
     {
-        if (_movementMode == 1)
-        {
-            LoopClockwise();
-        }
-        else if (_movementMode == 2)
-        {
-            LoopCounterClockwise();
-        }
-        else if (_movementMode == 3)
-        {
-            StraightLine();
-        }
-        else if (_movementMode == 4)
-        {
+		if(PauseMenu.GameIsPaused == false)
+		{
+			if (_movementMode == 1)
+			{
+				LoopClockwise();
+			}
+			else if (_movementMode == 2)
+			{
+				LoopCounterClockwise();
+			}
+			else if (_movementMode == 3)
+			{
+				StraightLine();
+			}
+			else if (_movementMode == 4)
+			{
 
-            ToTarget();
-        }
+				ToTarget();
+			}
 
-        else
-        {
-            // Do nothing
-        }
+            // Duration of object increases only if game is not paused
+            _duration++;
 
-        _duration++;
-
-        // Destroys the projectile when it is past its life span (and ensures the base projectile is not destroyed)
-        if (_duration > _lifeSpan && IsCopy)
-        {
-            Destroy(gameObject);
-        }
+            // Destroys the projectile when it is past its life span (and ensures the base projectile is not destroyed)
+            if (_duration > _lifeSpan && IsCopy)
+            {
+                Destroy(gameObject);
+            }
+		}
     }
 
     // Spawns and returns a copy of the Plastic object with values given by parameters spawnPosition, targetPosition, movement_mode, and delta
@@ -62,12 +61,14 @@ public class Plastic : MonoBehaviour
     {
         GameObject plasticCopy = Instantiate(gameObject);
 
+        plasticCopy.gameObject.SetActive(true);
         Plastic plasticObjCopy = plasticCopy.GetComponent<Plastic>();
         plasticObjCopy.IsCopy = true;
         plasticObjCopy.GetComponent<Transform>().position = spawnPosition;
         plasticObjCopy.GetComponent<SpriteRenderer>().enabled = true;
 
         plasticObjCopy._targetPosition = targetPosition;
+        plasticObjCopy._targetDirection = (targetPosition - spawnPosition).normalized;
         plasticObjCopy._movementMode = movementMode;
         plasticObjCopy._delta = delta;
 
@@ -77,7 +78,7 @@ public class Plastic : MonoBehaviour
         {
             MakePickup(plasticObjCopy);
         }
-            
+
         return plasticObjCopy;
     }
 
@@ -102,21 +103,21 @@ public class Plastic : MonoBehaviour
     // Moves the projectile clockwise
     private void LoopClockwise()
     {
-        transform.RotateAround(_targetPosition, new Vector3(0, 0, 1), 0.03f);
-        _targetPosition.x += _delta;
+        transform.RotateAround(_targetPosition, new Vector3(0, 0, -1), 0.03f);
+        _targetPosition.y += _delta;
     }
 
     // Moves the projectile counter clockwise
     private void LoopCounterClockwise()
     {
-        transform.RotateAround(_targetPosition, new Vector3(0, 0, -1), 0.03f);
-        _targetPosition.x -= _delta;
+        transform.RotateAround(_targetPosition, new Vector3(0, 0, 1), 0.03f);
+        _targetPosition.y -= _delta;
     }
 
     // Moves the projectile forward
     private void StraightLine()
     {
-        transform.position += (_targetPosition - transform.position).normalized * _speed;
+        transform.position += _targetDirection * _speed;
     }
 
     // Moves the projectile towards the target given by targetPosition
