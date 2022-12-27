@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 6462561}
   - component: {fileID: 6462565}
   - component: {fileID: 6462564}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: UrchinAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -916,7 +916,8 @@ GameObject:
   - component: {fileID: 254576557}
   - component: {fileID: 254576555}
   - component: {fileID: 254576556}
-  m_Layer: 0
+  - component: {fileID: 254576557}
+  m_Layer: 7
   m_Name: Plastic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4764,7 +4765,7 @@ RectTransform:
   - {fileID: 1912058281}
   m_Father: {fileID: 0}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -0.119}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -5006,7 +5007,7 @@ GameObject:
   - component: {fileID: 2064644026}
   - component: {fileID: 2064644030}
   - component: {fileID: 2064644029}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TurtleAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5274,6 +5275,11 @@ MonoBehaviour:
   IsOceanMovement: 1
   HorizontalSpeed: 10
   VerticalSpeed: 10
+  canDash: 1
+  isDashing: 0
+  dashingPower: 25
+  dashingTime: 0.2
+  dashCooldown: 0.1
 --- !u!50 &2115856469
 Rigidbody2D:
   serializedVersion: 4

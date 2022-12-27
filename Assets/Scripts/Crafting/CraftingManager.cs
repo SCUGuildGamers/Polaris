@@ -14,7 +14,7 @@ public class CraftingManager : MonoBehaviour
     private void Start() {
         _part = null;
         _item = null;
-    }    
+    }
 
     // Checks if the collided object is a part, if so, then it calls a function to handle the part pickup
     private void OnTriggerEnter2D(Collider2D collider) {
@@ -48,7 +48,7 @@ public class CraftingManager : MonoBehaviour
                 Debug.Log(item.displayName + " was crafted.");
                 return;
             }
-        }   
+        }
     }
 
     // Debugging script for random part spawning
