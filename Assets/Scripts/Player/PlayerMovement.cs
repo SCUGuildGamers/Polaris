@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
 
 	void Update()
 	{
-		if ((Input.GetMouseButtonDown(0) && canDash))
+		if ((Input.GetKeyDown("e") && canDash))
 			{
 				StartCoroutine(Dash());
 			}

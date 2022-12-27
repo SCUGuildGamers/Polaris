@@ -18,7 +18,7 @@ public class ItemInstance : MonoBehaviour
 
     void Update (){
         if (!used){
-            if (Input.GetMouseButtonDown(1)) {
+            if (Input.GetKeyDown("r")) {
                 used = true;
                 TargetDir = GetMouseDirection();
             } else {

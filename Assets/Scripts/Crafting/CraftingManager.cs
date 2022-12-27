@@ -57,7 +57,7 @@ public class CraftingManager : MonoBehaviour
             partInstance.Spawn(transform.position);
         }
 
-        if (Input.GetKeyDown("i")) {
+        if (Input.GetKeyDown("f")) {
             ItemInstance.Spawn(bible.recipes[0]);
         }
     }
