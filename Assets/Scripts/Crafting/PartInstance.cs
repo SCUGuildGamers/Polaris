@@ -7,6 +7,7 @@ public class PartInstance : MonoBehaviour
 {
     public Part PartType;
     public PartBible partBible;
+    public CraftingManager craftingManager;
 
     private Vector3 TargetDirection;
 
@@ -35,8 +36,10 @@ public class PartInstance : MonoBehaviour
         // Assign the part a random part type
         PartInstance partInstance = partCopy.GetComponent<PartInstance>();
         Random rnd = new Random();
-        int random_index = rnd.Next(partBible.parts.Count);
-        partInstance.PartType = partBible.parts[random_index];
+        do{
+            int random_index = rnd.Next(partBible.parts.Count);
+            partInstance.PartType = partBible.parts[random_index];
+        } while (partInstance.PartType == craftingManager.get_part());
         partInstance.TargetDirection = target;
     }
 

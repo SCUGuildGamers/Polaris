@@ -16,6 +16,10 @@ public class CraftingManager : MonoBehaviour
         _item = null;
     }    
 
+    public Part get_part(){
+        return _part;
+    }
+
     // Checks if the collided object is a part, if so, then it calls a function to handle the part pickup
     private void OnTriggerEnter2D(Collider2D collider) {
         PartInstance partInstance = collider.gameObject.GetComponent<PartInstance>();
@@ -33,7 +37,7 @@ public class CraftingManager : MonoBehaviour
             if (!_part)
                 _part = part;
             // Player crafting
-            else
+            else if (part != _part)
                 CraftingHandler(_part, part);
         }
     }
