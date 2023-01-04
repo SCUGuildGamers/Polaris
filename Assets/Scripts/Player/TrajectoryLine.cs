@@ -14,27 +14,25 @@ public class TrajectoryLine : MonoBehaviour
     private float timeOfTheFlight = 5;
 
     // Start is called before the first frame update
-    public void ShowTrajectoryLine(Vector3 startPoint, Vector3 startVelocity) {
-        float timeStep = timeOfTheFlight / lineSegments;
-
-        Vector3[] lineRendererPoints = CalculateTrajectoryLine(startPoint, startVelocity, timeStep);
+    public void ShowTrajectoryLine(Vector2 startPoint, Vector2 startVelocity) {
+        Vector3[] lineRendererPoints = CalculateTrajectoryLine(startPoint, startVelocity);
 
         lineRenderer.positionCount = lineSegments;
         lineRenderer.SetPositions(lineRendererPoints);
     }
 
-    private Vector3[] CalculateTrajectoryLine(Vector3 startPoint, Vector3 startVelocity, float timeStep) {
+    private Vector3[] CalculateTrajectoryLine(Vector2 startPoint, Vector2 direction) {
+        RaycastHit2D hit = Physics2D.Raycast(startPoint, direction);
+        if (hit.collider != null) {
+            Debug.Log(hit.distance);
+        }
+
         Vector3[] lineRendererPoints = new Vector3[lineSegments];
 
         lineRendererPoints[0] = startPoint;
         for (int i = 1; i < lineSegments; i++) {
-            float timeOffset = timeStep * i;
-
-            Vector3 progressBeforeGravity = startVelocity * timeOffset;
-            Vector3 gravityOffset = Vector3.up * -0.5f * Physics.gravity.y * timeOffset * timeOffset;
-            Vector3 newPosition = startPoint + progressBeforeGravity - gravityOffset;
+            Vector3 newPosition = new Vector3(1,1,1);
             lineRendererPoints[i] = newPosition;
-            Debug.Log(newPosition);
         }
 
         return lineRendererPoints;

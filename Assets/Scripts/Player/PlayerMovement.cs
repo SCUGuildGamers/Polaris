@@ -144,7 +144,7 @@ public class PlayerMovement : MonoBehaviour
 
 	private void Glide()
 	{
-		
+		trajectoryLine.ShowTrajectoryLine(transform.position, rb.velocity);
 
 		isGliding = true;
 
@@ -155,8 +155,6 @@ public class PlayerMovement : MonoBehaviour
 
 		// Glide initiated
 		rb.velocity = new Vector2(dashDirection.normalized.x * glidingPower, dashDirection.normalized.y * glidingPower);
-
-		trajectoryLine.ShowTrajectoryLine(transform.position, rb.velocity);
 	}
 
 	void OnCollisionEnter2D(Collision2D collider)
