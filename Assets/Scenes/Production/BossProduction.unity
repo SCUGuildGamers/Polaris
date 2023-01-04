@@ -916,7 +916,6 @@ GameObject:
   - component: {fileID: 254576557}
   - component: {fileID: 254576555}
   - component: {fileID: 254576556}
-  - component: {fileID: 254576557}
   m_Layer: 7
   m_Name: Plastic
   m_TagString: Untagged
@@ -4542,7 +4541,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c891169f7e228d47a831ba1b15e95e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTransform: {fileID: 2115856467}
   player: {fileID: 2115856473}
 --- !u!61 &1862425423
 BoxCollider2D:
@@ -5275,11 +5273,12 @@ MonoBehaviour:
   IsOceanMovement: 1
   HorizontalSpeed: 10
   VerticalSpeed: 10
-  canDash: 1
   isDashing: 0
   dashingPower: 25
   dashingTime: 0.2
   dashCooldown: 0.1
+  isGliding: 0
+  glidingPower: 50
 --- !u!50 &2115856469
 Rigidbody2D:
   serializedVersion: 4

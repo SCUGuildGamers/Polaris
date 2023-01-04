@@ -23,25 +23,37 @@ public class PlayerMovement : MonoBehaviour
 	public float dashCooldown = 0.1f;
 	//public float iFrameTime = 0.3f;
 
+	// Gliding vairables
+	[Header("Glide Variables")]
+	public static bool canGlide;
+	public bool isGliding;
+	public float glidingPower = 50f;
+
 
 	void Start()
 	{
 		rb = GetComponent<Rigidbody2D>();
 		canDash = true;
 		isDashing = false;
+		canGlide = true;
+		isGliding = false;
 	}
 
 	void Update()
 	{
-		if ((Input.GetKeyDown("e") && canDash))
-			{
+		if ((Input.GetKeyDown("e") && canDash)) {
 				StartCoroutine(Dash());
-			}
+		}
+
+		else if (Input.GetKeyDown("g") && canGlide)
+		{
+			Glide();
+		}
 	}
 	void FixedUpdate()
 	{
 		// Stops all other actions while dashing is occuring
-		if(isDashing == false)
+		if(!isDashing && !isGliding)
 			// Move our character
 			Move();
 	}
@@ -126,5 +138,26 @@ public class PlayerMovement : MonoBehaviour
 		// Below dashCooldown may not be necessary depending on what is necessary for crafting system
 		yield return new WaitForSecondsRealtime(dashCooldown);
 		canDash = true;
+	}
+
+	private void Glide()
+	{
+		isGliding = true;
+
+		// Direction of dash is the unit vector of mouse position - rigidbody position
+		Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		mousePos.z = transform.position.z;
+		var dashDirection = mousePos - transform.position;
+
+		// Glide initiated
+		rb.velocity = new Vector2(dashDirection.normalized.x * glidingPower, dashDirection.normalized.y * glidingPower);
+		Debug.Log(rb.velocity);
+	}
+
+	void OnCollisionEnter2D(Collision2D collider)
+	{
+		isGliding = false;
+
+		rb.velocity = new Vector2(0, 0);
 	}
 }
