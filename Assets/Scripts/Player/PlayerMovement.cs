@@ -28,15 +28,17 @@ public class PlayerMovement : MonoBehaviour
 	public static bool canGlide;
 	public bool isGliding;
 	public float glidingPower = 50f;
-
+	private TrajectoryLine trajectoryLine;
 
 	void Start()
 	{
 		rb = GetComponent<Rigidbody2D>();
+
 		canDash = true;
 		isDashing = false;
 		canGlide = true;
 		isGliding = false;
+		trajectoryLine = GetComponent<TrajectoryLine>();
 	}
 
 	void Update()
@@ -142,6 +144,8 @@ public class PlayerMovement : MonoBehaviour
 
 	private void Glide()
 	{
+		
+
 		isGliding = true;
 
 		// Direction of dash is the unit vector of mouse position - rigidbody position
@@ -151,7 +155,8 @@ public class PlayerMovement : MonoBehaviour
 
 		// Glide initiated
 		rb.velocity = new Vector2(dashDirection.normalized.x * glidingPower, dashDirection.normalized.y * glidingPower);
-		Debug.Log(rb.velocity);
+
+		trajectoryLine.ShowTrajectoryLine(transform.position, rb.velocity);
 	}
 
 	void OnCollisionEnter2D(Collision2D collider)
