@@ -10,31 +10,39 @@ public class TrajectoryLine : MonoBehaviour
     [SerializeField]
     private int lineSegments = 60;
 
-    [SerializeField]
-    private float timeOfTheFlight = 5;
-
     // Start is called before the first frame update
-    public void ShowTrajectoryLine(Vector2 startPoint, Vector2 startVelocity) {
-        Vector3[] lineRendererPoints = CalculateTrajectoryLine(startPoint, startVelocity);
+    public void ShowTrajectoryLine(Vector2 startPoint, Vector2 direction) {
+        //lineRenderer.transform.position = startPoint;
+
+        Vector3[] lineRendererPoints = CalculateTrajectoryLine(startPoint, direction);
 
         lineRenderer.positionCount = lineSegments;
         lineRenderer.SetPositions(lineRendererPoints);
     }
 
+    // Cast a ray in a direction, get the hitpoint, and calculate the direction/increment needed to create the trajectory line
     private Vector3[] CalculateTrajectoryLine(Vector2 startPoint, Vector2 direction) {
-        RaycastHit2D hit = Physics2D.Raycast(startPoint, direction);
-        if (hit.collider != null) {
-            Debug.Log(hit.distance);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction);
+        if (hit) {
+            Vector2 move_path = hit.point - startPoint;
+            float x_increment = move_path.x / lineSegments;
+            float y_increment = move_path.y / lineSegments;
+
+            Vector3[] lineRendererPoints = new Vector3[lineSegments];
+
+            Vector3 current_position = new Vector3(startPoint.x, startPoint.y, 0);
+            lineRendererPoints[0] = current_position;
+            for (int i = 1; i < lineSegments; i++)
+            {
+                current_position = current_position + new Vector3(x_increment, y_increment);
+                lineRendererPoints[i] = current_position;
+                Debug.Log(current_position);
+            }
+            Debug.Log(hit.point);
+
+            return lineRendererPoints;
         }
 
-        Vector3[] lineRendererPoints = new Vector3[lineSegments];
-
-        lineRendererPoints[0] = startPoint;
-        for (int i = 1; i < lineSegments; i++) {
-            Vector3 newPosition = new Vector3(1,1,1);
-            lineRendererPoints[i] = newPosition;
-        }
-
-        return lineRendererPoints;
+        return null;
     }
 }

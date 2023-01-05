@@ -144,17 +144,17 @@ public class PlayerMovement : MonoBehaviour
 
 	private void Glide()
 	{
-		trajectoryLine.ShowTrajectoryLine(transform.position, rb.velocity);
-
 		isGliding = true;
 
 		// Direction of dash is the unit vector of mouse position - rigidbody position
 		Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		mousePos.z = transform.position.z;
-		var dashDirection = mousePos - transform.position;
+		var glideDirection = mousePos - transform.position;
+
+		trajectoryLine.ShowTrajectoryLine(transform.position, glideDirection);
 
 		// Glide initiated
-		rb.velocity = new Vector2(dashDirection.normalized.x * glidingPower, dashDirection.normalized.y * glidingPower);
+		rb.velocity = new Vector2(glideDirection.normalized.x * glidingPower, glideDirection.normalized.y * glidingPower);
 	}
 
 	void OnCollisionEnter2D(Collision2D collider)
