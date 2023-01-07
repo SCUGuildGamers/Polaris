@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
 	public float HorizontalSpeed = 10f;
 	public float VerticalSpeed = 10f;
 
-	// Dashing vairables
+	// Dashing variables
 	[Header("Dash Variables")]
 	public static bool canDash;
 	public bool isDashing;
@@ -23,11 +23,12 @@ public class PlayerMovement : MonoBehaviour
 	public float dashCooldown = 0.1f;
 	//public float iFrameTime = 0.3f;
 
-	// Gliding vairables
+	// Gliding variables
 	[Header("Glide Variables")]
 	public static bool canGlide;
 	public bool isGliding;
 	public float glidingPower = 50f;
+	private bool showTrajectory;
 	private TrajectoryLine trajectoryLine;
 
 	void Start()
@@ -38,11 +39,23 @@ public class PlayerMovement : MonoBehaviour
 		isDashing = false;
 		canGlide = true;
 		isGliding = false;
+		showTrajectory = false;
 		trajectoryLine = GetComponent<TrajectoryLine>();
 	}
 
 	void Update()
 	{
+		// Update the trajectory line
+		if(showTrajectory)
+        {
+			// Direction of dash is the unit vector of mouse position - rigidbody position
+			Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			mousePos.z = transform.position.z;
+			var glideDirection = mousePos - transform.position;
+
+			trajectoryLine.ShowTrajectoryLine(transform.position, glideDirection);
+		}
+
 		if ((Input.GetKeyDown("e") && canDash)) {
 				StartCoroutine(Dash());
 		}
@@ -59,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
 			// Move our character
 			Move();
 	}
-
+	
 	void Move()
 	{
 		// Check if the player can move or not
@@ -142,19 +155,31 @@ public class PlayerMovement : MonoBehaviour
 		canDash = true;
 	}
 
+	// Handles logic when the Glide button is pressed
 	private void Glide()
 	{
 		isGliding = true;
 
-		// Direction of dash is the unit vector of mouse position - rigidbody position
-		Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		mousePos.z = transform.position.z;
-		var glideDirection = mousePos - transform.position;
+		// First Glide button click
+		if (!showTrajectory)
+		{
+			showTrajectory = true;
+		}
 
-		trajectoryLine.ShowTrajectoryLine(transform.position, glideDirection);
+		// Second Glide button click
+		else
+		{
+			showTrajectory = false;
+			trajectoryLine.ClearLine(); // Clear the trajectory line
 
-		// Glide initiated
-		rb.velocity = new Vector2(glideDirection.normalized.x * glidingPower, glideDirection.normalized.y * glidingPower);
+			// Direction of dash is the unit vector of mouse position - rigidbody position
+			Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			mousePos.z = transform.position.z;
+			var glideDirection = mousePos - transform.position;
+
+			// Glide initiated
+			rb.velocity = new Vector2(glideDirection.normalized.x * glidingPower, glideDirection.normalized.y * glidingPower);
+		}
 	}
 
 	void OnCollisionEnter2D(Collision2D collider)

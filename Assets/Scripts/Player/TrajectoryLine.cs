@@ -10,10 +10,8 @@ public class TrajectoryLine : MonoBehaviour
     [SerializeField]
     private int lineSegments = 60;
 
-    // Start is called before the first frame update
+    // Shows the trajectory line
     public void ShowTrajectoryLine(Vector2 startPoint, Vector2 direction) {
-        //lineRenderer.transform.position = startPoint;
-
         Vector3[] lineRendererPoints = CalculateTrajectoryLine(startPoint, direction);
 
         lineRenderer.positionCount = lineSegments;
@@ -36,13 +34,15 @@ public class TrajectoryLine : MonoBehaviour
             {
                 current_position = current_position + new Vector3(x_increment, y_increment);
                 lineRendererPoints[i] = current_position;
-                Debug.Log(current_position);
             }
-            Debug.Log(hit.point);
 
             return lineRendererPoints;
         }
 
         return null;
+    }
+
+    public void ClearLine() {
+        lineRenderer.positionCount = 0;
     }
 }
