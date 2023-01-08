@@ -14,7 +14,7 @@ public class CraftingManager : MonoBehaviour
     private void Start() {
         _part = null;
         _item = null;
-    }    
+    }
 
     public Part get_part(){
         return _part;
@@ -53,7 +53,7 @@ public class CraftingManager : MonoBehaviour
                 ItemInstance.Spawn(item);
                 return;
             }
-        }   
+        }
     }
 
     // Debugging script for random part spawning
@@ -63,7 +63,7 @@ public class CraftingManager : MonoBehaviour
             partInstance.Spawn(transform.position, target);
         }
 
-        if (Input.GetKeyDown("i")) {
+        if (Input.GetKeyDown("f")) {
             ItemInstance.Spawn(bible.recipes[0]);
         }
     }
