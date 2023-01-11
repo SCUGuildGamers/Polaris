@@ -6,12 +6,12 @@ public class Plastic : MonoBehaviour
 {
     public bool IsCopy = false;
     public bool CanPickup = false;
-
+    public Transform Boss;
     // Determines how often a pickup-able plastic spawns where the chance is 1/_pickupChance
     private int _pickupChance = 10;
 
     private Vector3 _targetPosition;
-
+    private Vector3 _spawnPosition;
     // _speed determines how fast the projectile moves
     private float _delta;
     private float _speed = 0.004f;
@@ -56,12 +56,16 @@ public class Plastic : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    public void changeDirection()
+    {
+        _targetPosition = Boss.position;
+    }
 
     // Spawns and returns a copy of the Plastic object with values given by parameters spawnPosition, targetPosition, movement_mode, and delta
     public Plastic Spawn(Vector3 spawnPosition, Vector3 targetPosition = default(Vector3), int movementMode = 0, float delta = 0)
     {
         GameObject plasticCopy = Instantiate(gameObject);
-
+        //_spawnPosition = plasticCopy
         Plastic plasticObjCopy = plasticCopy.GetComponent<Plastic>();
         plasticObjCopy.IsCopy = true;
         plasticObjCopy.GetComponent<Transform>().position = spawnPosition;
