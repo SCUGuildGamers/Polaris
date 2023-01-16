@@ -16,6 +16,10 @@ public class CraftingManager : MonoBehaviour
         _item = null;
     }
 
+    public Part get_part(){
+        return _part;
+    }
+
     // Checks if the collided object is a part, if so, then it calls a function to handle the part pickup
     private void OnTriggerEnter2D(Collider2D collider) {
         PartInstance partInstance = collider.gameObject.GetComponent<PartInstance>();
@@ -33,7 +37,7 @@ public class CraftingManager : MonoBehaviour
             if (!_part)
                 _part = part;
             // Player crafting
-            else
+            else if (part != _part)
                 CraftingHandler(_part, part);
         }
     }
@@ -46,6 +50,7 @@ public class CraftingManager : MonoBehaviour
                 _part = null;
                 _item = item;
                 Debug.Log(item.displayName + " was crafted.");
+                ItemInstance.Spawn(item);
                 return;
             }
         }
@@ -54,7 +59,8 @@ public class CraftingManager : MonoBehaviour
     // Debugging script for random part spawning
     private void Update() {
         if (Input.GetKeyDown("u")) {
-            partInstance.Spawn(transform.position);
+            Vector3 target = new Vector3(Random.Range(-1f, -0.2f), Random.Range(-0.8f, 0.8f));
+            partInstance.Spawn(transform.position, target);
         }
 
         if (Input.GetKeyDown("f")) {

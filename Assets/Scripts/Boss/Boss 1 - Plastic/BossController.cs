@@ -11,6 +11,9 @@ public class BossController : MonoBehaviour
     public Transform PlasticBoss;
     public Transform Player;
 
+    public PartInstance partInstance;
+
+    private int PartSpawnRate = 4;
 
     void Update()
     {
@@ -62,6 +65,10 @@ public class BossController : MonoBehaviour
             yield return new WaitForSeconds(sec);
             index += Time.deltaTime;
             Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(xOffset, yOffset - (int)(i * 6 * Mathf.Cos(index) - 40), 0), 3, 0);
+            if (Random.Range(0,PartSpawnRate) == (PartSpawnRate - 1)){
+                Vector3 target = new Vector3(Random.Range(-1f, -0.2f), Random.Range(-0.8f, 0.8f));
+                partInstance.Spawn(PlasticBoss.position, target);
+            }
         }
     }
 
@@ -72,11 +79,15 @@ public class BossController : MonoBehaviour
         int split = numProjectiles / 2;
         for (int i = split; i >= -split; i--)
         {
-            if (i == split || i == -split)
+            if (i == split || i == -split){
                 StartCoroutine(SweepLeft(-10, i * 15, 1.2f, 5));
-
-            else
+            } else{
                 StartCoroutine(SweepLeft(-20, i * 15, 1.2f, 5));
+            }
+             if (Random.Range(0,PartSpawnRate) == (PartSpawnRate - 1)){
+                Vector3 target = new Vector3(Random.Range(-1f, -0.2f), Random.Range(-0.8f, 0.8f));
+                partInstance.Spawn(PlasticBoss.position, target);
+            }
         }
     }
 
@@ -89,6 +100,10 @@ public class BossController : MonoBehaviour
             yield return new WaitForSeconds(sec);
             index += Time.deltaTime;
             Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(xOffset, yOffset + (int)(i * 6 * Mathf.Cos(index) - 40),0),3,0);
+             if (Random.Range(0,PartSpawnRate) == (PartSpawnRate - 1)){
+                Vector3 target = new Vector3(Random.Range(-1f, -0.2f), Random.Range(-0.8f, 0.8f));
+                partInstance.Spawn(PlasticBoss.position, target);
+            }
         }
     }
 
@@ -99,11 +114,15 @@ public class BossController : MonoBehaviour
         int split = numProjectiles / 2;
         for (int i = split; i >= -split; i--)
         {
-            if (i == split||i == -split)
+            if (i == split||i == -split){
                 StartCoroutine(SweepRight(-10, i*15, 1.2f, 5));
-
-            else
+            } else{
                 StartCoroutine(SweepRight(-20, i * 15, 1.2f, 5));
+            }
+             if (Random.Range(0,PartSpawnRate) == (PartSpawnRate - 1)){
+                Vector3 target = new Vector3(Random.Range(-1f, -0.2f), Random.Range(-0.8f, 0.8f));
+                partInstance.Spawn(PlasticBoss.position, target);
+            }
         }
     }
 
@@ -116,6 +135,11 @@ public class BossController : MonoBehaviour
         target = new Vector3(Player.position.x + (target.x * 5), Player.position.y + (target.y * 5), 0);
         for (int i = 0; i < numWaves; i++)
         {
+            if (Random.Range(0,PartSpawnRate) == (PartSpawnRate - 1)){
+                Vector3 tar = new Vector3(Random.Range(-1f, -0.2f), Random.Range(-0.8f, 0.8f));
+                partInstance.Spawn(PlasticBoss.position, tar);
+            }
+
             // Alternates between shooting three projectiles and two projectiles at a time
             yield return new WaitForSeconds(sec);
             if (i % 2 == 0)
@@ -164,6 +188,10 @@ public class BossController : MonoBehaviour
             Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x1, y, 0), 2, 0.01f);
             Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x2, y, 0), 2, 0.002f);
             Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x3, y, 0), 2, 0.0005f);
+             if (Random.Range(0,PartSpawnRate) == (PartSpawnRate - 1)){
+                Vector3 target = new Vector3(Random.Range(-1f, -0.2f), Random.Range(-0.8f, 0.8f));
+                partInstance.Spawn(PlasticBoss.position, target);
+            }
         }
     }
 
@@ -193,6 +221,10 @@ public class BossController : MonoBehaviour
         Plastic.Spawn(PlasticBoss.position, Player.position + new Vector3 (0, -.5f, 0), 3, 0.1f);
         Plastic.Spawn(PlasticBoss.position, Player.position + new Vector3 (0, -1f, 0), 3, 0.1f);
         Plastic.Spawn(PlasticBoss.position, Player.position + new Vector3 (0, -1.5f, 0), 3, 0.1f);
+        if (Random.Range(0,PartSpawnRate) == (PartSpawnRate - 1)){
+            Vector3 target = new Vector3(Random.Range(-1f, -0.2f), Random.Range(-0.8f, 0.8f));
+            partInstance.Spawn(PlasticBoss.position, target);
+        }
     }
 
     public void Minefield(int num, float sec){
@@ -204,6 +236,10 @@ public class BossController : MonoBehaviour
             yield return new WaitForSecondsRealtime(sec);
             Urchin.Spawn(12, PlasticBoss.position + new Vector3(-5 * (i + 1), 4, 0));
             Urchin.Spawn(12, PlasticBoss.position + new Vector3(-5 * (i + 1), -4, 0));
+             if (Random.Range(0,PartSpawnRate) == (PartSpawnRate - 1)){
+                Vector3 target = new Vector3(Random.Range(-1f, -0.2f), Random.Range(-0.8f, 0.8f));
+                partInstance.Spawn(PlasticBoss.position, target);
+            }
         }
     }
 }
