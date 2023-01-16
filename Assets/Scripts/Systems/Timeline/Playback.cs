@@ -5,6 +5,7 @@ using UnityEngine.Playables;
 
 public class Playback : MonoBehaviour
 {
+    // Shows the private variable in the editor
     [SerializeField] private PlayableDirector _playDirector;
     private DialogueManager _dialogueManager;
 
@@ -22,6 +23,7 @@ public class Playback : MonoBehaviour
         _playDirector.Pause();
     }
 
+    // Resumes the timeline once dialogue is over
     private void Update()
     {
         if (!_dialogueManager.InDialogue)

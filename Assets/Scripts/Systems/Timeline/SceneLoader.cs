@@ -7,6 +7,7 @@ public class SceneLoader : MonoBehaviour
 {
     public string scenename;
 
+    // Loads the scene provided by the developer
     public void SceneLoad()
     {
         Debug.Log("sceneName to load: " + scenename);
