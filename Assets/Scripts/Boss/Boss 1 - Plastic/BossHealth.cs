@@ -42,6 +42,14 @@ public class BossHealth : MonoBehaviour
         Debug.Log("The boss has been killed.");
         GetComponent<Animator>().SetBool("isBossDead", true);
     }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.name == "ProjectileInstance(Clone)")
+        {
+            ReduceHealth(25);
+        }
+    }
 }
 
     
