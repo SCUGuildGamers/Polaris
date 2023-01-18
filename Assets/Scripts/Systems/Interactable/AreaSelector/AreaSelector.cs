@@ -8,8 +8,8 @@ public class AreaSelector : Interactable
 {
     private EventManager _eventManager;
 
-    public Button Boss1Button;
-    public Button LeaveLevelSelectButton;
+    public Button Button1;
+    public Button BackButton;
 
     protected override void OnStart()
     {
@@ -20,8 +20,8 @@ public class AreaSelector : Interactable
     {
         if (!_eventManager.FlagValue("ConstructedNet")) // Debug purposes
         {
-            Boss1Button.gameObject.SetActive(true);
-            LeaveLevelSelectButton.gameObject.SetActive(true);
+            Button1.gameObject.SetActive(true);
+            BackButton.gameObject.SetActive(true);
         }
     }
 
@@ -32,7 +32,7 @@ public class AreaSelector : Interactable
 
     public void HideButtons()
     {
-        Boss1Button.gameObject.SetActive(false);
-        LeaveLevelSelectButton.gameObject.SetActive(false);
+        Button1.gameObject.SetActive(false);
+        BackButton.gameObject.SetActive(false);
     }
 }
