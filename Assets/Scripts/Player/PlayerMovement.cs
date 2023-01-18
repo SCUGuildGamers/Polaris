@@ -1,11 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class PlayerMovement : MonoBehaviour
 {
 	private Rigidbody2D rb;
 	private bool _facingRight = true;
+	private bool inCurrentRight = false;
+	private bool inCurrentLeft = false;
+	private bool inCurrentUp = false;
+	private bool inCurrentDown = false;
+
 
 	public bool CanPlayerMove = true;
 
@@ -56,6 +62,16 @@ public class PlayerMovement : MonoBehaviour
 			trajectoryLine.ShowTrajectoryLine(transform.position, glideDirection);
 		}
 
+		if (inCurrentRight){
+			rb.AddForce(new Vector3(glidingPower, 0, 0));
+		} else if (inCurrentLeft){
+			rb.AddForce(new Vector3(-glidingPower, 0, 0));
+		} else if (inCurrentUp){
+			rb.AddForce(new Vector3(0, glidingPower, 0));
+		} else if (inCurrentDown){
+			rb.AddForce(new Vector3(0, -glidingPower, 0));
+		}
+
 		if ((Input.GetKeyDown("e") && canDash)) {
 				StartCoroutine(Dash());
 		}
@@ -72,7 +88,22 @@ public class PlayerMovement : MonoBehaviour
 			// Move our character
 			Move();
 	}
-	
+
+	void OnTriggerEnter2D(Collider2D col)
+    {
+		if (col.name == "Current"){
+			inCurrentRight = true;
+			CanPlayerMove = false;
+		}
+    }
+
+	void OnTriggerExit2D(Collider2D col){
+		if (col.name == "Current"){
+			inCurrentRight = false;
+			CanPlayerMove = true;
+		}
+	}
+
 	void Move()
 	{
 		// Check if the player can move or not
