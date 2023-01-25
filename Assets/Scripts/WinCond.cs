@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LoseCond : MonoBehaviour
+public class WinCond : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -16,16 +16,14 @@ public class LoseCond : MonoBehaviour
     {
         
     }
-
     void OnTriggerEnter2D(Collider2D collision)
     {
-        
-            
+
         if (collision.CompareTag("Player"))
         {
-            Debug.LogWarning("Player Kill & respawn");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            Debug.LogWarning("Player Win");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
-       
+
     }
 }
