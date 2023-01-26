@@ -50,15 +50,4 @@ public class CraftingManager : MonoBehaviour
             }
         }   
     }
-
-    // Debugging script for random part spawning
-    private void Update() {
-        if (Input.GetKeyDown("u")) {
-            partInstance.Spawn(transform.position);
-        }
-
-        if (Input.GetKeyDown("i")) {
-            ItemInstance.Spawn(bible.recipes[0]);
-        }
-    }
 }
