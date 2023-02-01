@@ -94,6 +94,8 @@ public class PlayerMovement : MonoBehaviour
 		if (col.name == "Current"){
 			inCurrentRight = true;
 			CanPlayerMove = false;
+			rb.velocity = new Vector2(0, 0);
+			isGliding = false;
 		}
     }
 
@@ -215,8 +217,7 @@ public class PlayerMovement : MonoBehaviour
 
 	void OnCollisionEnter2D(Collision2D collider)
 	{
-		isGliding = false;
-
 		rb.velocity = new Vector2(0, 0);
+		isGliding = false;
 	}
 }
