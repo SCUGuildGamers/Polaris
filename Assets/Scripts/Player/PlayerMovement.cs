@@ -59,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
 	}
 
 	// Flips the horizontal orientation of the character
-	private void Flip()
+	public void Flip()
 	{
 		// Switch the way the player is labelled as facing.
 		_facingRight = !_facingRight;
