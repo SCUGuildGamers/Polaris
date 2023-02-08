@@ -47,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
 		isGliding = false;
 		showTrajectory = false;
 		trajectoryLine = GetComponent<TrajectoryLine>();
+		rb.gravityScale = 10;
 	}
 
 	void Update()
@@ -94,6 +95,8 @@ public class PlayerMovement : MonoBehaviour
 		if (col.name == "Current"){
 			inCurrentRight = true;
 			CanPlayerMove = false;
+			IsOceanMovement = true;
+			rb.gravityScale = 0;
 		}
     }
 
@@ -101,6 +104,8 @@ public class PlayerMovement : MonoBehaviour
 		if (col.name == "Current"){
 			inCurrentRight = false;
 			CanPlayerMove = true;
+			IsOceanMovement = false;
+			rb.gravityScale = 10;
 		}
 	}
 
