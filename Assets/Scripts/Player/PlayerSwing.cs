@@ -9,7 +9,7 @@ public class PlayerSwing : MonoBehaviour
     public float swingCD = 1.0f;
     public float nextSwing = 0.0f;
     private BossHealth _bossHealth;
-
+    public Transform Boss;
     void Start()
     {
         _bossHealth = FindObjectOfType<BossHealth>();
@@ -82,7 +82,8 @@ public class PlayerSwing : MonoBehaviour
 
         if (minPlastic != null)
         {
-            Destroy(minPlastic.gameObject);
+            //Destroy(minPlastic.gameObject);
+            minPlastic.changeDirection();
             reflected = true;
             _bossHealth.ReduceHealth(10);
         }

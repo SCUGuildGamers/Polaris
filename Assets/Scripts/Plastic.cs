@@ -6,11 +6,12 @@ public class Plastic : MonoBehaviour
 {
     public bool IsCopy = false;
     public bool CanPickup = false;
-
+    public Transform Boss;
     // Determines how often a pickup-able plastic spawns where the chance is 1/_pickupChance
     private int _pickupChance = 10;
 
     private Vector3 _targetPosition;
+    private Vector3 _spawnPosition;
     private Vector3 _targetDirection;
 
     // _speed determines how fast the projectile moves
@@ -54,6 +55,10 @@ public class Plastic : MonoBehaviour
                 Destroy(gameObject);
             }
 		}
+    }
+    public void changeDirection()
+    {
+        _targetPosition = Boss.position;
     }
 
     // Spawns and returns a copy of the Plastic object with values given by parameters spawnPosition, targetPosition, movement_mode, and delta
