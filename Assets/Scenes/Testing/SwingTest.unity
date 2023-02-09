@@ -481,6 +481,7 @@ MonoBehaviour:
   Urchin: {fileID: 6462561}
   PlasticBoss: {fileID: 135253523}
   Player: {fileID: 2115856467}
+  partInstance: {fileID: 0}
 --- !u!212 &135253522
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2607,7 +2608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -2922,6 +2923,12 @@ MonoBehaviour:
   IsOceanMovement: 0
   HorizontalSpeed: 10
   VerticalSpeed: 10
+  isDashing: 0
+  dashingPower: 50
+  dashingTime: 0.2
+  dashCooldown: 0.1
+  isGliding: 0
+  glidingPower: 50
 --- !u!50 &2115856469
 Rigidbody2D:
   serializedVersion: 4
