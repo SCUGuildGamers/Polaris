@@ -6,34 +6,44 @@ using UnityEngine.Tilemaps;
 public class PlayerMovement : MonoBehaviour
 {
 	private Rigidbody2D rb;
+
+	// Directional state
 	private bool _facingRight = true;
+
+	// Current state
 	private bool inCurrentRight = false;
 	private bool inCurrentLeft = false;
 	private bool inCurrentUp = false;
 	private bool inCurrentDown = false;
 
-
+	// Movement state
 	public bool CanPlayerMove = true;
-
 	public bool IsOceanMovement = false;
 
+	// Movement values
 	public float HorizontalSpeed = 10f;
 	public float VerticalSpeed = 10f;
 
-	// Dashing variables
-	[Header("Dash Variables")]
+	// Gravity constant
+	public float GravityConstant = 5f;
+
+	// Dash state
 	public static bool canDash;
 	public bool isDashing;
+
+	// Dash values
 	public float dashingPower = 50f;
 	public float dashingTime = 0.2f;
 	public float dashCooldown = 0.1f;
-	//public float iFrameTime = 0.3f;
 
-	// Gliding variables
-	[Header("Glide Variables")]
+	// Glide state
 	public static bool canGlide;
 	public bool isGliding;
+
+	// Glide values
 	public float glidingPower = 50f;
+
+	// Glide variables
 	private bool showTrajectory;
 	private TrajectoryLine trajectoryLine;
 
@@ -43,35 +53,31 @@ public class PlayerMovement : MonoBehaviour
 
 		canDash = true;
 		isDashing = false;
+
 		canGlide = true;
 		isGliding = false;
+
 		showTrajectory = false;
 		trajectoryLine = GetComponent<TrajectoryLine>();
-		rb.gravityScale = 10;
+		rb.gravityScale = GravityConstant;
+	}
+
+	void FixedUpdate()
+	{
+		// Prevent character from moving while the dash or glide is occuring
+		if (!isDashing && !isGliding)
+			// Move our character
+			Move();
 	}
 
 	void Update()
 	{
 		// Update the trajectory line
-		if(showTrajectory)
-        {
-			// Direction of dash is the unit vector of mouse position - rigidbody position
-			Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			mousePos.z = transform.position.z;
-			var glideDirection = mousePos - transform.position;
+		if (showTrajectory)
+			UpdatePlayerTrajectory();
 
-			trajectoryLine.ShowTrajectoryLine(transform.position, glideDirection);
-		}
-
-		if (inCurrentRight){
-			rb.AddForce(new Vector3(glidingPower, 0, 0));
-		} else if (inCurrentLeft){
-			rb.AddForce(new Vector3(-glidingPower, 0, 0));
-		} else if (inCurrentUp){
-			rb.AddForce(new Vector3(0, glidingPower, 0));
-		} else if (inCurrentDown){
-			rb.AddForce(new Vector3(0, -glidingPower, 0));
-		}
+		// Checks if the player is in a current and handles the logic
+		AddCurrentForce();
 
 		if ((Input.GetKeyDown("e") && canDash)) {
 				StartCoroutine(Dash());
@@ -82,16 +88,19 @@ public class PlayerMovement : MonoBehaviour
 			Glide();
 		}
 	}
-	void FixedUpdate()
+	
+
+
+	// When the player collides with anything, the player stop moving (implemented to stop glide movement)
+	void OnCollisionEnter2D(Collision2D collider)
 	{
-		// Stops all other actions while dashing is occuring
-		if(!isDashing && !isGliding)
-			// Move our character
-			Move();
+		rb.velocity = new Vector2(0, 0);
+		isGliding = false;
 	}
 
 	void OnTriggerEnter2D(Collider2D col)
     {
+		// When the player collides with the current, stop their movement and/or glide
 		if (col.name == "Current"){
 			inCurrentRight = true;
 			CanPlayerMove = false;
@@ -104,11 +113,42 @@ public class PlayerMovement : MonoBehaviour
     }
 
 	void OnTriggerExit2D(Collider2D col){
+		// When the player exits the current, they should be able to move again
 		if (col.name == "Current"){
 			inCurrentRight = false;
 			CanPlayerMove = true;
 			IsOceanMovement = false;
-			rb.gravityScale = 10;
+			rb.gravityScale = GravityConstant;
+		}
+	}
+
+	// Update the trajectory line relative to the player
+	void UpdatePlayerTrajectory() {
+		// Direction of dash is the unit vector of mouse position - rigidbody position
+		Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		mousePos.z = transform.position.z;
+		var glideDirection = mousePos - transform.position;
+
+		trajectoryLine.ShowTrajectoryLine(transform.position, glideDirection);
+	}
+
+	// Adds a directional force depending on which/if they are in a current
+	void AddCurrentForce() {
+		if (inCurrentRight)
+		{
+			rb.AddForce(new Vector3(glidingPower, 0, 0));
+		}
+		else if (inCurrentLeft)
+		{
+			rb.AddForce(new Vector3(-glidingPower, 0, 0));
+		}
+		else if (inCurrentUp)
+		{
+			rb.AddForce(new Vector3(0, glidingPower, 0));
+		}
+		else if (inCurrentDown)
+		{
+			rb.AddForce(new Vector3(0, -glidingPower, 0));
 		}
 	}
 
@@ -157,6 +197,7 @@ public class PlayerMovement : MonoBehaviour
 		transform.localScale = theScale;
 	}
 
+	// Handles logic when the Dash button is pressed
 	private IEnumerator Dash()
 	{
 		canDash = false;
@@ -182,7 +223,8 @@ public class PlayerMovement : MonoBehaviour
 
 		// Dash initiated
 		rb.velocity = new Vector2(dashDirection.normalized.x * dashingPower, dashDirection.normalized.y * dashingPower);
-		// What? v
+
+		// Pauses script to perform dash
 		yield return new WaitForSeconds(dashingTime);
 
 		//I-Frame deactivaton and reset variables
@@ -219,11 +261,5 @@ public class PlayerMovement : MonoBehaviour
 			// Glide initiated
 			rb.velocity = new Vector2(glideDirection.normalized.x * glidingPower, glideDirection.normalized.y * glidingPower);
 		}
-	}
-
-	void OnCollisionEnter2D(Collision2D collider)
-	{
-		rb.velocity = new Vector2(0, 0);
-		isGliding = false;
 	}
 }
