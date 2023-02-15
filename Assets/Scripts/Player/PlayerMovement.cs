@@ -88,6 +88,12 @@ public class PlayerMovement : MonoBehaviour
 		{
 			Glide();
 		}
+
+		// Canceling the trajectory line
+		else if(Input.GetKeyDown(KeyCode.Escape) && showTrajectory) {
+			showTrajectory = false;
+			trajectoryLine.ClearLine(); // Clear the trajectory line
+		}
 	}
 	
 
@@ -254,8 +260,6 @@ public class PlayerMovement : MonoBehaviour
 	// Handles logic when the Glide button is pressed
 	private void Glide()
 	{
-		isGliding = true;
-
 		// First Glide button click
 		if (!showTrajectory)
 		{
@@ -265,6 +269,8 @@ public class PlayerMovement : MonoBehaviour
 		// Second Glide button click
 		else
 		{
+			isGliding = true;
+
 			showTrajectory = false;
 			trajectoryLine.ClearLine(); // Clear the trajectory line
 
