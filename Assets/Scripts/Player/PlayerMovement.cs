@@ -59,7 +59,8 @@ public class PlayerMovement : MonoBehaviour
 
 		showTrajectory = false;
 		trajectoryLine = GetComponent<TrajectoryLine>();
-		rb.gravityScale = GravityConstant;
+
+		ToggleGravity(true);
 	}
 
 	void FixedUpdate()
@@ -94,8 +95,14 @@ public class PlayerMovement : MonoBehaviour
 	// When the player collides with anything, the player stop moving (implemented to stop glide movement)
 	void OnCollisionEnter2D(Collision2D collider)
 	{
-		rb.velocity = new Vector2(0, 0);
-		isGliding = false;
+		if (isGliding) { // If the player collides with something while they're gliding, the glide should stop 
+			ToggleGravity(true);
+			
+			rb.velocity = new Vector2(0, 0);
+
+			isGliding = false;
+		}
+		
 	}
 
 	void OnTriggerEnter2D(Collider2D col)
@@ -108,7 +115,7 @@ public class PlayerMovement : MonoBehaviour
 			isGliding = false;
 
 			IsOceanMovement = true;
-			rb.gravityScale = 0;
+			ToggleGravity(false);
 		}
     }
 
@@ -118,8 +125,16 @@ public class PlayerMovement : MonoBehaviour
 			inCurrentRight = false;
 			CanPlayerMove = true;
 			IsOceanMovement = false;
-			rb.gravityScale = GravityConstant;
+			ToggleGravity(true);
 		}
+	}
+
+	// Toggles the gravity on/off with the GravityConstant given the boolean value 'toggle'
+	void ToggleGravity(bool toggle) {
+		if (toggle)
+			rb.gravityScale = GravityConstant;
+		else
+			rb.gravityScale = 0f;
 	}
 
 	// Update the trajectory line relative to the player
@@ -260,6 +275,9 @@ public class PlayerMovement : MonoBehaviour
 
 			// Glide initiated
 			rb.velocity = new Vector2(glideDirection.normalized.x * glidingPower, glideDirection.normalized.y * glidingPower);
+
+			// Toggle gravity off when the player is gliding
+			ToggleGravity(false);
 		}
 	}
 }
