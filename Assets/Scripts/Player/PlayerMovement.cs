@@ -106,7 +106,9 @@ public class PlayerMovement : MonoBehaviour
 			
 			rb.velocity = new Vector2(0, 0);
 
+			// Toggle glide state variables
 			isGliding = false;
+			canGlide = true;
 		}
 		
 	}
@@ -118,7 +120,10 @@ public class PlayerMovement : MonoBehaviour
 			inCurrentRight = true;
 			CanPlayerMove = false;
 			rb.velocity = new Vector2(0, 0);
+
+			// Toggle glide state variables
 			isGliding = false;
+			canGlide = true;
 
 			IsOceanMovement = true;
 			ToggleGravity(false);
@@ -261,15 +266,17 @@ public class PlayerMovement : MonoBehaviour
 	private void Glide()
 	{
 		// First Glide button click
-		if (!showTrajectory)
+		if (!showTrajectory && canGlide)
 		{
 			showTrajectory = true;
 		}
 
 		// Second Glide button click
-		else
+		else if(showTrajectory)
 		{
+			// Toggle glide state variables
 			isGliding = true;
+			canGlide = false;
 
 			showTrajectory = false;
 			trajectoryLine.ClearLine(); // Clear the trajectory line
