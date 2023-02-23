@@ -88,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
 			rb.velocity = new Vector2(0, 0);
 
 			// Toggle player move state variables
-			CanPlayerMove = false;
+			CanPlayerMove = true;
 
 			// Toggle glide state variables
 			isGliding = false;
