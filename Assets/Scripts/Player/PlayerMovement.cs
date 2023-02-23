@@ -10,11 +10,22 @@ public class PlayerMovement : MonoBehaviour
 	// Directional state
 	private bool _facingRight = true;
 
-	// Current state
-	private bool inCurrentRight = false;
-	private bool inCurrentLeft = false;
-	private bool inCurrentUp = false;
-	private bool inCurrentDown = false;
+	// Glide state
+	private bool isGliding;
+
+	// Glide values
+	public static float glidingPower = 20f;
+
+	// Glide variables
+	private bool showTrajectory;
+	private TrajectoryLine trajectoryLine;
+
+	// Current forces
+	private static float currentPower = glidingPower / 4;
+	private Vector2 currUpVelocity = new Vector3(0, currentPower);
+	private Vector2 currRightVelocity = new Vector3(currentPower, 0);
+	private Vector2 currDownVelocity = new Vector3(0, -currentPower);
+	private Vector2 currLeftVelocity = new Vector3(-currentPower, 0);
 
 	// Movement state
 	public bool CanPlayerMove = true;
@@ -24,17 +35,9 @@ public class PlayerMovement : MonoBehaviour
 	public float VerticalSpeed = 10f;
 
 	// Gravity constant
-	public float GravityConstant = 5f;
+	public float GravityConstant = 10f;
 
-	// Glide state
-	private bool isGliding;
 
-	// Glide values
-	public float glidingPower = 20f;
-
-	// Glide variables
-	private bool showTrajectory;
-	private TrajectoryLine trajectoryLine;
 
 	void Start()
 	{
@@ -62,9 +65,6 @@ public class PlayerMovement : MonoBehaviour
 		if (showTrajectory)
 			UpdatePlayerTrajectory();
 
-		// Checks if the player is in a current and handles the logic
-		AddCurrentForce();
-
 		if (Input.GetKeyDown("g"))
 		{
 			Glide();
@@ -87,6 +87,9 @@ public class PlayerMovement : MonoBehaviour
 			
 			rb.velocity = new Vector2(0, 0);
 
+			// Toggle player move state variables
+			CanPlayerMove = false;
+
 			// Toggle glide state variables
 			isGliding = false;
 		}
@@ -95,27 +98,9 @@ public class PlayerMovement : MonoBehaviour
 
 	void OnTriggerEnter2D(Collider2D col)
     {
-		// When the player collides with the current, stop their movement and/or glide
-		if (col.name == "Current"){
-			inCurrentRight = true;
-			CanPlayerMove = false;
-			rb.velocity = new Vector2(0, 0);
-
-			// Toggle glide state variables
-			isGliding = false;
-
-			ToggleGravity(false);
-		}
+		if (col.name.Contains("Current"))
+			AddCurrentVelocity(col);
     }
-
-	void OnTriggerExit2D(Collider2D col){
-		// When the player exits the current, they should be able to move again
-		if (col.name == "Current"){
-			inCurrentRight = false;
-			CanPlayerMove = true;
-			ToggleGravity(true);
-		}
-	}
 
 	// Toggles the gravity on/off with the GravityConstant given the boolean value 'toggle'
 	void ToggleGravity(bool toggle) {
@@ -123,6 +108,32 @@ public class PlayerMovement : MonoBehaviour
 			rb.gravityScale = GravityConstant;
 		else
 			rb.gravityScale = 0f;
+	}
+
+	// Add current velocity depending on the collider name
+	void AddCurrentVelocity(Collider2D col)
+    {
+		CanPlayerMove = false;
+
+		// Add current velocity
+		if (col.name == "CurrentUp") {
+			rb.velocity = rb.velocity + currUpVelocity;
+		}
+
+		if (col.name == "CurrentRight")
+		{
+			rb.velocity = rb.velocity + currRightVelocity;
+		}
+
+		if (col.name == "CurrentDown")
+		{
+			rb.velocity = rb.velocity + currDownVelocity;
+		}
+
+		if (col.name == "CurrentLeft")
+		{
+			rb.velocity = rb.velocity + currLeftVelocity;
+		}
 	}
 
 	// Update the trajectory line relative to the player
@@ -133,26 +144,6 @@ public class PlayerMovement : MonoBehaviour
 		var glideDirection = mousePos - transform.position;
 
 		trajectoryLine.ShowTrajectoryLine(transform.position, glideDirection);
-	}
-
-	// Adds a directional force depending on which/if they are in a current
-	void AddCurrentForce() {
-		if (inCurrentRight)
-		{
-			rb.AddForce(new Vector3(glidingPower, 0, 0));
-		}
-		else if (inCurrentLeft)
-		{
-			rb.AddForce(new Vector3(-glidingPower, 0, 0));
-		}
-		else if (inCurrentUp)
-		{
-			rb.AddForce(new Vector3(0, glidingPower, 0));
-		}
-		else if (inCurrentDown)
-		{
-			rb.AddForce(new Vector3(0, -glidingPower, 0));
-		}
 	}
 
 	void Move()
@@ -206,6 +197,9 @@ public class PlayerMovement : MonoBehaviour
 		// Second Glide button click
 		else if(showTrajectory)
 		{
+			// Toggle player move state variables
+			CanPlayerMove = false;
+
 			// Toggle glide state variables
 			isGliding = true;
 
