@@ -18,7 +18,6 @@ public class PlayerMovement : MonoBehaviour
 
 	// Movement state
 	public bool CanPlayerMove = true;
-	private bool IsOceanMovement = false;
 
 	// Movement values
 	public float HorizontalSpeed = 10f;
@@ -105,7 +104,6 @@ public class PlayerMovement : MonoBehaviour
 			// Toggle glide state variables
 			isGliding = false;
 
-			IsOceanMovement = true;
 			ToggleGravity(false);
 		}
     }
@@ -115,7 +113,6 @@ public class PlayerMovement : MonoBehaviour
 		if (col.name == "Current"){
 			inCurrentRight = false;
 			CanPlayerMove = true;
-			IsOceanMovement = false;
 			ToggleGravity(true);
 		}
 	}
@@ -169,14 +166,7 @@ public class PlayerMovement : MonoBehaviour
 
 		float horizontalDirection = Input.GetAxis("Horizontal");
 
-		// Controls whether or not the player can do underwater movement or not
-		float verticalDirection;
-		if (IsOceanMovement)
-			verticalDirection = Input.GetAxis("Vertical");
-		else
-			verticalDirection = 0;
-
-		rb.velocity = new Vector2(horizontalDirection * HorizontalSpeed, verticalDirection * VerticalSpeed);
+		rb.velocity = new Vector2(horizontalDirection * HorizontalSpeed, 0);
 
 		// If the input is moving the player right and the player is facing left, then correct the character orientation
 		if (horizontalDirection > 0 && !_facingRight)
