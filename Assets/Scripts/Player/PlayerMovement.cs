@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
 
 	// Movement state
 	public bool CanPlayerMove = true;
-	public bool IsOceanMovement = false;
+	private bool IsOceanMovement = false;
 
 	// Movement values
 	public float HorizontalSpeed = 10f;
@@ -27,21 +27,11 @@ public class PlayerMovement : MonoBehaviour
 	// Gravity constant
 	public float GravityConstant = 5f;
 
-	// Dash state
-	public static bool canDash;
-	public bool isDashing;
-
-	// Dash values
-	public float dashingPower = 50f;
-	public float dashingTime = 0.2f;
-	public float dashCooldown = 0.1f;
-
 	// Glide state
-	public static bool canGlide;
-	public bool isGliding;
+	private bool isGliding;
 
 	// Glide values
-	public float glidingPower = 50f;
+	public float glidingPower = 20f;
 
 	// Glide variables
 	private bool showTrajectory;
@@ -51,10 +41,6 @@ public class PlayerMovement : MonoBehaviour
 	{
 		rb = GetComponent<Rigidbody2D>();
 
-		canDash = true;
-		isDashing = false;
-
-		canGlide = true;
 		isGliding = false;
 
 		showTrajectory = false;
@@ -66,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
 	void FixedUpdate()
 	{
 		// Prevent character from moving while the dash or glide is occuring
-		if (!isDashing && !isGliding)
+		if (!isGliding)
 			// Move our character
 			Move();
 	}
@@ -80,11 +66,7 @@ public class PlayerMovement : MonoBehaviour
 		// Checks if the player is in a current and handles the logic
 		AddCurrentForce();
 
-		if ((Input.GetKeyDown("e") && canDash)) {
-				StartCoroutine(Dash());
-		}
-
-		else if (Input.GetKeyDown("g") && canGlide)
+		if (Input.GetKeyDown("g"))
 		{
 			Glide();
 		}
@@ -108,7 +90,6 @@ public class PlayerMovement : MonoBehaviour
 
 			// Toggle glide state variables
 			isGliding = false;
-			canGlide = true;
 		}
 		
 	}
@@ -123,7 +104,6 @@ public class PlayerMovement : MonoBehaviour
 
 			// Toggle glide state variables
 			isGliding = false;
-			canGlide = true;
 
 			IsOceanMovement = true;
 			ToggleGravity(false);
@@ -223,50 +203,12 @@ public class PlayerMovement : MonoBehaviour
 		transform.localScale = theScale;
 	}
 
-	// Handles logic when the Dash button is pressed
-	private IEnumerator Dash()
-	{
-		canDash = false;
-		isDashing = true;
-
-		// I-Frame Activation
-		Physics2D.IgnoreLayerCollision(6,7,true);
-
-		// Direction of dash is the unit vector of mouse position - rigidbody position
-		Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		mousePos.z = transform.position.z;
-		var dashDirection = mousePos - transform.position;
-
-		// Copied Flip instructions but with x value of dashDirection
-		if (dashDirection.x > 0 && !_facingRight)
-		{
-			Flip();
-		}
-		else if (dashDirection.x < 0 && _facingRight)
-		{
-			Flip();
-		}
-
-		// Dash initiated
-		rb.velocity = new Vector2(dashDirection.normalized.x * dashingPower, dashDirection.normalized.y * dashingPower);
-
-		// Pauses script to perform dash
-		yield return new WaitForSeconds(dashingTime);
-
-		//I-Frame deactivaton and reset variables
-		isDashing = false;
-		Physics2D.IgnoreLayerCollision(6,7,false);
-
-		// Below dashCooldown may not be necessary depending on what is necessary for crafting system
-		yield return new WaitForSecondsRealtime(dashCooldown);
-		canDash = true;
-	}
-
 	// Handles logic when the Glide button is pressed
+	// Physics2D.IgnoreLayerCollision(6,7,true) and Physics2D.IgnoreLayerCollision(6,7,false);
 	private void Glide()
 	{
 		// First Glide button click
-		if (!showTrajectory && canGlide)
+		if (!showTrajectory)
 		{
 			showTrajectory = true;
 		}
@@ -276,7 +218,6 @@ public class PlayerMovement : MonoBehaviour
 		{
 			// Toggle glide state variables
 			isGliding = true;
-			canGlide = false;
 
 			showTrajectory = false;
 			trajectoryLine.ClearLine(); // Clear the trajectory line
