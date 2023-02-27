@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
 	public float VerticalSpeed = 10f;
 
 	// Gravity constant
-	public float GravityConstant = 10f;
+	private float GravityConstant = 5f;
 
 
 
@@ -61,6 +61,7 @@ public class PlayerMovement : MonoBehaviour
 
 	void Update()
 	{
+		Debug.Log(rb.velocity);
 		// Update the trajectory line
 		if (showTrajectory)
 			UpdatePlayerTrajectory();
@@ -83,8 +84,9 @@ public class PlayerMovement : MonoBehaviour
 	// When the player collides with anything, the player stop moving (implemented to stop glide movement)
 	void OnCollisionEnter2D(Collision2D collider)
 	{
+		// If the player collides with something while they're gliding, the glide should stop 
 		if (isGliding)
-		{ // If the player collides with something while they're gliding, the glide should stop 
+		{ 
 			ToggleGravity(true);
 
 			rb.velocity = new Vector2(0, 0);
@@ -101,7 +103,19 @@ public class PlayerMovement : MonoBehaviour
 	void OnTriggerEnter2D(Collider2D col)
 	{
 		if (col.name.Contains("Current"))
+        {
 			AddCurrentVelocity(col);
+			if (!isGliding)
+				ToggleGravity(false);
+		}	
+	}
+
+	void OnTriggerExit2D(Collider2D col)
+	{
+		if (col.name.Contains("Current"))
+		{
+			ToggleGravity(true);
+		}
 	}
 
 	// Toggles the gravity on/off with the GravityConstant given the boolean value 'toggle'
@@ -116,6 +130,7 @@ public class PlayerMovement : MonoBehaviour
 	// Add current velocity depending on the collider name
 	void AddCurrentVelocity(Collider2D col)
 	{
+		Debug.Log(rb.gravityScale);
 		CanPlayerMove = false;
 
 		// Add current velocity
@@ -124,17 +139,17 @@ public class PlayerMovement : MonoBehaviour
 			rb.velocity = rb.velocity + currUpVelocity;
 		}
 
-		if (col.name == "CurrentRight")
+		else if (col.name == "CurrentRight")
 		{
 			rb.velocity = rb.velocity + currRightVelocity;
 		}
 
-		if (col.name == "CurrentDown")
+		else if (col.name == "CurrentDown")
 		{
 			rb.velocity = rb.velocity + currDownVelocity;
 		}
 
-		if (col.name == "CurrentLeft")
+		else if (col.name == "CurrentLeft")
 		{
 			rb.velocity = rb.velocity + currLeftVelocity;
 		}
@@ -156,7 +171,6 @@ public class PlayerMovement : MonoBehaviour
 		// Check if the player can move or not
 		if (CanPlayerMove == false)
 		{
-			rb.velocity = new Vector2(0, 0);
 			return;
 		}
 
