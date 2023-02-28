@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
 	private float VerticalSpeed = 10f;
 
 	// Gravity constant
-	private float GravityConstant = 5f;
+	private float GravityConstant = 7.5f;
 
 	// Directional state
 	private bool _facingRight = true;
