@@ -7,6 +7,19 @@ public class PlayerMovement : MonoBehaviour
 {
 	private Rigidbody2D rb;
 
+	// Keeps track of whether or not the player is in a level or boss fight
+	public bool InLevel;
+
+	// Keeps track of whether the player can move
+	public bool CanPlayerMove = true;
+
+	// Movement values
+	private float HorizontalSpeed = 10f;
+	private float VerticalSpeed = 10f;
+
+	// Gravity constant
+	private float GravityConstant = 5f;
+
 	// Directional state
 	private bool _facingRight = true;
 
@@ -14,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
 	private bool isGliding;
 
 	// Glide values
-	public static float glidingPower = 20f;
+	private static float glidingPower = 20f;
 
 	// Glide variables
 	private bool showTrajectory;
@@ -27,28 +40,18 @@ public class PlayerMovement : MonoBehaviour
 	private Vector2 currDownVelocity = new Vector3(0, -currentPower);
 	private Vector2 currLeftVelocity = new Vector3(-currentPower, 0);
 
-	// Movement state
-	public bool CanPlayerMove = true;
-
-	// Movement values
-	public float HorizontalSpeed = 10f;
-	public float VerticalSpeed = 10f;
-
-	// Gravity constant
-	private float GravityConstant = 5f;
-
-
-
 	void Start()
 	{
 		rb = GetComponent<Rigidbody2D>();
 
-		isGliding = false;
+		if (InLevel)
+			ToggleGravity(true);
+		else
+			ToggleGravity(false);	
 
+		isGliding = false;
 		showTrajectory = false;
 		trajectoryLine = GetComponent<TrajectoryLine>();
-
-		ToggleGravity(true);
 	}
 
 	void FixedUpdate()
@@ -61,21 +64,23 @@ public class PlayerMovement : MonoBehaviour
 
 	void Update()
 	{
-		Debug.Log(rb.velocity);
-		// Update the trajectory line
-		if (showTrajectory)
-			UpdatePlayerTrajectory();
+		// Only perform these statements if the player is in a level/boss fight
+		if (InLevel) {
+			// Update the trajectory line
+			if (showTrajectory)
+				UpdatePlayerTrajectory();
 
-		if (Input.GetKeyDown("g"))
-		{
-			Glide();
-		}
+			if (Input.GetKeyDown("g"))
+			{
+				Glide();
+			}
 
-		// Canceling the trajectory line
-		else if (Input.GetKeyDown(KeyCode.Escape) && showTrajectory)
-		{
-			showTrajectory = false;
-			trajectoryLine.ClearLine(); // Clear the trajectory line
+			// Canceling the trajectory line
+			else if (Input.GetKeyDown(KeyCode.Escape) && showTrajectory)
+			{
+				showTrajectory = false;
+				trajectoryLine.ClearLine(); // Clear the trajectory line
+			}
 		}
 	}
 
