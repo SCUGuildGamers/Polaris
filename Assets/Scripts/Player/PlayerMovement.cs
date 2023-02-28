@@ -54,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
 	void FixedUpdate()
 	{
 		// Prevent character from moving while the dash or glide is occuring
-		if (!isGliding)
+		if (!isGliding && CanPlayerMove)
 			// Move our character
 			Move();
 	}
@@ -112,9 +112,13 @@ public class PlayerMovement : MonoBehaviour
 
 	void OnTriggerExit2D(Collider2D col)
 	{
-		if (col.name.Contains("Current"))
+		if (col.name.Contains("Current") && !isGliding)
 		{
 			ToggleGravity(true);
+			rb.velocity = new Vector2(0, 0);
+
+			// Toggle player move state variables
+			CanPlayerMove = true;
 		}
 	}
 
@@ -130,7 +134,6 @@ public class PlayerMovement : MonoBehaviour
 	// Add current velocity depending on the collider name
 	void AddCurrentVelocity(Collider2D col)
 	{
-		Debug.Log(rb.gravityScale);
 		CanPlayerMove = false;
 
 		// Add current velocity
@@ -168,12 +171,6 @@ public class PlayerMovement : MonoBehaviour
 
 	void Move()
 	{
-		// Check if the player can move or not
-		if (CanPlayerMove == false)
-		{
-			return;
-		}
-
 		float horizontalDirection = Input.GetAxis("Horizontal");
 
 		rb.velocity = new Vector2(horizontalDirection * HorizontalSpeed, 0);
