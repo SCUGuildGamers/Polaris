@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class Plastic : MonoBehaviour
 {
+    // State variables
     public bool IsCopy = false;
-    public bool CanPickup = false;
-    public Transform Boss;
+    public bool CanReflect = false;
+
+    // Source of projecitile spawning
+    private Transform source;
+
     // Determines how often a pickup-able plastic spawns where the chance is 1/_pickupChance
     private int _pickupChance = 10;
 
@@ -56,53 +60,66 @@ public class Plastic : MonoBehaviour
             }
 		}
     }
-    public void changeDirection()
+    public void ReflectDirection()
     {
-        _targetPosition = Boss.position;
+        Debug.Log(_targetDirection);
+        _targetDirection = (transform.position - source.position).normalized;
+        Debug.Log(_targetDirection);
     }
 
     // Spawns and returns a copy of the Plastic object with values given by parameters spawnPosition, targetPosition, movement_mode, and delta
-    public Plastic Spawn(Vector3 spawnPosition, Vector3 targetPosition = default(Vector3), int movementMode = 0, float delta = 0)
+    public Plastic Spawn(Vector3 spawnPosition, Vector3 targetPosition, Transform source, int movementMode = 0,  bool autoReflectable = false, float delta = 0)
     {
         GameObject plasticCopy = Instantiate(gameObject);
 
+        // Make visible
         plasticCopy.gameObject.SetActive(true);
+        plasticCopy.GetComponent<SpriteRenderer>().enabled = true;
+
         Plastic plasticObjCopy = plasticCopy.GetComponent<Plastic>();
         plasticObjCopy.IsCopy = true;
-        plasticObjCopy.GetComponent<Transform>().position = spawnPosition;
-        plasticObjCopy.GetComponent<SpriteRenderer>().enabled = true;
 
+        // Set the source of the projectile
+        plasticObjCopy.source = source;
+
+        // Reposition and update movement directions
+        plasticObjCopy.GetComponent<Transform>().position = spawnPosition;
         plasticObjCopy._targetPosition = targetPosition;
         plasticObjCopy._targetDirection = (targetPosition - spawnPosition).normalized;
         plasticObjCopy._movementMode = movementMode;
         plasticObjCopy._delta = delta;
 
-        // If the plastic can be picked up, then change its setting t
-        plasticObjCopy.CanPickup = RollPickup();
-        if (plasticObjCopy.CanPickup)
-        {
-            MakePickup(plasticObjCopy);
-        }
+
+        // Check if the plastic is SUPPOSED to be reflectable
+        if (autoReflectable)
+            plasticObjCopy.CanReflect = true;
+
+        // Else, roll the reflect chance
+        else
+            plasticObjCopy.CanReflect = RollReflect();
 
         return plasticObjCopy;
     }
 
-    // Helper function to generate whether or not the Plastic object can be picked up or not where the chance is equal to 1/_pickupChance
-    private bool RollPickup()
+    // Helper function to generate whether or not the Plastic object can be reflected; the chance is equal to 1/_pickupChance
+    private bool RollReflect()
     {
+        // Roll the reflect chance
         int canPickupRoll = Random.Range(0, _pickupChance+1);
-        if (canPickupRoll == _pickupChance)
-            return true;
 
-        else
-            return false;
+        if (canPickupRoll == _pickupChance) {
+            MakePickup();
+            return true;
+        }
+
+        return false;
     }
 
     // Helper function that determines what happens if a plastic can be picked up
-    private void MakePickup(Plastic plastic)
+    private void MakePickup()
     {
-        plastic.GetComponent<Renderer>().material.color = Color.green;
-        plastic._speed = plastic._speed / 2;
+        GetComponent<Renderer>().material.color = Color.green;
+        _speed = _speed / 2;
     }
 
     // Moves the projectile clockwise

@@ -203,8 +203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsCopy: 0
-  CanPickup: 0
-  Boss: {fileID: 0}
+  CanReflect: 0
 --- !u!212 &29067143
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -598,6 +597,7 @@ GameObject:
   - component: {fileID: 499213710}
   - component: {fileID: 499213714}
   - component: {fileID: 499213715}
+  - component: {fileID: 499213716}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -745,6 +745,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lineRenderer: {fileID: 1218721481}
   lineSegments: 60
+--- !u!114 &499213716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 499213709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0971ccd0a0cfaf844bf759747d91a91d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swingCD: 1
+  nextSwing: 0
+  Boss: {fileID: 0}
 --- !u!1 &585863284
 GameObject:
   m_ObjectHideFlags: 0
@@ -835,7 +850,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 585863284}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.18, y: 4.94, z: -3.9382176}
+  m_LocalPosition: {x: 10.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
