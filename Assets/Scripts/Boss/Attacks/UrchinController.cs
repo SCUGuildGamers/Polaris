@@ -57,7 +57,7 @@ public class UrchinController : MonoBehaviour
                 // Spawns each plastic along a circular outline given an angle spawnAngle
                 Vector3 position = GetCirclePos(Urchin.position, spawnAngle, 0.5f);
 
-                Plastic plasticCopy = Plastic.Spawn(position);
+                Plastic plasticCopy = Plastic.Spawn(position, position, transform);
 
                 // Adds velocity in the direction of the angle spawnAngle
                 Vector2 movementVelocity = new Vector2(Mathf.Sin(Mathf.Deg2Rad * spawnAngle), Mathf.Cos(Mathf.Deg2Rad * spawnAngle)) * PlasticProjectileSpeed;
