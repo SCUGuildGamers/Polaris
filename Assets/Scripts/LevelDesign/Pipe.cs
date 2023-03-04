@@ -29,13 +29,16 @@ public class Pipe : MonoBehaviour
     // Starts automatic shooting given the period time
     IEnumerator StartShooting()
     {
-        while (true) 
+        // Shoot while the pipe is not clogged
+        while (!isClogged) 
         {
             Shoot();
 
             // Wait till period ends
             yield return new WaitForSeconds(period);
         }
+
+        yield break;
     }
 
     // Shoots a projectile
@@ -60,5 +63,18 @@ public class Pipe : MonoBehaviour
 
         else
             return new Vector3(-1, 0, 0);
+    }
+
+    // Look for collisions with reflected plastic
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        Plastic plastic = col.gameObject.GetComponent<Plastic>();
+        Debug.Log("Hi");
+        if (plastic != null && plastic.IsReflected) {
+            isClogged = true;
+            Destroy(col.gameObject);
+
+            Debug.Log("The pipe is clogged");
+        }
     }
 }

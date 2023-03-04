@@ -5,8 +5,9 @@ using UnityEngine;
 public class Plastic : MonoBehaviour
 {
     // State variables
-    public bool IsCopy = false;
+    private bool IsCopy = false;
     public bool CanReflect = false;
+    public bool IsReflected = false;
 
     // Source of projecitile spawning
     private Transform source;
@@ -46,7 +47,6 @@ public class Plastic : MonoBehaviour
 			}
 			else if (_movementMode == 4)
 			{
-
 				ToTarget();
 			}
 
@@ -62,9 +62,12 @@ public class Plastic : MonoBehaviour
     }
     public void ReflectDirection()
     {
-        Debug.Log(_targetDirection);
-        _targetDirection = (transform.position - source.position).normalized;
-        Debug.Log(_targetDirection);
+        // Reverse the direction
+        _targetDirection = -_targetDirection;
+
+        // Update state variables
+        IsReflected = true;
+        CanReflect = false;
     }
 
     // Spawns and returns a copy of the Plastic object with values given by parameters spawnPosition, targetPosition, movement_mode, and delta
