@@ -58,7 +58,8 @@ public class PlayerMovement : MonoBehaviour
 			ToggleGravity(true);
 
 			// For debugging the glide charge system
-			glideCharge.SetStarting();
+			if(glideCharge != null)
+				glideCharge.SetStarting();
 		}
 			
 		else
