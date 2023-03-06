@@ -54,13 +54,15 @@ public class PlayerMovement : MonoBehaviour
 		showTrajectory = false;
 
 		// Toggles gravity depending on if the player is in a level or not
-		if (InLevel)
+		if (InLevel) {
 			ToggleGravity(true);
+
+			// For debugging the glide charge system
+			glideCharge.SetStarting();
+		}
+			
 		else
 			ToggleGravity(false);
-
-		// For debugging the glide charge system
-		glideCharge.SetStarting();
 	}
 
 	void FixedUpdate()
