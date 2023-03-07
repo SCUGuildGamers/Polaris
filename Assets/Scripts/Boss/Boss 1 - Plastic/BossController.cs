@@ -7,6 +7,7 @@ public class BossController : MonoBehaviour
     public Plastic Plastic;
     public TurtleController Turtle;
     public UrchinController Urchin;
+    public platform platform;
 
     public Transform PlasticBoss;
     public Transform Player;
@@ -53,6 +54,13 @@ public class BossController : MonoBehaviour
 			{
 				PincerAttack();
 			}
+
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                Vector3 angle = new Vector3(-1, Random.Range(-3, 3), 0);
+                platform.Spawn(angle);
+            }
+
 		}
     }
 
