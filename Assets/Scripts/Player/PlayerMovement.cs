@@ -77,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
 	void Update()
 	{
 		// Only perform these statements if the player is in a level/boss fight
-		if (InLevel) {
+		if (InLevel && CanPlayerMove) {
 			// Update the trajectory line
 			if (showTrajectory)
 				UpdatePlayerTrajectory();
