@@ -44,6 +44,11 @@ public class EventManager : MonoBehaviour
 
         else if (flag == "gotLoop")
             _flags["Loop"] = true;
+
+        // Increase glide charge from NPC interaction
+        else if (flag == "increaseGlideCharge") {
+            FindObjectOfType<GlideCharge>().AddCharge();
+        }
     }
 
     public void ProcessChoice(string flag)

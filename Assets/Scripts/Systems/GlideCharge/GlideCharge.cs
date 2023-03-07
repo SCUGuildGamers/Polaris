@@ -26,6 +26,9 @@ public class GlideCharge : MonoBehaviour
     public void AddCharge()
     {
         chargeCounter++;
+
+        // Debug statement
+        Debug.Log("The player's glide counter is " + chargeCounter);
     }
 
     // Check the player can glide and decrement charge counter if so
@@ -35,10 +38,11 @@ public class GlideCharge : MonoBehaviour
         if (chargeCounter == 0)
             return false;
 
+        chargeCounter--;
+
         // Debug statement
         Debug.Log("The player's glide counter is " + chargeCounter);
 
-        chargeCounter--;
         return true;
     }
 
