@@ -1049,9 +1049,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 847bf95497800a247bec12c7ff0b56d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsCopy: 0
-  CanPickup: 0
-  Boss: {fileID: 0}
+  CanReflect: 0
+  IsReflected: 0
 --- !u!1 &270375460
 GameObject:
   m_ObjectHideFlags: 0
@@ -1988,7 +1987,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 576783012}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: eab54dc6672a68f4d9c94093029efc71, type: 2}
+  m_Material: {fileID: 6200000, guid: 457284f20dc283c42bc15112f3471031, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -5370,16 +5369,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc57473dc5b30914ba778710fe5eee76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InLevel: 0
   CanPlayerMove: 1
-  IsOceanMovement: 1
-  HorizontalSpeed: 10
-  VerticalSpeed: 10
-  isDashing: 0
-  dashingPower: 25
-  dashingTime: 0.2
-  dashCooldown: 0.1
-  isGliding: 0
-  glidingPower: 50
 --- !u!50 &2115856469
 Rigidbody2D:
   serializedVersion: 4
@@ -5443,10 +5434,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0971ccd0a0cfaf844bf759747d91a91d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
   swingCD: 1
   nextSwing: 0
-  Boss: {fileID: 0}
 --- !u!114 &2115856473
 MonoBehaviour:
   m_ObjectHideFlags: 0
