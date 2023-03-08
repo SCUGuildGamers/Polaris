@@ -15,7 +15,10 @@ public class TrajectoryLine : MonoBehaviour
         Vector3[] lineRendererPoints = CalculateTrajectoryLine(startPoint, direction);
 
         lineRenderer.positionCount = lineSegments;
-        lineRenderer.SetPositions(lineRendererPoints);
+        
+        // Ensure that the array is not null to prevent error
+        if(lineRendererPoints != null)
+            lineRenderer.SetPositions(lineRendererPoints);
     }
 
     // Cast a ray in a direction, get the hitpoint, and calculate the direction/increment needed to create the trajectory line
