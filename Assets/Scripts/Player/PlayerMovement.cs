@@ -7,6 +7,9 @@ public class PlayerMovement : MonoBehaviour
 {
 	private Rigidbody2D rb;
 
+	// For reference
+	GlideCharge glideCharge;
+
 	// Keeps track of whether or not the player is in a level or boss fight
 	public bool InLevel;
 
@@ -15,7 +18,6 @@ public class PlayerMovement : MonoBehaviour
 
 	// Movement values
 	private float HorizontalSpeed = 10f;
-	private float VerticalSpeed = 10f;
 
 	// Gravity constant
 	private float GravityConstant = 7.5f;
@@ -42,16 +44,26 @@ public class PlayerMovement : MonoBehaviour
 
 	void Start()
 	{
+		// For reference
 		rb = GetComponent<Rigidbody2D>();
+		glideCharge = GetComponent<GlideCharge>();
+		trajectoryLine = GetComponent<TrajectoryLine>();
 
-		if (InLevel)
-			ToggleGravity(true);
-		else
-			ToggleGravity(false);	
-
+		// States
 		isGliding = false;
 		showTrajectory = false;
-		trajectoryLine = GetComponent<TrajectoryLine>();
+
+		// Toggles gravity depending on if the player is in a level or not
+		if (InLevel) {
+			ToggleGravity(true);
+
+			// For debugging the glide charge system
+			if(glideCharge != null)
+				glideCharge.SetStarting();
+		}
+			
+		else
+			ToggleGravity(false);
 	}
 
 	void FixedUpdate()
@@ -65,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
 	void Update()
 	{
 		// Only perform these statements if the player is in a level/boss fight
-		if (InLevel) {
+		if (InLevel && CanPlayerMove) {
 			// Update the trajectory line
 			if (showTrajectory)
 				UpdatePlayerTrajectory();
@@ -215,7 +227,7 @@ public class PlayerMovement : MonoBehaviour
 	private void Glide()
 	{
 		// First Glide button click
-		if (!showTrajectory)
+		if (!showTrajectory && glideCharge.GetChargeCounter() > 0)
 		{
 			showTrajectory = true;
 		}
@@ -223,6 +235,9 @@ public class PlayerMovement : MonoBehaviour
 		// Second Glide button click
 		else if (showTrajectory)
 		{
+			// Decrement the charge counter
+			glideCharge.DecreaseCharge();
+
 			// Toggle player move state variables
 			CanPlayerMove = false;
 

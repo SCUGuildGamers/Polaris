@@ -69,11 +69,12 @@ public class Pipe : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
         Plastic plastic = col.gameObject.GetComponent<Plastic>();
-        Debug.Log("Hi");
         if (plastic != null && plastic.IsReflected) {
             isClogged = true;
             Destroy(col.gameObject);
 
+            // For debugging
+            GetComponent<SpriteRenderer>().color = Color.red;
             Debug.Log("The pipe is clogged");
         }
     }

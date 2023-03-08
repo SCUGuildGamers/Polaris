@@ -8,8 +8,10 @@ public class PlayerSwing : MonoBehaviour
     private float _swingRange = 2f;
     public float swingCD = 1.0f;
     public float nextSwing = 0.0f;
+
+    // For reference
     private BossHealth _bossHealth;
-    public Transform Boss;
+    
 
     //public Animator animator;
 
