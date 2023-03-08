@@ -12,10 +12,6 @@ public class BossController : MonoBehaviour
     public Transform PlasticBoss;
     public Transform Player;
 
-    public PartInstance partInstance;
-
-    private int PartSpawnRate = 4;
-
     void Update()
     {
 		if(!PauseMenu.GameIsPaused)
@@ -111,10 +107,6 @@ public class BossController : MonoBehaviour
                 StartCoroutine(SweepRight(-10, i*15, 1.2f, 5));
             } else{
                 StartCoroutine(SweepRight(-20, i * 15, 1.2f, 5));
-            }
-             if (Random.Range(0,PartSpawnRate) == (PartSpawnRate - 1)){
-                Vector3 target = new Vector3(Random.Range(-1f, -0.2f), Random.Range(-0.8f, 0.8f));
-                partInstance.Spawn(PlasticBoss.position, target);
             }
         }
     }
@@ -216,10 +208,6 @@ public class BossController : MonoBehaviour
             yield return new WaitForSecondsRealtime(sec);
             Urchin.Spawn(12, PlasticBoss.position + new Vector3(-5 * (i + 1), 4, 0));
             Urchin.Spawn(12, PlasticBoss.position + new Vector3(-5 * (i + 1), -4, 0));
-             if (Random.Range(0,PartSpawnRate) == (PartSpawnRate - 1)){
-                Vector3 target = new Vector3(Random.Range(-1f, -0.2f), Random.Range(-0.8f, 0.8f));
-                partInstance.Spawn(PlasticBoss.position, target);
-            }
         }
     }
 }
