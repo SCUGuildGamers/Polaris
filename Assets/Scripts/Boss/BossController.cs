@@ -210,4 +210,17 @@ public class BossController : MonoBehaviour
             Urchin.Spawn(12, PlasticBoss.position + new Vector3(-5 * (i + 1), -4, 0));
         }
     }
+
+    // Fires "num" # of homing shots with a cooldown of "cooldown"
+    private IEnumerator HomingShotIEnum(int num, float cooldown) {
+        for (int i = 0; i < num; i++) {
+            yield return new WaitForSecondsRealtime(cooldown);
+            Plastic.Spawn(PlasticBoss.position, Player.position, transform, 4, true);
+        }
+    }
+
+    // Runs HomingShotIEnum coroutine
+    public void HomingShot(int num, float cooldown) {
+        StartCoroutine(HomingShotIEnum(num, cooldown));
+    }
 }
