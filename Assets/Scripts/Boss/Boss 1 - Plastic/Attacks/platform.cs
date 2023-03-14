@@ -30,8 +30,11 @@ public class platform : MonoBehaviour
     {
 		if(PauseMenu.GameIsPaused == false)
 		{   
-            StraightLine();
-            
+            if (transform.position != _targetPosition)
+            {
+                ToTarget();
+            }
+                
             // else if (_movementMode == 1)
 			// {
 			// 	LoopClockwise();
@@ -65,17 +68,17 @@ public class platform : MonoBehaviour
         _targetPosition = Boss.position;
     }
 
-    public platform Spawn(Vector2 targetAngle = default(Vector2), int movementMode = 0, float delta = 0)
+    public platform Spawn(Vector3 spawnPosition, Vector3 targetPosition, int movementMode = 0, float delta = 0)
     {
         GameObject platformCopy = Instantiate(gameObject);
 
         platformCopy.gameObject.SetActive(true);
         platform platformObjCopy = platformCopy.GetComponent<platform>();
         platformObjCopy.IsCopy = true;
-        platformObjCopy.GetComponent<Transform>().position = Boss.position;
+        platformObjCopy.GetComponent<Transform>().position = spawnPosition;
         platformObjCopy.GetComponent<SpriteRenderer>().enabled = true;
 
-        platformObjCopy._targetDirection = targetAngle;
+        platformObjCopy._targetPosition = targetPosition;
         platformObjCopy._movementMode = movementMode;
         platformObjCopy._delta = delta;
 
@@ -97,13 +100,13 @@ public class platform : MonoBehaviour
     // }
 
     // Moves the projectile forward
-    private void StraightLine()
-    {
-        transform.position += _targetDirection * _speed;
-        if (TouchingPlayer){
-            Player.position += _targetDirection * _speed;
-        }
-    }
+    // private void StraightLine()
+    // {
+    //     transform.position += _targetDirection * _speed;
+    //     if (TouchingPlayer){
+    //         Player.position += _targetDirection * _speed;
+    //     }
+    // }
 
      private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -118,12 +121,8 @@ public class platform : MonoBehaviour
     }
 
     // // Moves the projectile towards the target given by targetPosition
-    // private void ToTarget()
-    // {
-    //     if (transform.position == _targetPosition)
-    //     {
-    //         Destroy(gameObject);
-    //     }
-    //     transform.position = Vector3.MoveTowards(transform.position, _targetPosition, 0.003f);
-    // }
+    private void ToTarget()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, _targetPosition, 0.003f);
+    }
 }

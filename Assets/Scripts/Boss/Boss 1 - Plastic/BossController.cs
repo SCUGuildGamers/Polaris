@@ -57,8 +57,10 @@ public class BossController : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.P))
             {
-                Vector3 angle = new Vector3(-1, Random.Range(-3, 3), 0);
-                platform.Spawn(angle);
+                platform.Spawn(new Vector3(-10, -6, 0), new Vector3(-10, 3, 0));
+                platform.Spawn(new Vector3(-10, -12, 0), new Vector3(-10, -3, 0));
+                platform.Spawn(new Vector3(-4, -9, 0), new Vector3(-4, 0, 0));
+
             }
 
 		}
