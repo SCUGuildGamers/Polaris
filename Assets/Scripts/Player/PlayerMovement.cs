@@ -77,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
 	void Update()
 	{
 		// Only perform these statements if the player is in a level/boss fight
-		if (InLevel && CanPlayerMove) {
+		if (InLevel) {
 			// Update the trajectory line
 			if (showTrajectory)
 				UpdatePlayerTrajectory();
@@ -85,6 +85,11 @@ public class PlayerMovement : MonoBehaviour
 			if (Input.GetKeyDown("g"))
 			{
 				Glide();
+			}
+
+			if (Input.GetKeyDown("h"))
+			{
+				Glide_Cancel();
 			}
 
 			// Canceling the trajectory line
@@ -253,5 +258,24 @@ public class PlayerMovement : MonoBehaviour
 			// Toggle gravity off when the player is gliding
 			ToggleGravity(false);
 		}
+	}
+
+	private void Glide_Cancel()
+	{
+		if (isGliding)
+		{
+			//isGliding is turned to false so that 1. the glide is "canceled" and 2. the player can now initiate another glide
+			isGliding = false;
+
+			//Gravity is turned back on
+			ToggleGravity(true); 
+
+			//Velocity returns to 0 so that player is only experiencing gravity, effectively canceling the movement of the glide
+			rb.velocity = new Vector3(0,0,0); 
+
+			//Player can move once again so they can move side to side while falling
+			CanPlayerMove = true; 
+		}
+
 	}
 }

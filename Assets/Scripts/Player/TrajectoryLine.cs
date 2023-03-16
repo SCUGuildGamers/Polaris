@@ -4,45 +4,34 @@ using UnityEngine;
 
 public class TrajectoryLine : MonoBehaviour
 {
-    [SerializeField]
     private LineRenderer lineRenderer;
 
-    [SerializeField]
-    private int lineSegments = 60;
+    private Vector3[] linePoints = new Vector3[2];
+
+    private void Start()
+    {
+        // Initialize
+        lineRenderer = FindObjectOfType<LineRenderer>();
+        lineRenderer.positionCount = linePoints.Length;
+
+        linePoints[0] = transform.position;
+    }
 
     // Shows the trajectory line
     public void ShowTrajectoryLine(Vector2 startPoint, Vector2 direction) {
-        Vector3[] lineRendererPoints = CalculateTrajectoryLine(startPoint, direction);
+        // Update number of points for line
+        lineRenderer.positionCount = linePoints.Length;
 
-        lineRenderer.positionCount = lineSegments;
-        
-        // Ensure that the array is not null to prevent error
-        if(lineRendererPoints != null)
-            lineRenderer.SetPositions(lineRendererPoints);
-    }
+        // Get player position
+        linePoints[0] = transform.position;
 
-    // Cast a ray in a direction, get the hitpoint, and calculate the direction/increment needed to create the trajectory line
-    private Vector3[] CalculateTrajectoryLine(Vector2 startPoint, Vector2 direction) {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction);
-        if (hit) {
-            Vector2 move_path = hit.point - startPoint;
-            float x_increment = move_path.x / lineSegments;
-            float y_increment = move_path.y / lineSegments;
+        // Get mouse position
+        Camera c = Camera.main;
+        Vector3 p = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, c.nearClipPlane));
+        linePoints[1] = p;
 
-            Vector3[] lineRendererPoints = new Vector3[lineSegments];
-
-            Vector3 current_position = new Vector3(startPoint.x, startPoint.y, 0);
-            lineRendererPoints[0] = current_position;
-            for (int i = 1; i < lineSegments; i++)
-            {
-                current_position = current_position + new Vector3(x_increment, y_increment);
-                lineRendererPoints[i] = current_position;
-            }
-
-            return lineRendererPoints;
-        }
-
-        return null;
+        // Update LineRenderer
+        lineRenderer.SetPositions(linePoints);
     }
 
     public void ClearLine() {
