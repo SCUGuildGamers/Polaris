@@ -12,16 +12,18 @@ public class BossController : MonoBehaviour
     public Transform PlasticBoss;
     public Transform Player;
 
+    private float _waveHeight = 5.5f;
+
     void Update()
     {
-		if(!PauseMenu.GameIsPaused)
-		{
+        if (!PauseMenu.GameIsPaused)
+        {
             if (Input.GetKeyDown(KeyCode.T))
             {
-                SetTrajectoryShot(1f);
+                StartCoroutine(SetTrajectoryWaves(5, 0.5f, 3, 5));
             }
 
-                if (Input.GetKeyDown(KeyCode.P))
+            if (Input.GetKeyDown(KeyCode.P))
             {
                 platform.Spawn(new Vector3(-10, -6, 0), new Vector3(-10, 3, 0));
                 platform.Spawn(new Vector3(-10, -12, 0), new Vector3(-10, -3, 0));
@@ -29,7 +31,7 @@ public class BossController : MonoBehaviour
 
             }
 
-		}
+        }
     }
 
     // Performs a single sweep left projectile attack with a sec delay between each wave adjusted by a xOffset and yOffset
@@ -52,9 +54,12 @@ public class BossController : MonoBehaviour
         int split = numProjectiles / 2;
         for (int i = split; i >= -split; i--)
         {
-            if (i == split || i == -split){
+            if (i == split || i == -split)
+            {
                 StartCoroutine(SweepLeft(-10, i * 15, 1.2f, 5));
-            } else{
+            }
+            else
+            {
                 StartCoroutine(SweepLeft(-20, i * 15, 1.2f, 5));
             }
         }
@@ -74,15 +79,18 @@ public class BossController : MonoBehaviour
     }
 
     // Layers the sweep right attack by calling the SweepRight with different offsets and with numProjectiles projectiles per wave; numProjectiles should be an ODD NUMBER
-    public void SweepRightLayered(int numProjectiles=5)
+    public void SweepRightLayered(int numProjectiles = 5)
     {
         // Generates the xOffset and yOffset values to achieve the layered effect
         int split = numProjectiles / 2;
         for (int i = split; i >= -split; i--)
         {
-            if (i == split||i == -split){
-                StartCoroutine(SweepRight(-10, i*15, 1.2f, 5));
-            } else{
+            if (i == split || i == -split)
+            {
+                StartCoroutine(SweepRight(-10, i * 15, 1.2f, 5));
+            }
+            else
+            {
                 StartCoroutine(SweepRight(-20, i * 15, 1.2f, 5));
             }
         }
@@ -125,7 +133,7 @@ public class BossController : MonoBehaviour
     // Calls the IEnumerator fan function
     public void FanAttack(float sec = 1.4f, int numWaves = 10, int numProjectiles = 3)
     {
-        StartCoroutine(Fan(sec,numWaves,numProjectiles));
+        StartCoroutine(Fan(sec, numWaves, numProjectiles));
     }
 
     // Performs the pincer pattern projectile attack with a sec delay between each wave
@@ -155,7 +163,7 @@ public class BossController : MonoBehaviour
     }
 
     // Summons the turtle spawn boss attack with a given minMovementSpeed and maxMovementSpeed
-    public void TurtleAttack(float minMovementSpeed=3.5f, float maxMovementSpeed = 5f)
+    public void TurtleAttack(float minMovementSpeed = 3.5f, float maxMovementSpeed = 5f)
     {
         Turtle.Spawn(minMovementSpeed, maxMovementSpeed);
     }
@@ -166,7 +174,8 @@ public class BossController : MonoBehaviour
         Urchin.Spawn(numPlasticSpawn, Player.position);
     }
 
-    public void cluster(){
+    public void cluster()
+    {
         Plastic.Spawn(PlasticBoss.position, Player.position, transform, 3, false, 0.1f);
         Plastic.Spawn(PlasticBoss.position, Player.position + new Vector3(0, .5f, 0), transform, 3, false, 0.1f);
         Plastic.Spawn(PlasticBoss.position, Player.position + new Vector3(0, 1f, 0), transform, 3, false, 0.1f);
@@ -176,12 +185,15 @@ public class BossController : MonoBehaviour
         Plastic.Spawn(PlasticBoss.position, Player.position + new Vector3(0, -1.5f, 0), transform, 3, false, 0.1f);
     }
 
-    public void Minefield(int num, float sec){
+    public void Minefield(int num, float sec)
+    {
         StartCoroutine(PlantMines(num, sec));
     }
 
-    private IEnumerator PlantMines(int num, float sec){
-        for (int i = 0; i < num; i++){
+    private IEnumerator PlantMines(int num, float sec)
+    {
+        for (int i = 0; i < num; i++)
+        {
             yield return new WaitForSecondsRealtime(sec);
             Urchin.Spawn(12, PlasticBoss.position + new Vector3(-5 * (i + 1), 4, 0));
             Urchin.Spawn(12, PlasticBoss.position + new Vector3(-5 * (i + 1), -4, 0));
@@ -189,10 +201,38 @@ public class BossController : MonoBehaviour
     }
 
     // Spawns a set trajectory shot moving from right to left spawning at the Boss' position with offset by y_offset
-    private void SetTrajectoryShot(float y_offset) {
+    private void SetTrajectoryShot(float y_offset)
+    {
         // Spawn position of the trajectory shot
         Vector3 spawn_position = transform.position + new Vector3(0, y_offset, 0);
 
         Plastic.Spawn(spawn_position, spawn_position + new Vector3(-1, 0, 0), transform, 3);
+    }
+
+    // Spawns a set trajectory wave with num_projectiles projectiles and a wait of projectile_wait between each projectile
+    private IEnumerator SetTrajectoryWave(int num_projectiles, float projectile_wait)
+    {
+        for (int i = 0; i < num_projectiles; i++)
+        {
+            SetTrajectoryShot(GenerateWaveOffset());
+            yield return new WaitForSecondsRealtime(projectile_wait);
+        }
+    }
+
+    // Generates a random y offset for the SetTrajectoryShot to spawn the projectile at
+    private float GenerateWaveOffset()
+    {
+        System.Random rand = new System.Random();
+        double val = (rand.NextDouble() * (_waveHeight + _waveHeight) - _waveHeight);
+        return (float)val;
+    }
+
+    // Spawns 
+    private IEnumerator SetTrajectoryWaves(int num_projectiles, float projectile_wait, int num_waves, float wave_wait)
+    {
+        for (int i = 0; i < num_waves; i++) {
+            StartCoroutine(SetTrajectoryWave(num_projectiles, projectile_wait));
+            yield return new WaitForSecondsRealtime(wave_wait);
+        }
     }
 }
