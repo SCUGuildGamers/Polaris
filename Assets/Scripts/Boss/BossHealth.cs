@@ -45,9 +45,13 @@ public class BossHealth : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.name == "ProjectileInstance(Clone)")
+        Plastic plastic = collider.gameObject.GetComponent<Plastic>();
+        if (plastic != null && plastic.IsReflected)
         {
-            ReduceHealth(25);
+            Destroy(collider.gameObject);
+
+            // For debugging
+            ReduceHealth(10);
         }
     }
 }
