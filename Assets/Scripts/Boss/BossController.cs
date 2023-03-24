@@ -23,6 +23,11 @@ public class BossController : MonoBehaviour
                 StartCoroutine(SetTrajectoryWaves(5, 0.5f, 3, 5));
             }
 
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                StartCoroutine(HomingShots(3, 5f));
+            }
+
             if (Input.GetKeyDown(KeyCode.P))
             {
                 platform.Spawn(new Vector3(-10, -6, 0), new Vector3(-10, 3, 0));
@@ -227,12 +232,23 @@ public class BossController : MonoBehaviour
         return (float)val;
     }
 
-    // Spawns 
+    // Spawns num_waves number of waves with wave_wait between each wave; each wave has num_projectiles projectiles with a wait of projectile_wait between them
     private IEnumerator SetTrajectoryWaves(int num_projectiles, float projectile_wait, int num_waves, float wave_wait)
     {
         for (int i = 0; i < num_waves; i++) {
             StartCoroutine(SetTrajectoryWave(num_projectiles, projectile_wait));
             yield return new WaitForSecondsRealtime(wave_wait);
+        }
+    }
+
+    private void HomingShot() {
+        Plastic.Spawn(transform.position, transform.position, transform, 5, true);
+    }
+
+    private IEnumerator HomingShots(int num_shots, float shot_wait) {
+        for (int i = 0; i < num_shots; i++) {
+            HomingShot();
+            yield return new WaitForSecondsRealtime(shot_wait);
         }
     }
 }

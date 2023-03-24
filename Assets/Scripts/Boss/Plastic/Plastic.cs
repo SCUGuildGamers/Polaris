@@ -12,8 +12,8 @@ public class Plastic : MonoBehaviour
     // Source of projecitile spawning
     private Transform source;
 
-    // Determines how often a pickup-able plastic spawns where the chance is 1/_pickupChance
-    private int _pickupChance = 10;
+    // Determines how often a reflectable plastic spawns where the chance is 1/_pickupChance
+    private int _reflectableChance = 5;
 
     private Vector3 _targetPosition;
     private Vector3 _spawnPosition;
@@ -28,33 +28,40 @@ public class Plastic : MonoBehaviour
     private int _lifeSpan = 4000;
     private int _movementMode;
 
+    // Reference to Player Transform
+    private Transform _playerTranform;
+
     // Constantly checks the movement_mode to check how the projectile should be moving and increments the duration of the projectile
     private void Update()
     {
 		if(PauseMenu.GameIsPaused == false)
 		{
-			if (_movementMode == 1)
-			{
-				LoopClockwise();
-			}
-			else if (_movementMode == 2)
-			{
-				LoopCounterClockwise();
-			}
-			else if (_movementMode == 3)
-			{
-				StraightLine();
-			}
-			else if (_movementMode == 4)
-			{
-				ToTarget();
-			}
+            if (_movementMode == 1)
+            {
+                LoopClockwise();
+            }
+            else if (_movementMode == 2)
+            {
+                LoopCounterClockwise();
+            }
+            else if (_movementMode == 3)
+            {
+                StraightLine();
+            }
+            else if (_movementMode == 4)
+            {
+                ToTarget();
+            }
+
+            else if (_movementMode == 5) {
+                FollowPlayer();
+            }
 
             // Duration of object increases only if game is not paused
             _duration++;
 
             // Destroys the projectile when it is past its life span (and ensures the base projectile is not destroyed)
-            if (_duration > _lifeSpan && IsCopy)
+            if (_duration > _lifeSpan && IsCopy && !IsReflected)
             {
                 Destroy(gameObject);
             }
@@ -68,6 +75,9 @@ public class Plastic : MonoBehaviour
         // Update state variables
         IsReflected = true;
         CanReflect = false;
+
+        // Reset movement mode 
+        _movementMode = 4;
     }
 
     // Spawns and returns a copy of the Plastic object with values given by parameters spawnPosition, targetPosition, movement_mode, and delta
@@ -92,10 +102,14 @@ public class Plastic : MonoBehaviour
         plasticObjCopy._movementMode = movementMode;
         plasticObjCopy._delta = delta;
 
+        // Reference for Player transform
+        if (movementMode == 5) {
+            plasticObjCopy. _playerTranform = FindObjectOfType<PlayerMovement>().gameObject.transform;
+        }
 
         // Check if the plastic is SUPPOSED to be reflectable
         if (autoReflectable)
-            plasticObjCopy.CanReflect = true;
+            plasticObjCopy.MakePickup();
 
         // Else, roll the reflect chance
         else
@@ -108,9 +122,9 @@ public class Plastic : MonoBehaviour
     private bool RollReflect()
     {
         // Roll the reflect chance
-        int canPickupRoll = Random.Range(0, _pickupChance+1);
+        int canPickupRoll = Random.Range(0, _reflectableChance+1);
 
-        if (canPickupRoll == _pickupChance) {
+        if (canPickupRoll == _reflectableChance) {
             MakePickup();
             return true;
         }
@@ -118,11 +132,11 @@ public class Plastic : MonoBehaviour
         return false;
     }
 
-    // Helper function that determines what happens if a plastic can be picked up
+    // Helper function that determines what happens if a plastic is reflectable
     private void MakePickup()
     {
         GetComponent<Renderer>().material.color = Color.green;
-        _speed = _speed / 2;
+        CanReflect = true;
     }
 
     // Moves the projectile clockwise
@@ -153,5 +167,10 @@ public class Plastic : MonoBehaviour
             Destroy(gameObject);
         }
         transform.position = Vector3.MoveTowards(transform.position, _targetPosition, 0.003f);
+    }
+
+    // Follows player
+    private void FollowPlayer() {
+        transform.position = Vector3.MoveTowards(transform.position, _playerTranform.position, 0.003f);
     }
 }
