@@ -16,37 +16,12 @@ public class BossController : MonoBehaviour
     {
 		if(!PauseMenu.GameIsPaused)
 		{
-			if (Input.GetKeyDown(KeyCode.T))
-			{
-				TurtleAttack();
-			}
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                SetTrajectoryShot(1f);
+            }
 
-			if (Input.GetKeyDown(KeyCode.U))
-			{
-				UrchinAttack();
-			}
-
-			if (Input.GetKeyDown(KeyCode.H))
-			{
-				FanAttack(1.4f,10,5);
-			}
-
-			if (Input.GetKeyDown(KeyCode.J))
-			{
-				SweepRightLayered();
-			}
-
-			if (Input.GetKeyDown(KeyCode.K))
-			{
-				SweepLeftLayered();
-			}
-
-			if (Input.GetKeyDown(KeyCode.L))
-			{
-				PincerAttack();
-			}
-
-            if (Input.GetKeyDown(KeyCode.P))
+                if (Input.GetKeyDown(KeyCode.P))
             {
                 platform.Spawn(new Vector3(-10, -6, 0), new Vector3(-10, 3, 0));
                 platform.Spawn(new Vector3(-10, -12, 0), new Vector3(-10, -3, 0));
@@ -211,5 +186,13 @@ public class BossController : MonoBehaviour
             Urchin.Spawn(12, PlasticBoss.position + new Vector3(-5 * (i + 1), 4, 0));
             Urchin.Spawn(12, PlasticBoss.position + new Vector3(-5 * (i + 1), -4, 0));
         }
+    }
+
+    // Spawns a set trajectory shot moving from right to left spawning at the Boss' position with offset by y_offset
+    private void SetTrajectoryShot(float y_offset) {
+        // Spawn position of the trajectory shot
+        Vector3 spawn_position = transform.position + new Vector3(0, y_offset, 0);
+
+        Plastic.Spawn(spawn_position, spawn_position + new Vector3(-1, 0, 0), transform, 3);
     }
 }
