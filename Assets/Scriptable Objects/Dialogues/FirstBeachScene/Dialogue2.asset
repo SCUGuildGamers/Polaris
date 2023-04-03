@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9109a43221f74f45b5094107bb5eac4, type: 3}
+  m_Name: Dialogue2
+  m_EditorClassIdentifier: 
+  lines:
+  - speaker: Grandma
+    line: "Now, what\u2019s the selection for today? Revisiting the same tired mythology?
+      A trudge through current affairs? Or yet another moving epic from the eventful
+      and extraordinary life of yours truly?"
+    choices:
+    - Myths
+    - News
+    - Epic
+    flags:
+    - myth
+    - report
+    - epic
+    prerequisites: []
+  - speaker: Grandma
+    line: "A fine choice. Great beasts and vanquishers. Deception and honor. What\u2019s
+      not to love? We\u2019ll get right to that\u2026as soon as I tell one more story."
+    choices: []
+    flags: []
+    prerequisites:
+    - myth
+  - speaker: Grandma
+    line: "Already invested in the 24 hour news cycle? At such a young age too! We\u2019ll
+      get right to that\u2026as soon as I tell one more story."
+    choices: []
+    flags: []
+    prerequisites:
+    - report
+  - speaker: Grandma
+    line: I knew you always loved my tales, dear. Let me set the scene.
+    choices: []
+    flags: []
+    prerequisites:
+    - epic
+  - speaker: Grandma
+    line: This is a story of simpler times.
+    choices: []
+    flags: []
+    prerequisites: []
+  flag: 
