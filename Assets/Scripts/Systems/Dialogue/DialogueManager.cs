@@ -77,7 +77,8 @@ public class DialogueManager : MonoBehaviour
         {
             InDialogue = true;
             _dialogueBoxManager.SetVisibility(true);
-            _playerMovement.CanPlayerMove = false;
+            if (_playerMovement != null)
+                _playerMovement.CanPlayerMove = false;
 
             _sentences.Clear();
             // Loads all sentences.
@@ -111,11 +112,8 @@ public class DialogueManager : MonoBehaviour
             for (int i = 0; i < sentence.First.Second.Second.Length; i++){
                 if(!_eventManager.FlagValue(sentence.First.Second.Second[i])){
                     Debug.Log(sentence.First.Second.Second[i]);
-                    if (_sentences.Count > 0){
-                        sentence = _sentences.Dequeue();
-                    } else {
-                        return;
-                    }
+                    DisplayNextSentence();
+                    return;
                 }
             }
         // }
@@ -127,18 +125,16 @@ public class DialogueManager : MonoBehaviour
         //if choices exist, create choice buttons for each
         if (sentence.First.First.Length > 0){
             _choosing = true;
-            Vector3 pos = new Vector3(400, 150, 0);
             for (int i = 0; i < sentence.First.First.Length; i++){
                 //places subsequent choice buttons below the previous (30 = height of choice button)
-                pos.y -= (i * 30);
+                Vector3 pos = new Vector3(0, 0 - (i * 45), 0);
                 ChoiceButtonManager choice = Instantiate(_choiceButton) as ChoiceButtonManager;
-                choice.transform.SetParent(_canvas.transform);
+                choice.transform.SetParent(_canvas.transform,false);
+                choice.transform.localPosition = choice.transform.localPosition + pos;
                 Button[] button = choice.GetComponentsInChildren<Button>();
                 Text[] choicetext = choice.GetComponentsInChildren<Text>();
                 choicetext[0].text = sentence.First.First[i];
                 choice.flag = sentence.First.Second.First[i];
-                button[0].transform.position = pos;
-                choicetext[0].transform.position = pos;
                 _buttons.Enqueue(choice);
             }
         }
@@ -154,7 +150,8 @@ public class DialogueManager : MonoBehaviour
             _dialogueBoxManager.SetVisibility(false);
 
             _isStall = false;
-            _playerMovement.CanPlayerMove = true;
+            if (_playerMovement != null)
+                _playerMovement.CanPlayerMove = true;
 
             StartCoroutine(DelayedInDialogueSet(false, 0.1f));
         }
