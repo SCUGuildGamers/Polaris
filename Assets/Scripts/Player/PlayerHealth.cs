@@ -45,7 +45,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.name == "Plastic(Clone)")
+        if (collider.gameObject.name == "NormalProjectile(Clone)" || collider.gameObject.name == "LaneProjectile(Clone)")
         {
             ReduceHealth(_plasticHealthLoss);
             Destroy(collider.gameObject);
