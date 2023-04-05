@@ -5,52 +5,64 @@ using UnityEngine.UI;
 
 public class BossHealth : MonoBehaviour
 {
-    public int Health;
-    public Text HealthText;
+    // Health integer variable
+    private int _health;
+
+    // Linking the Health Bar object to this script
     public HealthBar HealthBar;
+
+    // Variable to keep track of the player's max health
+    private int _maxHealth = 100;
+
+    // Enraged threshold variable
+    private int _enragedThreshold = 50;
 
     // Start is called before the first frame update
     void Start()
     {
-        Health = 100;
-        HealthBar.set_max_health(100);
-
-        HealthText.text = "Health : " + Health;
+        _health = _maxHealth;
+        HealthBar.set_max_health(_maxHealth);
     }
 
     public void ReduceHealth(int i)
     {
-        Health = Health - i;
-        HealthText.text = "Health : " + Health;
+        // Reduce health
+        _health = _health - i;
+        HealthBar.set_health(_health);
 
-        HealthBar.set_health(Health);
-
-        if (Health <= 50)
+        // Check for enraged threshold
+        if (_health <= _enragedThreshold)
         {
+            // Update state machine
             GetComponent<Animator>().SetBool("isEnraged", true);
+
+            // Change sprite to indicate change in state
             SpriteRenderer sprite = GetComponent<SpriteRenderer>();
             sprite.color = Color.red;
         }
             
-
-        if (Health <= 0)
+        // Check if you beat the boss
+        if (_health <= 0)
             Die();
     }
 
     private void Die()
     {
+        // Debug
         Debug.Log("The boss has been killed.");
+
+        // Change state machine
         GetComponent<Animator>().SetBool("isBossDead", true);
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
+        // Check if the boss collided with a reflected piece of plastic
         Plastic plastic = collider.gameObject.GetComponent<Plastic>();
         if (plastic != null && plastic.IsReflected)
         {
             Destroy(collider.gameObject);
 
-            // For debugging
             ReduceHealth(10);
         }
     }

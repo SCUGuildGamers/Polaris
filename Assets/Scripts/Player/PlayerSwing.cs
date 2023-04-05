@@ -6,7 +6,7 @@ public class PlayerSwing : MonoBehaviour
 {
     // Swing values
     private float _swingRange = 2f;
-    public float swingCD = 1.0f;
+    public float swingCD = 0.5f;
     public float nextSwing = 0.0f;
 
     // For reference
@@ -69,7 +69,7 @@ public class PlayerSwing : MonoBehaviour
         // Find the closest plastic in range
         foreach (Plastic plastic in plasticList)
         {
-            if (Vector3.Distance(transform.position, plastic.transform.position) <= minDistance && plastic.CanReflect)
+            if (Vector3.Distance(transform.position, plastic.transform.position) <= minDistance && plastic.CanReflect && plastic.getIsCopy())
             {
                 Debug.Log("in range");
                 minPlastic = plastic;

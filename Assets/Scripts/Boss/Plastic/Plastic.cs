@@ -9,6 +9,10 @@ public class Plastic : MonoBehaviour
     public bool CanReflect = false;
     public bool IsReflected = false;
 
+    // Sprites to indicate reflectability
+    public Sprite _nonReflectSprite;
+    public Sprite _reflectSprite;
+
     // Source of projecitile spawning
     private Transform source;
 
@@ -120,6 +124,12 @@ public class Plastic : MonoBehaviour
         else
             plasticObjCopy.CanReflect = RollReflect();
 
+        // Change the sprite depending on if the plastic can be reflected or not
+        if (plasticObjCopy.CanReflect)
+            plasticObjCopy.GetComponent<SpriteRenderer>().sprite = _reflectSprite;
+        else
+            plasticObjCopy.GetComponent<SpriteRenderer>().sprite = _nonReflectSprite;
+
         // Set the move speed of the projectile
         plasticObjCopy.SetSpeed(speed);
 
@@ -143,7 +153,6 @@ public class Plastic : MonoBehaviour
     // Helper function that determines what happens if a plastic is reflectable
     private void MakePickup()
     {
-        GetComponent<Renderer>().material.color = Color.green;
         CanReflect = true;
     }
 
@@ -184,5 +193,9 @@ public class Plastic : MonoBehaviour
 
     private void SetSpeed(float speed) {
         _speed = speed;
+    }
+
+    public bool getIsCopy() {
+        return IsCopy;
     }
 }
