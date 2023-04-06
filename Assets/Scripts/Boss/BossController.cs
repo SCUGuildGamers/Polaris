@@ -10,6 +10,8 @@ public class BossController : MonoBehaviour
     public UrchinController Urchin;
     public platform platform;
 
+    public Animator animator;
+
     public Transform PlasticBoss;
     public Transform Player;
 
@@ -224,6 +226,7 @@ public class BossController : MonoBehaviour
     // Spawns a set trajectory wave with num_projectiles projectiles and a wait of projectile_wait between each projectile
     private IEnumerator SetTrajectoryWave(int num_projectiles, float projectile_wait)
     {
+        animator.SetTrigger("bossTossTrigger");
         for (int i = 0; i < num_projectiles; i++)
         {
             SetTrajectoryShot(GenerateWaveOffset());
@@ -255,6 +258,8 @@ public class BossController : MonoBehaviour
 
     // Spawns multiple homing projectiles depending on the parameters passed
     private IEnumerator HomingShots(int num_shots, float shot_wait) {
+        animator.SetTrigger("bossTossTrigger");
+
         for (int i = 0; i < num_shots; i++) {
             HomingShot();
             yield return new WaitForSecondsRealtime(shot_wait);
@@ -263,6 +268,8 @@ public class BossController : MonoBehaviour
 
     // Spawns a single lane shot which covers a certain vertical lane of the screen
     private void LaneShot(float y_offset) {
+        animator.SetTrigger("bossTossTrigger");
+
         // Spawn position of the trajectory shot
         Vector3 spawn_position = transform.position + new Vector3(0, y_offset, 0);
 
