@@ -45,8 +45,6 @@ public class PlayerHealth : MonoBehaviour
 
         // Restore original color
         Invoke("ResetColor", .25f);
-
-        Debug.Log(_health);
     }
 
     // Resets the color to white (original coloring)
