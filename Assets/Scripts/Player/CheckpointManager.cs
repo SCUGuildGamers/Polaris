@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class CheckpointManager : MonoBehaviour
 {
-    public CheckpointData checkpointData;
+    public PlayerData playerData;
 
     public string checkpoint_string;
 
@@ -18,11 +18,11 @@ public class CheckpointManager : MonoBehaviour
 
     // Update the checkpoint given a checkpoint_string
     public void UpdateCheckpoint(string checkpoint_string) {
-        checkpointData.checkpoint_string = checkpoint_string;
+        playerData.checkpoint_string = checkpoint_string;
     }
 
     // Return the player to the last checkpoint
     public void ReturnToCheckpoint() {
-        SceneManager.LoadScene(checkpointData.checkpoint_string);
+        SceneManager.LoadScene(playerData.checkpoint_string);
     }
 }
