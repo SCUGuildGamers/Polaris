@@ -4953,8 +4953,6 @@ GameObject:
   - component: {fileID: 2115856469}
   - component: {fileID: 2115856465}
   - component: {fileID: 2115856468}
-  - component: {fileID: 2115856470}
-  - component: {fileID: 2115856472}
   - component: {fileID: 2115856466}
   m_Layer: 6
   m_Name: PlayerPlaceholder
@@ -5066,16 +5064,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc57473dc5b30914ba778710fe5eee76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InLevel: 0
   CanPlayerMove: 1
-  IsOceanMovement: 0
-  HorizontalSpeed: 10
-  VerticalSpeed: 10
-  isDashing: 0
-  dashingPower: 50
-  dashingTime: 0.2
-  dashCooldown: 0.1
-  isGliding: 0
-  glidingPower: 50
 --- !u!50 &2115856469
 Rigidbody2D:
   serializedVersion: 4
@@ -5097,37 +5087,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &2115856470
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2115856464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ff84b18a0c74cf448c55a622fd6b42d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Health: 100
-  HealthText: {fileID: 934534179}
-  HealthBar: {fileID: 1321503337}
---- !u!114 &2115856472
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2115856464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0971ccd0a0cfaf844bf759747d91a91d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  swingCD: 1
-  nextSwing: 0
-  Boss: {fileID: 0}
 --- !u!1 &2137851623
 GameObject:
   m_ObjectHideFlags: 0

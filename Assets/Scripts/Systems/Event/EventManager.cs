@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class EventManager : MonoBehaviour
 {
-    private string[] flag_keys = new string[] { "Net", "Stick", "Loop", "ConstructedNet", "Test choice 1", "Test choice 2", "boss1beat", "boss2beat" };
+    private string[] flag_keys = new string[] { "Net", "Stick", "Loop", "ConstructedNet", "Test choice 1", "Test choice 2", "boss1beat", "boss2beat", "myth", "report", "epic" };
 
     private Dictionary<string, bool> _flags;
 
@@ -44,6 +44,11 @@ public class EventManager : MonoBehaviour
 
         else if (flag == "gotLoop")
             _flags["Loop"] = true;
+
+        // Increase glide charge from NPC interaction
+        else if (flag == "increaseGlideCharge") {
+            FindObjectOfType<GlideCharge>().AddCharge();
+        }
     }
 
     public void ProcessChoice(string flag)
