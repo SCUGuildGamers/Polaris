@@ -237,6 +237,7 @@ GameObject:
   - component: {fileID: 139393218}
   - component: {fileID: 139393217}
   - component: {fileID: 139393219}
+  - component: {fileID: 139393220}
   m_Layer: 0
   m_Name: Timeline
   m_TagString: Untagged
@@ -269,8 +270,13 @@ PlayableDirector:
     value: {fileID: 139393218}
   - key: {fileID: 6927981873054770197, guid: ae6f06624f41abf4c843877850eaee48, type: 2}
     value: {fileID: 139393218}
+  - key: {fileID: -6032053390339029192, guid: ae6f06624f41abf4c843877850eaee48, type: 2}
+    value: {fileID: 2046528883}
+  - key: {fileID: 6961346490616013561, guid: ae6f06624f41abf4c843877850eaee48, type: 2}
+    value: {fileID: 294624983}
   m_ExposedReferences:
-    m_References: []
+    m_References:
+    - bc008c70a96b4bf44b6719c6ff067b64: {fileID: 515680843}
 --- !u!4 &139393216
 Transform:
   m_ObjectHideFlags: 0
@@ -314,44 +320,23 @@ MonoBehaviour:
   m_Events:
     m_Signals:
     - {fileID: 11400000, guid: 1457aab61264d9f4d9974728a5792e3e, type: 2}
-    - {fileID: 11400000, guid: 5fde05ac1b8666f438cc06dc05f6ad8f, type: 2}
     - {fileID: 11400000, guid: 94b1d81041f675941aed8c7432aed8e7, type: 2}
-    - {fileID: 11400000, guid: e27cb524ac222b6408f70571a33cdcfb, type: 2}
     - {fileID: 11400000, guid: 5470c255602635d46b226d926d6d7ce0, type: 2}
+    - {fileID: 11400000, guid: 03bdd3ec1dcb91a44a1ad2c2b188ecf3, type: 2}
+    - {fileID: 11400000, guid: 6df23b9dc57990743945598507fb9282, type: 2}
+    - {fileID: 11400000, guid: 5fde05ac1b8666f438cc06dc05f6ad8f, type: 2}
+    - {fileID: 11400000, guid: e27cb524ac222b6408f70571a33cdcfb, type: 2}
     - {fileID: 11400000, guid: 7825c702410011e4197bbcfbd7b13439, type: 2}
     - {fileID: 11400000, guid: 3d922e2df3caf0d4296a800c803d81fb, type: 2}
+    - {fileID: 11400000, guid: fc730e05d6f153340bb82a88e8056196, type: 2}
+    - {fileID: 11400000, guid: a651cb6b68fc1b44eb49f6a680f17497, type: 2}
+    - {fileID: 11400000, guid: f63e16982bf9f5044bf18f9db62a6689, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1587248916}
           m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
           m_MethodName: SceneLoad
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1370826546}
-          m_TargetAssemblyTypeName: DialogueManager, Assembly-CSharp
-          m_MethodName: StartDialogue
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 11400000, guid: 465b4d450013b1140bd30c0b520ff736, type: 2}
-            m_ObjectArgumentAssemblyTypeName: Dialogue, Assembly-CSharp
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 139393217}
-          m_TargetAssemblyTypeName: Playback, Assembly-CSharp
-          m_MethodName: PauseTimeline
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -377,32 +362,6 @@ MonoBehaviour:
           m_CallState: 2
     - m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 139393217}
-          m_TargetAssemblyTypeName: Playback, Assembly-CSharp
-          m_MethodName: PauseTimeline
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 1370826546}
-          m_TargetAssemblyTypeName: DialogueManager, Assembly-CSharp
-          m_MethodName: StartDialogue
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 11400000, guid: c1aedd3fa9da74c4d840da2bde23a84c, type: 2}
-            m_ObjectArgumentAssemblyTypeName: Dialogue, Assembly-CSharp
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    - m_PersistentCalls:
-        m_Calls:
         - m_Target: {fileID: 139393219}
           m_TargetAssemblyTypeName: BackgroundFade, Assembly-CSharp
           m_MethodName: FadeIn
@@ -417,6 +376,34 @@ MonoBehaviour:
           m_CallState: 2
     - m_PersistentCalls:
         m_Calls:
+        - m_Target: {fileID: 2046528884}
+          m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+          m_MethodName: Flip
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 139393220}
+          m_TargetAssemblyTypeName: BackgroundCut, Assembly-CSharp
+          m_MethodName: Cut
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
         - m_Target: {fileID: 139393217}
           m_TargetAssemblyTypeName: Playback, Assembly-CSharp
           m_MethodName: PauseTimeline
@@ -434,7 +421,7 @@ MonoBehaviour:
           m_MethodName: StartDialogue
           m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 11400000, guid: d1333046f05662147a0869d789a88069, type: 2}
+            m_ObjectArgument: {fileID: 11400000, guid: c859592f7d58e8446bb5c2f23a9e5984, type: 2}
             m_ObjectArgumentAssemblyTypeName: Dialogue, Assembly-CSharp
             m_IntArgument: 0
             m_FloatArgument: 0
@@ -460,7 +447,137 @@ MonoBehaviour:
           m_MethodName: StartDialogue
           m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 11400000, guid: 981b675f43f3ee645aa1944673b5017d, type: 2}
+            m_ObjectArgument: {fileID: 11400000, guid: 5b4b53372fc6b3046ad7bfecf1b9e8b7, type: 2}
+            m_ObjectArgumentAssemblyTypeName: Dialogue, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 139393217}
+          m_TargetAssemblyTypeName: Playback, Assembly-CSharp
+          m_MethodName: PauseTimeline
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1370826546}
+          m_TargetAssemblyTypeName: DialogueManager, Assembly-CSharp
+          m_MethodName: StartDialogue
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: 1d7d383d577d78241afeff3954a491db, type: 2}
+            m_ObjectArgumentAssemblyTypeName: Dialogue, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 139393217}
+          m_TargetAssemblyTypeName: Playback, Assembly-CSharp
+          m_MethodName: PauseTimeline
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1370826546}
+          m_TargetAssemblyTypeName: DialogueManager, Assembly-CSharp
+          m_MethodName: StartDialogue
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: c33d03f7004ecf146945830c4fd30bc3, type: 2}
+            m_ObjectArgumentAssemblyTypeName: Dialogue, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 139393217}
+          m_TargetAssemblyTypeName: Playback, Assembly-CSharp
+          m_MethodName: PauseTimeline
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1370826546}
+          m_TargetAssemblyTypeName: DialogueManager, Assembly-CSharp
+          m_MethodName: StartDialogue
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: 9a3e5e823bc949246b7f6f7159298b2c, type: 2}
+            m_ObjectArgumentAssemblyTypeName: Dialogue, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 139393217}
+          m_TargetAssemblyTypeName: Playback, Assembly-CSharp
+          m_MethodName: PauseTimeline
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1370826546}
+          m_TargetAssemblyTypeName: DialogueManager, Assembly-CSharp
+          m_MethodName: StartDialogue
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: 1691d99e383f7da4fb06a5d45a6e2cff, type: 2}
+            m_ObjectArgumentAssemblyTypeName: Dialogue, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 139393217}
+          m_TargetAssemblyTypeName: Playback, Assembly-CSharp
+          m_MethodName: PauseTimeline
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1370826546}
+          m_TargetAssemblyTypeName: DialogueManager, Assembly-CSharp
+          m_MethodName: StartDialogue
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: 5c5fd6133f8e7fd4c8500696e6a1243b, type: 2}
             m_ObjectArgumentAssemblyTypeName: Dialogue, Assembly-CSharp
             m_IntArgument: 0
             m_FloatArgument: 0
@@ -480,6 +597,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transition: {fileID: 553077144}
+--- !u!114 &139393220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 139393214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3044f3f05fd7cc479336803511898ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  background: {fileID: 1504650385}
+  original: {fileID: 21300000, guid: b778faa1aca3df844b80d3465ec02f60, type: 3}
+  cut: {fileID: 21300000, guid: e34a1d57cb575490f8ffb1aaf48a64c3, type: 3}
 --- !u!1 &192315153
 GameObject:
   m_ObjectHideFlags: 0
@@ -622,6 +754,7 @@ GameObject:
   m_Component:
   - component: {fileID: 294624982}
   - component: {fileID: 294624981}
+  - component: {fileID: 294624983}
   m_Layer: 0
   m_Name: Grandma
   m_TagString: Untagged
@@ -694,6 +827,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &294624983
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294624980}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &403604292
 GameObject:
   m_ObjectHideFlags: 0
@@ -1265,7 +1417,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1109588129}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -1543,7 +1695,7 @@ SpriteRenderer:
   m_SortingLayerID: 987478213
   m_SortingLayer: -1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e34a1d57cb575490f8ffb1aaf48a64c3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b778faa1aca3df844b80d3465ec02f60, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1554,20 +1706,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!4 &1504650386
-Transform:
+--- !u!224 &1504650386
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1504650384}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 2, y: -1}
+  m_SizeDelta: {x: 3, y: 1.2}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1587248914
 GameObject:
   m_ObjectHideFlags: 0
@@ -1612,7 +1769,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35aba46cb6757cb4b97f5e6404e68c03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scenename: SecondBeachScene
+  scenename: TitleProduction
   transition: {fileID: 1982806014}
   transitionTime: 1
 --- !u!1 &1766158445
@@ -1644,7 +1801,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72b1e6eafd647114db8c84956c91ab50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Dialogue: {fileID: 11400000, guid: c1aedd3fa9da74c4d840da2bde23a84c, type: 2}
+  Dialogue: {fileID: 0}
 --- !u!4 &1766158447
 Transform:
   m_ObjectHideFlags: 0
@@ -2019,6 +2176,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2046528882}
   - component: {fileID: 2046528881}
+  - component: {fileID: 2046528885}
+  - component: {fileID: 2046528883}
+  - component: {fileID: 2046528884}
   m_Layer: 6
   m_Name: Riley
   m_TagString: Untagged
@@ -2085,9 +2245,63 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2046528880}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.25, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 9.25, y: 0, z: 0}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &2046528883
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2046528880}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2046528884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2046528880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc57473dc5b30914ba778710fe5eee76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InLevel: 0
+  CanPlayerMove: 0
+--- !u!50 &2046528885
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2046528880}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
