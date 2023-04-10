@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class EventManager : MonoBehaviour
 {
-    private string[] flag_keys = new string[] { "Net", "Stick", "Loop", "ConstructedNet", "Test choice 1", "Test choice 2", "boss1beat", "boss2beat" };
+    private string[] flag_keys = new string[] { "Net", "Stick", "Loop", "ConstructedNet", "Test choice 1", "Test choice 2", "boss1beat", "boss2beat", "myth", "report", "epic" };
 
     private Dictionary<string, bool> _flags;
 
@@ -24,6 +24,15 @@ public class EventManager : MonoBehaviour
         _dialogueManager = FindObjectOfType<DialogueManager>();
     }
 
+    void Update(){
+        if(Input.GetKeyDown(KeyCode.L)){
+            foreach (var pair in _flags)
+            {
+                Debug.Log(pair.Key + ' ' + pair.Value.ToString());
+            }
+        }
+    }
+
     // Parses the string flag and updates the _flags dictionary appropriately
     public void ProcessFlag(string flag)
     {
@@ -35,6 +44,11 @@ public class EventManager : MonoBehaviour
 
         else if (flag == "gotLoop")
             _flags["Loop"] = true;
+
+        // Increase glide charge from NPC interaction
+        else if (flag == "increaseGlideCharge") {
+            FindObjectOfType<GlideCharge>().AddCharge();
+        }
     }
 
     public void ProcessChoice(string flag)
@@ -71,5 +85,20 @@ public class EventManager : MonoBehaviour
     public bool NetCompleted()
     {
         return _flags["ConstructedNet"];
+    }
+
+    public void SetFlags(bool [] vals){
+        _flags = new Dictionary<string, bool>();
+
+        int i = 0;
+        foreach (string key in flag_keys){
+            _flags.Add(key, vals[i]);
+            i++;
+        }
+
+    }
+
+    public Dictionary<string, bool> GetFlags(){
+        return _flags;
     }
 }
