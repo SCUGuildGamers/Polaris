@@ -9,6 +9,10 @@ public class Plastic : MonoBehaviour
     public bool CanReflect = false;
     public bool IsReflected = false;
 
+    // Sprites to indicate reflectability
+    public Sprite _nonReflectSprite;
+    public Sprite _reflectSprite;
+
     // Source of projecitile spawning
     private Transform source;
 
@@ -67,6 +71,7 @@ public class Plastic : MonoBehaviour
             }
 		}
     }
+
     public void ReflectDirection()
     {
         // Reverse the direction
@@ -81,7 +86,7 @@ public class Plastic : MonoBehaviour
     }
 
     // Spawns and returns a copy of the Plastic object with values given by parameters spawnPosition, targetPosition, movement_mode, and delta
-    public Plastic Spawn(Vector3 spawnPosition, Vector3 targetPosition, Transform source, int movementMode = 0,  bool autoReflectable = false, float delta = 0)
+    public Plastic Spawn(Vector3 spawnPosition, Vector3 targetPosition, Transform source, int movementMode = 0,  bool autoReflectable = false, float delta = 0, bool notReflectable=false, float speed=0.004f)
     {
         GameObject plasticCopy = Instantiate(gameObject);
 
@@ -111,9 +116,22 @@ public class Plastic : MonoBehaviour
         if (autoReflectable)
             plasticObjCopy.MakePickup();
 
+        // Check if the plastic is NOT SUPPOSED to be reflectable
+        else if (notReflectable)
+            plasticObjCopy.CanReflect = false;
+
         // Else, roll the reflect chance
         else
             plasticObjCopy.CanReflect = RollReflect();
+
+        // Change the sprite depending on if the plastic can be reflected or not
+        if (plasticObjCopy.CanReflect)
+            plasticObjCopy.GetComponent<SpriteRenderer>().sprite = _reflectSprite;
+        else
+            plasticObjCopy.GetComponent<SpriteRenderer>().sprite = _nonReflectSprite;
+
+        // Set the move speed of the projectile
+        plasticObjCopy.SetSpeed(speed);
 
         return plasticObjCopy;
     }
@@ -135,7 +153,6 @@ public class Plastic : MonoBehaviour
     // Helper function that determines what happens if a plastic is reflectable
     private void MakePickup()
     {
-        GetComponent<Renderer>().material.color = Color.green;
         CanReflect = true;
     }
 
@@ -172,5 +189,13 @@ public class Plastic : MonoBehaviour
     // Follows player
     private void FollowPlayer() {
         transform.position = Vector3.MoveTowards(transform.position, _playerTranform.position, 0.003f);
+    }
+
+    private void SetSpeed(float speed) {
+        _speed = speed;
+    }
+
+    public bool getIsCopy() {
+        return IsCopy;
     }
 }

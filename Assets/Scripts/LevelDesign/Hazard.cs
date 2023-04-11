@@ -10,7 +10,9 @@ public class Hazard : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             Debug.LogWarning("Player Kill & respawn");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+            // Return the player to their checkpoint on death
+            FindObjectOfType<CheckpointManager>().ReturnToCheckpoint();
         }  
     }
 }

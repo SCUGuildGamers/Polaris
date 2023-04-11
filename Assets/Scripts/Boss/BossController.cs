@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class BossController : MonoBehaviour
 {
-    public Plastic Plastic;
+    public Plastic _plastic;
+    public Plastic _lanePlastic;
     public TurtleController Turtle;
     public UrchinController Urchin;
     public platform platform;
+
+    public Animator animator;
 
     public Transform PlasticBoss;
     public Transform Player;
 
     private float _waveHeight = 5.5f;
+    private float _screenHeight = 9f;
 
     void Update()
     {
@@ -26,6 +30,11 @@ public class BossController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.R))
             {
                 StartCoroutine(HomingShots(3, 5f));
+            }
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                StartCoroutine(LaneShots(3, 4f));
             }
 
             if (Input.GetKeyDown(KeyCode.P))
@@ -48,7 +57,7 @@ public class BossController : MonoBehaviour
             yield return new WaitForSeconds(sec);
             index += Time.deltaTime;
             Vector3 target = PlasticBoss.position + new Vector3(xOffset, yOffset - (int)(i * 6 * Mathf.Cos(index) - 40), 0);
-            Plastic.Spawn(PlasticBoss.position, target, transform, 3);
+            _plastic.Spawn(PlasticBoss.position, target, transform, 3);
         }
     }
 
@@ -79,7 +88,7 @@ public class BossController : MonoBehaviour
             yield return new WaitForSeconds(sec);
             index += Time.deltaTime;
             Vector3 target = PlasticBoss.position + new Vector3(xOffset, yOffset + (int)(i * 6 * Mathf.Cos(index) - 40), 0);
-            Plastic.Spawn(PlasticBoss.position, target, transform, 3);
+            _plastic.Spawn(PlasticBoss.position, target, transform, 3);
         }
     }
 
@@ -118,7 +127,7 @@ public class BossController : MonoBehaviour
                 int split = numProjectiles / 2;
                 for (int j = split; j >= -split; j--)
                 {
-                    Plastic.Spawn(PlasticBoss.position, target + new Vector3(0, j * 15, 0), transform, 3);
+                    _plastic.Spawn(PlasticBoss.position, target + new Vector3(0, j * 15, 0), transform, 3);
                 }
             }
             else
@@ -129,7 +138,7 @@ public class BossController : MonoBehaviour
                 {
                     // Ignore the middle spawn
                     if (j != 0)
-                        Plastic.Spawn(PlasticBoss.position, target + new Vector3(0, j * 6, 0), transform, 3);
+                        _plastic.Spawn(PlasticBoss.position, target + new Vector3(0, j * 6, 0), transform, 3);
                 }
             }
         }
@@ -152,12 +161,12 @@ public class BossController : MonoBehaviour
         for (int i = 0; i < 10; i++)
         {
             yield return new WaitForSeconds(sec);
-            Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x1, y, 0), transform, 1, false, 0.01f);
-            Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x2, y, 0), transform, 1, false, 0.002f);
-            Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x3, y, 0), transform, 1, false, 0.0005f);
-            Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x1, y, 0), transform, 2, false, 0.01f);
-            Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x2, y, 0), transform, 2, false, 0.002f);
-            Plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x3, y, 0), transform, 2, false, 0.0005f);
+            _plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x1, y, 0), transform, 1, false, 0.01f);
+            _plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x2, y, 0), transform, 1, false, 0.002f);
+            _plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x3, y, 0), transform, 1, false, 0.0005f);
+            _plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x1, y, 0), transform, 2, false, 0.01f);
+            _plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x2, y, 0), transform, 2, false, 0.002f);
+            _plastic.Spawn(PlasticBoss.position, PlasticBoss.position + new Vector3(x3, y, 0), transform, 2, false, 0.0005f);
         }
     }
 
@@ -181,13 +190,13 @@ public class BossController : MonoBehaviour
 
     public void cluster()
     {
-        Plastic.Spawn(PlasticBoss.position, Player.position, transform, 3, false, 0.1f);
-        Plastic.Spawn(PlasticBoss.position, Player.position + new Vector3(0, .5f, 0), transform, 3, false, 0.1f);
-        Plastic.Spawn(PlasticBoss.position, Player.position + new Vector3(0, 1f, 0), transform, 3, false, 0.1f);
-        Plastic.Spawn(PlasticBoss.position, Player.position + new Vector3(0, 1.5f, 0), transform, 3, false, 0.1f);
-        Plastic.Spawn(PlasticBoss.position, Player.position + new Vector3(0, -.5f, 0), transform, 3, false, 0.1f);
-        Plastic.Spawn(PlasticBoss.position, Player.position + new Vector3(0, -1f, 0), transform, 3, false, 0.1f);
-        Plastic.Spawn(PlasticBoss.position, Player.position + new Vector3(0, -1.5f, 0), transform, 3, false, 0.1f);
+        _plastic.Spawn(PlasticBoss.position, Player.position, transform, 3, false, 0.1f);
+        _plastic.Spawn(PlasticBoss.position, Player.position + new Vector3(0, .5f, 0), transform, 3, false, 0.1f);
+        _plastic.Spawn(PlasticBoss.position, Player.position + new Vector3(0, 1f, 0), transform, 3, false, 0.1f);
+        _plastic.Spawn(PlasticBoss.position, Player.position + new Vector3(0, 1.5f, 0), transform, 3, false, 0.1f);
+        _plastic.Spawn(PlasticBoss.position, Player.position + new Vector3(0, -.5f, 0), transform, 3, false, 0.1f);
+        _plastic.Spawn(PlasticBoss.position, Player.position + new Vector3(0, -1f, 0), transform, 3, false, 0.1f);
+        _plastic.Spawn(PlasticBoss.position, Player.position + new Vector3(0, -1.5f, 0), transform, 3, false, 0.1f);
     }
 
     public void Minefield(int num, float sec)
@@ -211,12 +220,13 @@ public class BossController : MonoBehaviour
         // Spawn position of the trajectory shot
         Vector3 spawn_position = transform.position + new Vector3(0, y_offset, 0);
 
-        Plastic.Spawn(spawn_position, spawn_position + new Vector3(-1, 0, 0), transform, 3);
+        _plastic.Spawn(spawn_position, spawn_position + new Vector3(-1, 0, 0), transform, 3);
     }
 
     // Spawns a set trajectory wave with num_projectiles projectiles and a wait of projectile_wait between each projectile
     private IEnumerator SetTrajectoryWave(int num_projectiles, float projectile_wait)
     {
+        animator.SetTrigger("bossTossTrigger");
         for (int i = 0; i < num_projectiles; i++)
         {
             SetTrajectoryShot(GenerateWaveOffset());
@@ -241,14 +251,54 @@ public class BossController : MonoBehaviour
         }
     }
 
+    // Spawns a single homing projectile that moves towards the player until they deflect it / collide with the player
     private void HomingShot() {
-        Plastic.Spawn(transform.position, transform.position, transform, 5, true);
+        _plastic.Spawn(transform.position, transform.position, transform, 5, true);
     }
 
+    // Spawns multiple homing projectiles depending on the parameters passed
     private IEnumerator HomingShots(int num_shots, float shot_wait) {
+        animator.SetTrigger("bossTossTrigger");
+
         for (int i = 0; i < num_shots; i++) {
             HomingShot();
             yield return new WaitForSecondsRealtime(shot_wait);
         }
+    }
+
+    // Spawns a single lane shot which covers a certain vertical lane of the screen
+    private void LaneShot(float y_offset) {
+        animator.SetTrigger("bossTossTrigger");
+
+        // Spawn position of the trajectory shot
+        Vector3 spawn_position = transform.position + new Vector3(0, y_offset, 0);
+
+        _lanePlastic.Spawn(spawn_position, spawn_position + new Vector3(-1, 0, 0), transform, 3, false, 0, true, 0.015f);
+    }
+
+    // Spawns multiple lane projectiles depending on the parameters passed
+    private IEnumerator LaneShots(int num_shots, float shot_wait) {
+        for (int i = 0; i < num_shots; i++) {
+            LaneShot(GenerateLaneOffset());
+            yield return new WaitForSecondsRealtime(shot_wait);
+        }
+    }
+
+    // Generates a random y offset for the LaneShot to spawn the projectile at
+    private float GenerateLaneOffset()
+    {
+        // Random number generation between 0-2
+        System.Random rand = new System.Random();
+        int num = rand.Next(0, 3);
+
+        // Depending on the number rolled, spawn in the upper, middle, or lower quadrant
+        if (num == 0)
+            return (float)_screenHeight / 2f;
+
+        else if (num == 1)
+            return 0;
+
+        else
+            return -(float)_screenHeight / 2f;
     }
 }
