@@ -10,4 +10,8 @@ public class PlayerData : ScriptableObject
     public string checkpoint_string;
 
     public int coin_counter;
+
+    public int player_health;
+
+    private int max_player_health = 3;
 }

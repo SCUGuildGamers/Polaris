@@ -5,26 +5,19 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    // Health integer variable
-    private int _health;
-
     // Linking the Health Bar object to this script
     public HealthBar _healthBar;
 
     // For reference
     private SpriteRenderer sprite;
 
-    // Variable to keep track of the player's max health
-    private int _maxHealth = 3;
+    // Global player health
+    public PlayerData playerData;
 
     void Start()
     {
         // For reference
         sprite = GetComponent<SpriteRenderer>();
-
-        // Initializing health
-        _healthBar.set_max_health(_maxHealth);
-        _health = _maxHealth;
     }
 
     // Handles the logic for player health reduction by amount i
@@ -33,12 +26,14 @@ public class PlayerHealth : MonoBehaviour
         // Color change for visual indication of damage
         sprite.color = new Color(1,0,0,1);
 
-        // Decreas health
-        _health = _health - i;
-        _healthBar.set_health(_health);        
+        // Decrease health
+        playerData.player_health = playerData.player_health - i;
+        _healthBar.set_health(playerData.player_health);  
+        
+        // Update global health
 
         // Check if player is dead
-        if (_health <= 0)
+        if (playerData.player_health <= 0)
         {
             Die();
         }
