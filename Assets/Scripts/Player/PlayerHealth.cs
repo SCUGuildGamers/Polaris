@@ -70,7 +70,7 @@ public class PlayerHealth : MonoBehaviour
         {
             ReduceHealth(1);
 
-            HazardRecoil(transform.position, GetAvgCollisionPoint(collision));
+            HazardRecoil();
         }
     }
 
@@ -90,14 +90,30 @@ public class PlayerHealth : MonoBehaviour
         return avg;
     }
 
-    private void HazardRecoil(Vector3 player, Vector3 collision_point) {
-        // Calculate the reverse of the direction of the player relative to the hazard
-        Vector3 diff = player - collision_point;
+    private void HazardRecoil() {
 
-        Debug.Log(diff);
+        Vector3 recoil;
+        Vector3 rb_velocity = rb.velocity;
+
+        // If not gliding, then player is free-falling
+        if (rb_velocity == new Vector3(0, 0, 0))
+            recoil = new Vector3(0, 1, 0);
+
+        // If gliding, then reverse the glide direction
+        else
+            recoil = -rb_velocity;
 
         // Push the player away from the hazard
-        rb.AddForce(diff);
+        rb.velocity = recoil*10;
+        GetComponent<PlayerMovement>().CanPlayerMove = false;
+
+        Invoke("HazardRecoilInvoke", 0.75f);
+    }
+
+    private void HazardRecoilInvoke() {
+        rb.velocity = new Vector2(0, 0);
+
+        GetComponent<PlayerMovement>().CanPlayerMove = true;
     }
 
     // Helper function to handle logic when player dies
