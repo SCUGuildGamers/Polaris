@@ -15,18 +15,42 @@ public class PlayerHealth : MonoBehaviour
     // Global player health
     public PlayerData playerData;
 
+    // I-frame
+    private float _iframeDuration = 2f;
+    private bool _isIframe;
+
     void Start()
     {
         // For reference
         sprite = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
+
+        _isIframe = false;
+    }
+
+    private void FixedUpdate()
+    {
+        if (_isIframe)
+            StartCoroutine(IFrameSpriteToggle());
+    }
+
+    // Handles logic for the changing of sprite during i-frame
+    private IEnumerator IFrameSpriteToggle() {
+        yield return new WaitForSeconds(0.5f);
+
+        Color color = sprite.color;
+
+        if (sprite.color.a == 0)
+            sprite.color = new Color(color.r, color.g, color.b, 255);
+        else
+            sprite.color = new Color(color.r, color.g, color.b, 0);
     }
 
     // Handles the logic for player health reduction by amount i
     private void ReduceHealth(int i)
     {
         // Color change for visual indication of damage
-        sprite.color = new Color(1,0,0,1);
+        sprite.color = new Color(1, 0, 0, 1);
 
         // Decrease health
         playerData.player_health = playerData.player_health - i;
@@ -34,8 +58,8 @@ public class PlayerHealth : MonoBehaviour
         Debug.Log("Player health is " + playerData.player_health);
 
         // Update health bar
-        if(_healthBar)
-            _healthBar.set_health(playerData.player_health);  
+        if (_healthBar)
+            _healthBar.set_health(playerData.player_health);
 
         // Check if player is dead
         if (playerData.player_health <= 0)
@@ -108,12 +132,24 @@ public class PlayerHealth : MonoBehaviour
         GetComponent<PlayerMovement>().CanPlayerMove = false;
 
         Invoke("HazardRecoilInvoke", 0.75f);
+        StartCoroutine(HazardRecoilIFrame());
     }
 
     private void HazardRecoilInvoke() {
         rb.velocity = new Vector2(0, 0);
 
         GetComponent<PlayerMovement>().CanPlayerMove = true;
+    }
+
+    private IEnumerator HazardRecoilIFrame() {
+        _isIframe = true;
+
+        yield return new WaitForSeconds(_iframeDuration);
+
+        _isIframe = false;
+
+        // Return to normal coloring
+        sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 255);
     }
 
     // Helper function to handle logic when player dies
