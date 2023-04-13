@@ -28,6 +28,9 @@ public class PlayerMovement : MonoBehaviour
 	// Glide state
 	private bool isGliding;
 
+	// Glide direction
+	private Vector3 _glideDirection;
+
 	// Glide values
 	private static float glidingPower = 20f;
 
@@ -52,6 +55,9 @@ public class PlayerMovement : MonoBehaviour
 		// States
 		isGliding = false;
 		showTrajectory = false;
+
+		// Initialize the glide direction
+		_glideDirection = new Vector3(0, 0, 0);
 
 		// Toggles gravity depending on if the player is in a level or not
 		if (InLevel) {
@@ -118,6 +124,9 @@ public class PlayerMovement : MonoBehaviour
 
 			// Toggle glide state variables
 			isGliding = false;
+
+			// Update glide direction
+			_glideDirection = new Vector3(0, 0, 0);
 		}
 
 	}
@@ -252,6 +261,9 @@ public class PlayerMovement : MonoBehaviour
 			mousePos.z = transform.position.z;
 			var glideDirection = mousePos - transform.position;
 
+			// Update the glide direction
+			_glideDirection = glideDirection;
+
 			// Glide initiated
 			rb.velocity = new Vector2(glideDirection.normalized.x * glidingPower, glideDirection.normalized.y * glidingPower);
 
@@ -274,7 +286,10 @@ public class PlayerMovement : MonoBehaviour
 			rb.velocity = new Vector3(0,0,0); 
 
 			//Player can move once again so they can move side to side while falling
-			CanPlayerMove = true; 
+			CanPlayerMove = true;
+
+			// Update the glide direction
+			_glideDirection = new Vector3(0, 0, 0);
 		}
 
 	}
