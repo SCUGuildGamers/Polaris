@@ -19,7 +19,7 @@ public class PlayerHealth : MonoBehaviour
     private float _iframeDuration = 4f;
     private bool _isIframe;
     private int _iframeCounter;
-    private int _iframeToggle = 10;
+    private int _iframeToggle = 7;
 
     void Start()
     {
@@ -63,9 +63,6 @@ public class PlayerHealth : MonoBehaviour
     {
         // i-frame
         StartCoroutine(iFrameHandler());
-        
-        // Color change for visual indication of damage
-        sprite.color = new Color(1, 0, 0, 1);
 
         // Decrease health
         playerData.player_health = playerData.player_health - i;
@@ -81,14 +78,6 @@ public class PlayerHealth : MonoBehaviour
         {
             Die();
         }
-
-        // Restore original color
-        Invoke("ResetColor", .25f);
-    }
-
-    // Resets the color to white (original coloring)
-    void ResetColor(){
-        sprite.color = new Color(1,1,1,1);
     }
 
     // Check for collisions with projectile objects
