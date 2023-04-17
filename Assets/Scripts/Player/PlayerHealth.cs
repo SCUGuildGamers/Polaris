@@ -97,7 +97,7 @@ public class PlayerHealth : MonoBehaviour
     }
 
     // Check for collisions with hazards
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionStay2D(Collision2D collision)
     {
         // If not in i-frame
         if (!_isIframe) {
