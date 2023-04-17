@@ -274,8 +274,7 @@ public class PlayerMovement : MonoBehaviour
 			rb.velocity = new Vector3(0,0,0); 
 
 			//Player can move once again so they can move side to side while falling
-			CanPlayerMove = true; 
+			CanPlayerMove = true;
 		}
-
 	}
 }
