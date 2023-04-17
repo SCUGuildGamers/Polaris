@@ -13,6 +13,7 @@ public class UrchinAttack : StateMachineBehaviour
     {
         _plasticBoss = animator.GetComponent<BossController>();
         _plasticBoss.UrchinAttack(NumPlasticSpawn);
+        animator.SetBool("Urchin", false);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

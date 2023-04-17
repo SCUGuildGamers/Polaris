@@ -14,6 +14,7 @@ public class TurtleAttack : StateMachineBehaviour
     {
         _plasticBoss = animator.GetComponent<BossController>();
         _plasticBoss.TurtleAttack(MinMovementSpeed, MaxMovementSpeed);
+        animator.SetBool("Turtle", false);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

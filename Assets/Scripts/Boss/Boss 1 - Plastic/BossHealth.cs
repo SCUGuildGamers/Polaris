@@ -36,6 +36,10 @@ public class BossHealth : MonoBehaviour
         if (Health <= 0)
             Die();
     }
+    public int GetHealth()
+    {
+        return Health;
+    }
 
     private void Die()
     {
