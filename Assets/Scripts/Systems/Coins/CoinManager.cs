@@ -6,22 +6,24 @@ public class CoinManager : MonoBehaviour
 {
     private int _totalPossible;
 
+    private int _interalCounter;
+
     public PlayerData playerData;
 
     // Increments the coin counter
     private void PickupCoin() {
-        playerData.coin_counter++;
+        _interalCounter++;
         Debug.Log("The player has " + GetCounter() + " coin(s).");
     }
     
     // Updates the coin_counter to the given amount
-    public void UpdateCoins(int amount) {
-        playerData.coin_counter = amount;
+    public void UpdateCoins() {
+        playerData.coin_counter = _interalCounter;
     }
 
     // Returns the current amount of coins
     public int GetCounter() {
-        return playerData.coin_counter;    
+        return _interalCounter;
     }
 
     void OnCollisionEnter2D(Collision2D col) {
