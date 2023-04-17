@@ -6,123 +6,196 @@ using UnityEngine.Tilemaps;
 public class PlayerMovement : MonoBehaviour
 {
 	private Rigidbody2D rb;
-	private bool _facingRight = true;
-	private bool inCurrentRight = false;
-	private bool inCurrentLeft = false;
-	private bool inCurrentUp = false;
-	private bool inCurrentDown = false;
 
+	// For reference
+	GlideCharge glideCharge;
 
+	// Keeps track of whether or not the player is in a level or boss fight
+	public bool InLevel;
+
+	// Keeps track of whether the player can move
 	public bool CanPlayerMove = true;
 
-	public bool IsOceanMovement = false;
+	// Movement values
+	private float HorizontalSpeed = 10f;
 
-	public float HorizontalSpeed = 10f;
-	public float VerticalSpeed = 10f;
+	// Gravity constant
+	private float GravityConstant = 7.5f;
 
-	// Dashing variables
-	[Header("Dash Variables")]
-	public static bool canDash;
-	public bool isDashing;
-	public float dashingPower = 50f;
-	public float dashingTime = 0.2f;
-	public float dashCooldown = 0.1f;
-	//public float iFrameTime = 0.3f;
+	// Directional state
+	private bool _facingRight = true;
 
-	// Gliding variables
-	[Header("Glide Variables")]
-	public static bool canGlide;
-	public bool isGliding;
-	public float glidingPower = 50f;
+	// Glide state
+	private bool isGliding;
+
+	// Glide values
+	private static float glidingPower = 20f;
+
+	// Glide variables
 	private bool showTrajectory;
 	private TrajectoryLine trajectoryLine;
 
+	// Current forces
+	private static float currentPower = glidingPower / 4;
+	private Vector2 currUpVelocity = new Vector3(0, currentPower);
+	private Vector2 currRightVelocity = new Vector3(currentPower, 0);
+	private Vector2 currDownVelocity = new Vector3(0, -currentPower);
+	private Vector2 currLeftVelocity = new Vector3(-currentPower, 0);
+
 	void Start()
 	{
+		// For reference
 		rb = GetComponent<Rigidbody2D>();
+		glideCharge = GetComponent<GlideCharge>();
+		trajectoryLine = GetComponent<TrajectoryLine>();
 
-		canDash = true;
-		isDashing = false;
-		canGlide = true;
+		// States
 		isGliding = false;
 		showTrajectory = false;
-		trajectoryLine = GetComponent<TrajectoryLine>();
+
+		// Toggles gravity depending on if the player is in a level or not
+		if (InLevel) {
+			ToggleGravity(true);
+
+			// For debugging the glide charge system
+			if(glideCharge != null)
+				glideCharge.SetStarting();
+		}
+			
+		else
+			ToggleGravity(false);
 	}
 
-	void Update()
-	{
-		// Update the trajectory line
-		if(showTrajectory)
-        {
-			// Direction of dash is the unit vector of mouse position - rigidbody position
-			Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			mousePos.z = transform.position.z;
-			var glideDirection = mousePos - transform.position;
-
-			trajectoryLine.ShowTrajectoryLine(transform.position, glideDirection);
-		}
-
-		if (inCurrentRight){
-			rb.AddForce(new Vector3(glidingPower, 0, 0));
-		} else if (inCurrentLeft){
-			rb.AddForce(new Vector3(-glidingPower, 0, 0));
-		} else if (inCurrentUp){
-			rb.AddForce(new Vector3(0, glidingPower, 0));
-		} else if (inCurrentDown){
-			rb.AddForce(new Vector3(0, -glidingPower, 0));
-		}
-
-		if ((Input.GetKeyDown("e") && canDash)) {
-				StartCoroutine(Dash());
-		}
-
-		else if (Input.GetKeyDown("g") && canGlide)
-		{
-			Glide();
-		}
-	}
 	void FixedUpdate()
 	{
-		// Stops all other actions while dashing is occuring
-		if(!isDashing && !isGliding)
+		// Prevent character from moving while the dash or glide is occuring
+		if (!isGliding && CanPlayerMove)
 			// Move our character
 			Move();
 	}
 
-	void OnTriggerEnter2D(Collider2D col)
-    {
-		if (col.name == "Current"){
-			inCurrentRight = true;
-			CanPlayerMove = false;
-		}
-    }
+	void Update()
+	{
+		// Only perform these statements if the player is in a level/boss fight
+		if (InLevel) {
+			// Update the trajectory line
+			if (showTrajectory)
+				UpdatePlayerTrajectory();
 
-	void OnTriggerExit2D(Collider2D col){
-		if (col.name == "Current"){
-			inCurrentRight = false;
+			if (Input.GetKeyDown("g"))
+			{
+				Glide();
+			}
+
+			if (Input.GetKeyDown("h"))
+			{
+				Glide_Cancel();
+			}
+
+			// Canceling the trajectory line
+			else if (Input.GetKeyDown(KeyCode.Escape) && showTrajectory)
+			{
+				showTrajectory = false;
+				trajectoryLine.ClearLine(); // Clear the trajectory line
+			}
+		}
+	}
+
+
+
+	// When the player collides with anything, the player stop moving (implemented to stop glide movement)
+	void OnCollisionEnter2D(Collision2D collider)
+	{
+		// If the player collides with something while they're gliding, the glide should stop 
+		if (isGliding)
+		{ 
+			ToggleGravity(true);
+
+			rb.velocity = new Vector2(0, 0);
+
+			// Toggle player move state variables
+			CanPlayerMove = true;
+
+			// Toggle glide state variables
+			isGliding = false;
+		}
+
+	}
+
+	void OnTriggerEnter2D(Collider2D col)
+	{
+		if (col.name.Contains("Current"))
+        {
+			AddCurrentVelocity(col);
+			if (!isGliding)
+				ToggleGravity(false);
+		}	
+	}
+
+	void OnTriggerExit2D(Collider2D col)
+	{
+		if (col.name.Contains("Current") && !isGliding)
+		{
+			ToggleGravity(true);
+			rb.velocity = new Vector2(0, 0);
+
+			// Toggle player move state variables
 			CanPlayerMove = true;
 		}
 	}
 
-	void Move()
+	// Toggles the gravity on/off with the GravityConstant given the boolean value 'toggle'
+	void ToggleGravity(bool toggle)
 	{
-		// Check if the player can move or not
-		if (CanPlayerMove == false)
+		if (toggle)
+			rb.gravityScale = GravityConstant;
+		else
+			rb.gravityScale = 0f;
+	}
+
+	// Add current velocity depending on the collider name
+	void AddCurrentVelocity(Collider2D col)
+	{
+		CanPlayerMove = false;
+
+		// Add current velocity
+		if (col.name == "CurrentUp")
 		{
-			rb.velocity = new Vector2(0, 0);
-			return;
+			rb.velocity = rb.velocity + currUpVelocity;
 		}
 
+		else if (col.name == "CurrentRight")
+		{
+			rb.velocity = rb.velocity + currRightVelocity;
+		}
+
+		else if (col.name == "CurrentDown")
+		{
+			rb.velocity = rb.velocity + currDownVelocity;
+		}
+
+		else if (col.name == "CurrentLeft")
+		{
+			rb.velocity = rb.velocity + currLeftVelocity;
+		}
+	}
+
+	// Update the trajectory line relative to the player
+	void UpdatePlayerTrajectory()
+	{
+		// Direction of dash is the unit vector of mouse position - rigidbody position
+		Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		mousePos.z = transform.position.z;
+		var glideDirection = mousePos - transform.position;
+
+		trajectoryLine.ShowTrajectoryLine(transform.position, glideDirection);
+	}
+
+	void Move()
+	{
 		float horizontalDirection = Input.GetAxis("Horizontal");
 
-		// Controls whether or not the player can do underwater movement or not
-		float verticalDirection;
-		if (IsOceanMovement)
-			verticalDirection = Input.GetAxis("Vertical");
-		else
-			verticalDirection = 0;
-
-		rb.velocity = new Vector2(horizontalDirection * HorizontalSpeed, verticalDirection * VerticalSpeed);
+		rb.velocity = new Vector2(horizontalDirection * HorizontalSpeed, 0);
 
 		// If the input is moving the player right and the player is facing left, then correct the character orientation
 		if (horizontalDirection > 0 && !_facingRight)
@@ -149,57 +222,28 @@ public class PlayerMovement : MonoBehaviour
 		transform.localScale = theScale;
 	}
 
-	private IEnumerator Dash()
-	{
-		canDash = false;
-		isDashing = true;
-
-		// I-Frame Activation
-		Physics2D.IgnoreLayerCollision(6,7,true);
-
-		// Direction of dash is the unit vector of mouse position - rigidbody position
-		Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		mousePos.z = transform.position.z;
-		var dashDirection = mousePos - transform.position;
-
-		// Copied Flip instructions but with x value of dashDirection
-		if (dashDirection.x > 0 && !_facingRight)
-		{
-			Flip();
-		}
-		else if (dashDirection.x < 0 && _facingRight)
-		{
-			Flip();
-		}
-
-		// Dash initiated
-		rb.velocity = new Vector2(dashDirection.normalized.x * dashingPower, dashDirection.normalized.y * dashingPower);
-		// What? v
-		yield return new WaitForSeconds(dashingTime);
-
-		//I-Frame deactivaton and reset variables
-		isDashing = false;
-		Physics2D.IgnoreLayerCollision(6,7,false);
-
-		// Below dashCooldown may not be necessary depending on what is necessary for crafting system
-		yield return new WaitForSecondsRealtime(dashCooldown);
-		canDash = true;
-	}
-
 	// Handles logic when the Glide button is pressed
+	// Physics2D.IgnoreLayerCollision(6,7,true) and Physics2D.IgnoreLayerCollision(6,7,false);
 	private void Glide()
 	{
-		isGliding = true;
-
 		// First Glide button click
-		if (!showTrajectory)
+		if (!showTrajectory && glideCharge.GetChargeCounter() > 0)
 		{
 			showTrajectory = true;
 		}
 
 		// Second Glide button click
-		else
+		else if (showTrajectory)
 		{
+			// Decrement the charge counter
+			glideCharge.DecreaseCharge();
+
+			// Toggle player move state variables
+			CanPlayerMove = false;
+
+			// Toggle glide state variables
+			isGliding = true;
+
 			showTrajectory = false;
 			trajectoryLine.ClearLine(); // Clear the trajectory line
 
@@ -210,13 +254,27 @@ public class PlayerMovement : MonoBehaviour
 
 			// Glide initiated
 			rb.velocity = new Vector2(glideDirection.normalized.x * glidingPower, glideDirection.normalized.y * glidingPower);
+
+			// Toggle gravity off when the player is gliding
+			ToggleGravity(false);
 		}
 	}
 
-	void OnCollisionEnter2D(Collision2D collider)
+	private void Glide_Cancel()
 	{
-		isGliding = false;
+		if (isGliding)
+		{
+			//isGliding is turned to false so that 1. the glide is "canceled" and 2. the player can now initiate another glide
+			isGliding = false;
 
-		rb.velocity = new Vector2(0, 0);
+			//Gravity is turned back on
+			ToggleGravity(true); 
+
+			//Velocity returns to 0 so that player is only experiencing gravity, effectively canceling the movement of the glide
+			rb.velocity = new Vector3(0,0,0); 
+
+			//Player can move once again so they can move side to side while falling
+			CanPlayerMove = true;
+		}
 	}
 }
