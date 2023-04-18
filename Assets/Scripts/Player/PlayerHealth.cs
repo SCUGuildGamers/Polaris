@@ -15,18 +15,54 @@ public class PlayerHealth : MonoBehaviour
     // Global player health
     public PlayerData playerData;
 
+    // I-frame
+    private float _iframeDuration = 4f;
+    private bool _isIframe;
+    private int _iframeCounter;
+    private int _iframeToggle = 7;
+
     void Start()
     {
         // For reference
         sprite = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
+
+        _isIframe = false;
+
+        _iframeCounter = 0;
+    }
+
+    private void FixedUpdate()
+    {
+        if (_isIframe)
+            IFrameSpriteToggle();
+    }
+
+    // Handles logic for the changing of sprite during i-frame
+    private void IFrameSpriteToggle() {
+        // Toggle the sprite if counter at the value
+        if (_iframeCounter == _iframeToggle)
+        {
+            _iframeCounter = 0;
+
+            // Toggle the sprite
+            Color color = sprite.color;
+            if (sprite.color.a == 0)
+                sprite.color = new Color(color.r, color.g, color.b, 255);
+            else
+                sprite.color = new Color(color.r, color.g, color.b, 0);
+        }
+
+        // Else, increment the counter
+        else
+            _iframeCounter++;
     }
 
     // Handles the logic for player health reduction by amount i
     private void ReduceHealth(int i)
     {
-        // Color change for visual indication of damage
-        sprite.color = new Color(1,0,0,1);
+        // i-frame
+        StartCoroutine(iFrameHandler());
 
         // Decrease health
         playerData.player_health = playerData.player_health - i;
@@ -34,86 +70,60 @@ public class PlayerHealth : MonoBehaviour
         Debug.Log("Player health is " + playerData.player_health);
 
         // Update health bar
-        if(_healthBar)
-            _healthBar.set_health(playerData.player_health);  
+        if (_healthBar)
+            _healthBar.set_health(playerData.player_health);
 
         // Check if player is dead
         if (playerData.player_health <= 0)
         {
             Die();
         }
-
-        // Restore original color
-        Invoke("ResetColor", .25f);
-    }
-
-    // Resets the color to white (original coloring)
-    void ResetColor(){
-        sprite.color = new Color(1,1,1,1);
     }
 
     // Check for collisions with projectile objects
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        Plastic plastic = collider.gameObject.GetComponent<Plastic>();
-
-        if (plastic && plastic.getIsCopy() && !plastic.IsReflected) {
-            Destroy(collider.gameObject);
-            ReduceHealth(1);
+        // If not in i-frame
+        if (!_isIframe) {
+            // Check for plastic collisions
+            Plastic plastic = collider.gameObject.GetComponent<Plastic>();
+            if (plastic && plastic.getIsCopy() && !plastic.IsReflected)
+            {
+                Destroy(collider.gameObject);
+                ReduceHealth(1);
+            }
         }
+        
     }
 
     // Check for collisions with hazards
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<Hazard>())
-        {
-            ReduceHealth(1);
-
-            HazardRecoil();
-        }
+         // If not in i-frame
+         if (!_isIframe) {
+             // Check for hazard collision
+             if (collision.gameObject.GetComponent<Hazard>())
+             {
+                 ReduceHealth(1);
+             }
+         }
     }
 
-    Vector3 GetAvgCollisionPoint(Collision2D collision) {
-        int count = 0;
+    private IEnumerator iFrameHandler() {
+        // Set the player's i-frame state to true
+        _isIframe = true;
+        Debug.Log("iframe true");
 
-        // Sum of points
-        Vector2 sum = new Vector3(0, 0);
-        foreach (ContactPoint2D contact in collision.contacts) {
-            sum += contact.point;
-            count++;
-        }
+        // I-frame duration
+        yield return new WaitForSeconds(_iframeDuration);
 
-        // Average of points
-        Vector3 avg = sum / count;
+        // Set the player's i-frame state to false
+        _isIframe = false;
+        Debug.Log("iframe false");
 
-        return avg;
-    }
-
-    private void HazardRecoil() {
-
-        Vector3 recoil;
-        Vector3 rb_velocity = rb.velocity;
-
-        // If not gliding, then player is free-falling
-        if (rb_velocity == new Vector3(0, 0, 0))
-            recoil = new Vector3(0, 1, 0);
-
-        // If gliding, then reverse the glide direction
-        else
-            recoil = -rb_velocity;
-
-        // Push the player away from the hazard
-        rb.velocity = recoil*10;
-        GetComponent<PlayerMovement>().CanPlayerMove = false;
-
-        Invoke("HazardRecoilInvoke", 0.75f);
-    }
-
-    private void HazardRecoilInvoke() {
-        rb.velocity = new Vector2(0, 0);
-
-        GetComponent<PlayerMovement>().CanPlayerMove = true;
+        // Restore sprite coloring
+        Color color = sprite.color;
+        sprite.color = new Color(color.r, color.g, color.b, 255);
     }
 
     // Helper function to handle logic when player dies
