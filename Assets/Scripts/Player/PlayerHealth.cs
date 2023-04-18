@@ -99,70 +99,32 @@ public class PlayerHealth : MonoBehaviour
     // Check for collisions with hazards
     void OnCollisionStay2D(Collision2D collision)
     {
-        // If not in i-frame
-        if (!_isIframe) {
-            // Check for hazard collision
-            if (collision.gameObject.GetComponent<Hazard>())
-            {
-                ReduceHealth(1);
-            }
-        }
+         // If not in i-frame
+         if (!_isIframe) {
+             // Check for hazard collision
+             if (collision.gameObject.GetComponent<Hazard>())
+             {
+                 ReduceHealth(1);
+             }
+         }
     }
 
     private IEnumerator iFrameHandler() {
         // Set the player's i-frame state to true
         _isIframe = true;
+        Debug.Log("iframe true");
 
         // I-frame duration
         yield return new WaitForSeconds(_iframeDuration);
 
         // Set the player's i-frame state to false
         _isIframe = false;
+        Debug.Log("iframe false");
 
         // Restore sprite coloring
         Color color = sprite.color;
         sprite.color = new Color(color.r, color.g, color.b, 255);
     }
-
-    /*
-    private void HazardRecoil() {
-
-        Vector3 recoil;
-        Vector3 rb_velocity = rb.velocity;
-
-        // If not gliding, then player is free-falling
-        if (rb_velocity == new Vector3(0, 0, 0))
-            recoil = new Vector3(0, 1, 0);
-
-        // If gliding, then reverse the glide direction
-        else
-            recoil = -rb_velocity;
-
-        // Push the player away from the hazard
-        rb.velocity = recoil*10;
-        GetComponent<PlayerMovement>().CanPlayerMove = false;
-
-        Invoke("HazardRecoilInvoke", 0.75f);
-        StartCoroutine(HazardRecoilIFrame());
-    }
-
-    private void HazardRecoilInvoke() {
-        rb.velocity = new Vector2(0, 0);
-
-        GetComponent<PlayerMovement>().CanPlayerMove = true;
-    }
-
-    private IEnumerator HazardRecoilIFrame() {
-        _isIframe = true;
-
-        yield return new WaitForSeconds(_iframeDuration);
-
-        _isIframe = false;
-
-        // Return to normal coloring
-        sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 255);
-    }
-    */
 
     // Helper function to handle logic when player dies
     private void Die()
