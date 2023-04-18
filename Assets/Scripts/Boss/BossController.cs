@@ -48,6 +48,8 @@ public class BossController : MonoBehaviour
         }
     }
 
+   
+
     // Performs a single sweep left projectile attack with a sec delay between each wave adjusted by a xOffset and yOffset
     private IEnumerator SweepLeft(int xOffset, int yOffset, float sec, int numWaves)
     {
@@ -224,12 +226,13 @@ public class BossController : MonoBehaviour
     }
 
     // Spawns a set trajectory wave with num_projectiles projectiles and a wait of projectile_wait between each projectile
-    private IEnumerator SetTrajectoryWave(int num_projectiles, float projectile_wait)
+    public IEnumerator SetTrajectoryWave(int num_projectiles, float projectile_wait)
     {
         animator.SetTrigger("bossTossTrigger");
         for (int i = 0; i < num_projectiles; i++)
         {
             SetTrajectoryShot(GenerateWaveOffset());
+            Debug.Log("haha");
             yield return new WaitForSecondsRealtime(projectile_wait);
         }
     }
@@ -243,7 +246,7 @@ public class BossController : MonoBehaviour
     }
 
     // Spawns num_waves number of waves with wave_wait between each wave; each wave has num_projectiles projectiles with a wait of projectile_wait between them
-    private IEnumerator SetTrajectoryWaves(int num_projectiles, float projectile_wait, int num_waves, float wave_wait)
+    public IEnumerator SetTrajectoryWaves(int num_projectiles, float projectile_wait, int num_waves, float wave_wait)
     {
         for (int i = 0; i < num_waves; i++) {
             StartCoroutine(SetTrajectoryWave(num_projectiles, projectile_wait));
@@ -251,19 +254,52 @@ public class BossController : MonoBehaviour
         }
     }
 
+    public void ShootSetTrajectoryWaves(int num_projectiles, float projectile_wait, int num_waves, float wave_wait)
+    {
+        StartCoroutine(SetTrajectoryWaves(num_projectiles, projectile_wait, num_waves, wave_wait));
+    }
+
     // Spawns a single homing projectile that moves towards the player until they deflect it / collide with the player
-    private void HomingShot() {
+    public void HomingShot() {
         _plastic.Spawn(transform.position, transform.position, transform, 5, true);
     }
 
     // Spawns multiple homing projectiles depending on the parameters passed
-    private IEnumerator HomingShots(int num_shots, float shot_wait) {
+    public IEnumerator HomingShots(int num_shots, float shot_wait) {
         animator.SetTrigger("bossTossTrigger");
 
         for (int i = 0; i < num_shots; i++) {
             HomingShot();
             yield return new WaitForSecondsRealtime(shot_wait);
         }
+    }
+    
+
+    public void ShootHomingShots(int num_shots, float shot_wait)
+    {
+        StartCoroutine(HomingShots(num_shots, shot_wait));
+    }
+
+    private void SlowHomingShot()
+    {
+        _plastic.Spawn(transform.position, transform.position, transform, 5, false, 0, true, 0.001f); ;
+    }
+
+    // Spawns multiple homing projectiles depending on the parameters passed
+    public IEnumerator SlowHomingShots(int num_shots, float shot_wait)
+    {
+        animator.SetTrigger("bossTossTrigger");
+
+        for (int i = 0; i < num_shots; i++)
+        {
+            SlowHomingShot();
+            yield return new WaitForSecondsRealtime(shot_wait);
+        }
+    }
+
+    public void ShootSlowHomingShots(int num_shots, float shot_wait)
+    {
+        StartCoroutine(SlowHomingShots(num_shots, shot_wait));
     }
 
     // Spawns a single lane shot which covers a certain vertical lane of the screen
@@ -282,6 +318,11 @@ public class BossController : MonoBehaviour
             LaneShot(GenerateLaneOffset());
             yield return new WaitForSecondsRealtime(shot_wait);
         }
+    }
+
+    public void ShootLaneShots(int num_shots, float shot_wait)
+    {
+        StartCoroutine(LaneShots(num_shots, shot_wait));
     }
 
     // Generates a random y offset for the LaneShot to spawn the projectile at

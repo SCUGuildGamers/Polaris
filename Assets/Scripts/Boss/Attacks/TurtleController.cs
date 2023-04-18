@@ -54,7 +54,7 @@ public class TurtleController : MonoBehaviour
         GameObject turtleCopy = Instantiate(gameObject);
         turtleCopy.SetActive(true);
         TurtleController turtleObjCopy = turtleCopy.GetComponent<TurtleController>();
-
+        Debug.Log("I AM TRYING TO SPAWN");
         turtleObjCopy.MinMovementSpeed = minMovementSpeed;
         turtleObjCopy.MaxMovementSpeed = maxMovementSpeed;
     }

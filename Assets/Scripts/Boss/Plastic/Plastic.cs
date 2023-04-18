@@ -191,11 +191,12 @@ public class Plastic : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, _playerTranform.position, 0.003f);
     }
 
-    private void SetSpeed(float speed) {
+    public void SetSpeed(float speed) {
         _speed = speed;
     }
 
     public bool getIsCopy() {
         return IsCopy;
     }
+
 }
