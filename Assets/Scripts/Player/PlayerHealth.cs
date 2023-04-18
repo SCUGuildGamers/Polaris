@@ -21,6 +21,9 @@ public class PlayerHealth : MonoBehaviour
     private int _iframeCounter;
     private int _iframeToggle = 7;
 
+    // Death animation
+    private float _deathAnimationDuration = 2f;
+
     void Start()
     {
         // For reference
@@ -61,9 +64,6 @@ public class PlayerHealth : MonoBehaviour
     // Handles the logic for player health reduction by amount i
     private void ReduceHealth(int i)
     {
-        // i-frame
-        StartCoroutine(iFrameHandler());
-
         // Decrease health
         playerData.player_health = playerData.player_health - i;
 
@@ -76,7 +76,12 @@ public class PlayerHealth : MonoBehaviour
         // Check if player is dead
         if (playerData.player_health <= 0)
         {
-            Die();
+            StartCoroutine(Die());
+        }
+
+        // If not dead, do i-frames
+        else {
+            StartCoroutine(iFrameHandler());
         }
     }
 
@@ -112,14 +117,12 @@ public class PlayerHealth : MonoBehaviour
     private IEnumerator iFrameHandler() {
         // Set the player's i-frame state to true
         _isIframe = true;
-        Debug.Log("iframe true");
 
         // I-frame duration
         yield return new WaitForSeconds(_iframeDuration);
 
         // Set the player's i-frame state to false
         _isIframe = false;
-        Debug.Log("iframe false");
 
         // Restore sprite coloring
         Color color = sprite.color;
@@ -127,9 +130,18 @@ public class PlayerHealth : MonoBehaviour
     }
 
     // Helper function to handle logic when player dies
-    private void Die()
+    private IEnumerator Die()
     {
         Debug.Log("The player has lost.");
+
+        // Pause player movement
+        GetComponent<PlayerMovement>().CanPlayerMove = false;
+
+        // Change color to indicate death; temporary
+        sprite.color = Color.red;
+
+        // Pause for animation effect
+        yield return new WaitForSeconds(_deathAnimationDuration);
 
         // Restore player HP
         playerData.player_health = playerData.max_player_health;
