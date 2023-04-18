@@ -5,11 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class Hazard : MonoBehaviour
 {
-    void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D col)
     {
-        if (collision.CompareTag("Player"))
+        if (col.CompareTag("Player"))
         {
-            Debug.LogWarning("Player Kill & respawn");
+            Debug.Log("Player Kill & respawn");
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }  
     }

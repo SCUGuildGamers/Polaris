@@ -122,6 +122,8 @@ public class PlayerMovement : MonoBehaviour
 
 	}
 
+
+
 	void OnTriggerEnter2D(Collider2D col)
 	{
 		if (col.name.Contains("Current"))
@@ -143,6 +145,8 @@ public class PlayerMovement : MonoBehaviour
 			CanPlayerMove = true;
 		}
 	}
+
+
 
 	// Toggles the gravity on/off with the GravityConstant given the boolean value 'toggle'
 	void ToggleGravity(bool toggle)
