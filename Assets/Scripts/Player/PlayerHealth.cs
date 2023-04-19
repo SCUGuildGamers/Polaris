@@ -30,9 +30,13 @@ public class PlayerHealth : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
 
+        // Initialization
         _isIframe = false;
-
         _iframeCounter = 0;
+
+        // Update health bar
+        if (_healthBar)
+            _healthBar.set_max_health(playerData.max_player_health);
     }
 
     private void FixedUpdate()
