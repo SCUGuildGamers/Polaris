@@ -15,11 +15,13 @@ public class TransitionSceneHandler : MonoBehaviour
     // Quote text
     public Text quote_text;
 
-    private List<string> quote_list;
+    private List<string> ocean_quote_list;
+    private List<string> pollution_quote_list;
 
     private void Start()
     {
-        quote_list = new List<string> {"Hello world1", "Hello world2"};
+        ocean_quote_list = new List<string> {"Hello world1", "Hello world2"};
+        pollution_quote_list = new List<string> { "Hello world1", "Hello world2" };
 
         StartCoroutine(RunTransition());
     }
@@ -40,10 +42,18 @@ public class TransitionSceneHandler : MonoBehaviour
         SceneManager.LoadScene(playerData.next_scene_string);
     }
 
+    // Returns a random quote depending on where the player is in the game
     private string GetRandomQuote() {
-        // Generate a random integer to choose one of the quotes
-        int random_int = Random.Range(0, quote_list.Count);
+        // Debug conditional for now
+        if (playerData)
+        {
+            int random_int = Random.Range(0, ocean_quote_list.Count);
+            return ocean_quote_list[random_int];
+        }
 
-        return quote_list[random_int];
+        else {
+            int random_int = Random.Range(0, pollution_quote_list.Count);
+            return pollution_quote_list[random_int];
+        }
     }
 }
