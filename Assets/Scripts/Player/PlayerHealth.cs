@@ -71,12 +71,6 @@ public class PlayerHealth : MonoBehaviour
         // Decrease health
         playerData.player_health = playerData.player_health - i;
 
-        Debug.Log("Player health is " + playerData.player_health);
-
-        // Update health bar
-        if (_healthBar)
-            _healthBar.set_health(playerData.player_health);
-
         // Check if player is dead
         if (playerData.player_health <= 0)
         {
@@ -84,9 +78,14 @@ public class PlayerHealth : MonoBehaviour
         }
 
         // If not dead, do i-frames
-        else {
+        else
+        {
             StartCoroutine(iFrameHandler());
         }
+
+        // Update health bar
+        if (_healthBar)
+            _healthBar.set_health(playerData.player_health);
     }
 
     // Check for collisions with projectile objects
