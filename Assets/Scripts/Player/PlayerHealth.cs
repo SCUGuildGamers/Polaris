@@ -36,7 +36,7 @@ public class PlayerHealth : MonoBehaviour
 
         // Update health bar
         if (_healthBar)
-            _healthBar.set_max_health(playerData.max_player_health);
+            _healthBar.set_max_health(playerData.player_health);
     }
 
     private void FixedUpdate()
@@ -71,16 +71,16 @@ public class PlayerHealth : MonoBehaviour
         // Decrease health
         playerData.player_health = playerData.player_health - i;
 
-        // Check if player is dead
-        if (playerData.player_health <= 0)
-        {
-            StartCoroutine(Die());
-        }
-
-        // If not dead, do i-frames
-        else
+        // If player alive, do i-frame
+        if (playerData.player_health > 0)
         {
             StartCoroutine(iFrameHandler());
+        }
+
+        // If player dead
+        else
+        {
+            StartCoroutine(Die());
         }
 
         // Update health bar
