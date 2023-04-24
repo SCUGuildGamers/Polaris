@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GlideCharge : MonoBehaviour
 {
@@ -8,24 +9,36 @@ public class GlideCharge : MonoBehaviour
     private int chargeCounter;
 
     // Integer to keep track of how charges the player starts with in a level
-    private int startingCharge;
+    public int startingCharge;
+
+    // UI text for # of charges
+    public Text text;
+    private string text_string = "# Glides: ";
 
     // Sets the startingCharge 
-    public void SetStarting(int charges=999)
+    public void SetStarting()
     {
-        startingCharge = charges;
-        chargeCounter = charges;
+        chargeCounter = startingCharge;
+
+        // Update text
+        text.text = text_string + chargeCounter;
     }
 
     // Resets the charge counter to its default level start value
     public void ResetCharges() {
         chargeCounter = startingCharge;
+
+        // Update text
+        text.text = text_string + chargeCounter;
     }
 
     // Increment charge counter
     public void AddCharge()
     {
         chargeCounter++;
+
+        // Update text
+        text.text = text_string + chargeCounter;
 
         // Debug statement
         Debug.Log("The player's glide counter is " + chargeCounter);
@@ -34,14 +47,18 @@ public class GlideCharge : MonoBehaviour
     // Check the player can glide and decrement charge counter if so
     public bool DecreaseCharge() 
     {
-        // If the player has no charges, then return false to prevent glide
-        if (chargeCounter == 0)
-            return false;
-
         chargeCounter--;
+
+        // Update text
+        text.text = text_string + chargeCounter;
 
         // Debug statement
         Debug.Log("The player's glide counter is " + chargeCounter);
+
+        // If the player has no charges, then cancel the glide
+        if (chargeCounter == 0) {
+            return false;
+        }
 
         return true;
     }
