@@ -8,7 +8,7 @@ public class Pipe : MonoBehaviour
     private bool isClogged;
 
     // Reference for convenience
-    private Plastic plastic;
+    public Plastic plastic;
 
     // Direction of projectile shooting ("Up", "Right", "Down", "Left")
     [SerializeField]
@@ -19,7 +19,6 @@ public class Pipe : MonoBehaviour
 
     private void Start()
     {
-        plastic = FindObjectOfType<Plastic>();
 
         isClogged = false;
 
