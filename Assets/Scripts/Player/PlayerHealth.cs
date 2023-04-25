@@ -36,7 +36,7 @@ public class PlayerHealth : MonoBehaviour
 
         // Update health bar
         if (_healthBar)
-            _healthBar.set_max_health(playerData.max_player_health);
+            _healthBar.set_max_health(playerData.player_health);
     }
 
     private void FixedUpdate()
@@ -71,22 +71,21 @@ public class PlayerHealth : MonoBehaviour
         // Decrease health
         playerData.player_health = playerData.player_health - i;
 
-        Debug.Log("Player health is " + playerData.player_health);
+        // If player alive, do i-frame
+        if (playerData.player_health > 0)
+        {
+            StartCoroutine(iFrameHandler());
+        }
 
-        // Update health bar
-        if (_healthBar)
-            _healthBar.set_health(playerData.player_health);
-
-        // Check if player is dead
-        if (playerData.player_health <= 0)
+        // If player dead
+        else
         {
             StartCoroutine(Die());
         }
 
-        // If not dead, do i-frames
-        else {
-            StartCoroutine(iFrameHandler());
-        }
+        // Update health bar
+        if (_healthBar)
+            _healthBar.set_health(playerData.player_health);
     }
 
     // Check for collisions with projectile objects
