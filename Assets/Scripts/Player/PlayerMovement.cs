@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
 	// Movement values
 	private float HorizontalSpeed = 10f;
+	private float VerticalSpeed = 2f;
 
 	// Gravity constant
 	private float GravityConstant = 7.5f;
@@ -197,8 +198,15 @@ public class PlayerMovement : MonoBehaviour
 	void Move()
 	{
 		float horizontalDirection = Input.GetAxis("Horizontal");
+		float verticalDirection = Input.GetAxis("Vertical");
 
-		rb.velocity = new Vector2(horizontalDirection * HorizontalSpeed, 0);
+		// Allows player to swim downward to avoid projectiles
+		if(verticalDirection < 0)
+			rb.velocity = new Vector2(horizontalDirection * HorizontalSpeed, verticalDirection * VerticalSpeed);
+
+		// Otherwise, their inputted vertical velocity should be zero
+		else
+			rb.velocity = new Vector2(horizontalDirection * HorizontalSpeed, 0);
 
 		// If the input is moving the player right and the player is facing left, then correct the character orientation
 		if (horizontalDirection > 0 && !_facingRight)
