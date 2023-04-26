@@ -5,9 +5,6 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    // Linking the Health Bar object to this script
-    public HealthBar _healthBar;
-
     // For reference
     private SpriteRenderer sprite;
     private Rigidbody2D rb;
@@ -24,6 +21,11 @@ public class PlayerHealth : MonoBehaviour
     // Death animation
     private float _deathAnimationDuration = 2f;
 
+    // Heart reference; heart1 refers to left-most heart, heart3 refers to the right-most heart
+    public GameObject heart1;
+    public GameObject heart2;
+    public GameObject heart3;
+
     void Start()
     {
         // For reference
@@ -33,10 +35,6 @@ public class PlayerHealth : MonoBehaviour
         // Initialization
         _isIframe = false;
         _iframeCounter = 0;
-
-        // Update health bar
-        if (_healthBar)
-            _healthBar.set_max_health(playerData.player_health);
     }
 
     private void FixedUpdate()
@@ -71,6 +69,9 @@ public class PlayerHealth : MonoBehaviour
         // Decrease health
         playerData.player_health = playerData.player_health - i;
 
+        // Handle the heart animation logic
+        HeartLossHandler(playerData.player_health);
+
         // If player alive, do i-frame
         if (playerData.player_health > 0)
         {
@@ -82,10 +83,6 @@ public class PlayerHealth : MonoBehaviour
         {
             StartCoroutine(Die());
         }
-
-        // Update health bar
-        if (_healthBar)
-            _healthBar.set_health(playerData.player_health);
     }
 
     // Check for collisions with projectile objects
@@ -151,6 +148,56 @@ public class PlayerHealth : MonoBehaviour
 
         // Return player to checkpoint after they die
         GetComponent<CheckpointManager>().ReturnToCheckpoint();
+    }
+
+    // Handles the heart visibility when the level starts
+    public void HeartStartHandler() {
+        Animator animator;
+
+        int current_health = playerData.player_health;
+
+        // Set the visibility of hearts depending on how many lives they start with
+        if (current_health <= 2) {
+            animator = heart3.GetComponent<Animator>(); 
+
+            animator.ResetTrigger("NoHealth");
+            animator.SetTrigger("NoHealth");
+        }
+            
+        if (current_health <= 1) {
+            animator = heart2.GetComponent<Animator>();
+
+            animator.ResetTrigger("NoHealth");
+            animator.SetTrigger("NoHealth");
+        }
+
+        if (current_health == 0) {
+            animator = heart1.GetComponent<Animator>();
+
+            animator.ResetTrigger("NoHealth");
+            animator.SetTrigger("NoHealth");
+        }
+    }
+
+    // Handles the heart animation logic when health is loss
+    private void HeartLossHandler(int current_health) {
+        Animator animator;
+
+        // Interact with the correct animator
+        if (current_health == 0)
+            animator = heart1.GetComponent<Animator>();
+
+        else if (current_health == 1)
+            animator = heart2.GetComponent<Animator>();
+
+        else
+            animator = heart3.GetComponent<Animator>();
+
+        // Reset trigger
+        animator.ResetTrigger("HealthLoss");
+
+        // Activate trigger
+        animator.SetTrigger("HealthLoss");
     }
 }
 
