@@ -8,7 +8,8 @@ public class PlayerMovement : MonoBehaviour
 	private Rigidbody2D rb;
 
 	// For reference
-	GlideCharge glideCharge;
+	private GlideCharge glideCharge;
+	private PlayerHealth playerHealth;
 
 	// Keeps track of whether or not the player is in a level or boss fight
 	public bool InLevel;
@@ -47,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
 		// For reference
 		rb = GetComponent<Rigidbody2D>();
 		glideCharge = GetComponent<GlideCharge>();
+		playerHealth = GetComponent<PlayerHealth>();
 		trajectoryLine = GetComponent<TrajectoryLine>();
 
 		// States
@@ -56,6 +58,7 @@ public class PlayerMovement : MonoBehaviour
 		// Toggles gravity depending on if the player is in a level or not
 		if (InLevel) {
 			ToggleGravity(true);
+			playerHealth.HeartStartHandler();
 
 			// For debugging the glide charge system
 			if(glideCharge != null)
