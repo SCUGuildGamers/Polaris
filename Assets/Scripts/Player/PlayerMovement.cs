@@ -206,7 +206,7 @@ public class PlayerMovement : MonoBehaviour
 		float verticalDirection = Input.GetAxis("Vertical");
 
 		// If the player is moving, set the animation
-		if (horizontalDirection != 0 && verticalDirection != 0) {
+		if (horizontalDirection != 0 || verticalDirection != 0) {
 			_animator.SetBool("isSwimming", true);
 		}
 
@@ -279,6 +279,18 @@ public class PlayerMovement : MonoBehaviour
 			Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			mousePos.z = transform.position.z;
 			var glideDirection = mousePos - transform.position;
+
+			// If the input is moving the player right and the player is facing left, then correct the character orientation
+			if (glideDirection.normalized.x > 0 && !_facingRight)
+			{
+				Flip();
+			}
+
+			// Otherwise if the input is moving the player left and the player is facing right, then correct the character orientation
+			else if (glideDirection.normalized.x < 0 && _facingRight)
+			{
+				Flip();
+			}
 
 			// Glide initiated
 			rb.velocity = new Vector2(glideDirection.normalized.x * glidingPower, glideDirection.normalized.y * glidingPower);
