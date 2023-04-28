@@ -102,7 +102,7 @@ public class PlayerSwing : MonoBehaviour
                 _playerMovement.Flip();
             }
 
-            minPlastic.ReflectDirection();
+            minPlastic.ResetTarget();
             reflected = true;
         }
 
