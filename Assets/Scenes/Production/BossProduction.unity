@@ -491,10 +491,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3801e0943ca7647408393bf728c1aaa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Plastic: {fileID: 254576557}
+  _plastic: {fileID: 0}
+  _lanePlastic: {fileID: 0}
   Turtle: {fileID: 2064644026}
   Urchin: {fileID: 6462561}
   platform: {fileID: 576783016}
+  animator: {fileID: 0}
   PlasticBoss: {fileID: 135253523}
   Player: {fileID: 2115856467}
 --- !u!212 &135253522
@@ -545,7 +547,7 @@ SpriteRenderer:
   m_Size: {x: 2.56, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &135253523
@@ -574,9 +576,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e09cfd72f22fb14f9f3e9debc4632aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 100
-  HealthText: {fileID: 916278718}
   HealthBar: {fileID: 1321503337}
+  next_scene_name: Conclusion
 --- !u!95 &135253525
 Animator:
   serializedVersion: 3
@@ -1050,6 +1051,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CanReflect: 0
   IsReflected: 0
+  _nonReflectSprite: {fileID: 0}
+  _reflectSprite: {fileID: 0}
 --- !u!1 &270375460
 GameObject:
   m_ObjectHideFlags: 0
@@ -2196,7 +2199,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.52319485, y: 0.5}
-  m_AnchoredPosition: {x: -479.83, y: 0.0000076294}
+  m_AnchoredPosition: {x: -479.83002, y: 0.0000076294}
   m_SizeDelta: {x: 270.3456, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &806347400
@@ -3029,7 +3032,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.52319485, y: 0.5}
-  m_AnchoredPosition: {x: -479.83, y: 91.9}
+  m_AnchoredPosition: {x: -479.83002, y: 91.9}
   m_SizeDelta: {x: 270.3456, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1321503336
@@ -4149,7 +4152,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -4166,8 +4169,8 @@ Canvas:
   m_GameObject: {fileID: 1898256842}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 767717530}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -4255,6 +4258,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flag: 
+--- !u!1 &1948432349
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1948432351}
+  - component: {fileID: 1948432350}
+  m_Layer: 0
+  m_Name: SceneController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1948432350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948432349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84c7f3aca26ba4948a523e331fd9788d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: 1f7373f5882325f4c95b9b4cc3e56c09, type: 2}
+--- !u!4 &1948432351
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948432349}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.49336547, y: 14.658983, z: -132.85599}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2024924651
 GameObject:
   m_ObjectHideFlags: 0
@@ -4740,9 +4787,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ff84b18a0c74cf448c55a622fd6b42d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 100
-  HealthText: {fileID: 934534179}
-  HealthBar: {fileID: 806347400}
+  playerData: {fileID: 0}
+  heart1: {fileID: 0}
+  heart2: {fileID: 0}
+  heart3: {fileID: 0}
 --- !u!114 &2115856471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4781,6 +4829,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e581c9a757986e54aa19b77550c26153, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingCharge: 0
+  text: {fileID: 0}
 --- !u!61 &2115856474
 BoxCollider2D:
   m_ObjectHideFlags: 0
