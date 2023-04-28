@@ -8,6 +8,7 @@ public class PlayerHealth : MonoBehaviour
     // For reference
     private SpriteRenderer sprite;
     private Rigidbody2D rb;
+    private Animator _animator;
 
     // Global player health
     public PlayerData playerData;
@@ -31,6 +32,7 @@ public class PlayerHealth : MonoBehaviour
         // For reference
         sprite = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
 
         // Initialization
         _isIframe = false;
@@ -136,6 +138,9 @@ public class PlayerHealth : MonoBehaviour
 
         // Pause player movement
         GetComponent<PlayerMovement>().CanPlayerMove = false;
+
+        // Change player animation to default
+        _animator.SetBool("isSwimming", false);
 
         // Change color to indicate death; temporary
         sprite.color = Color.red;
