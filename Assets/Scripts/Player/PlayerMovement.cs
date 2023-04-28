@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
 	private float GravityConstant = 7.5f;
 
 	// Directional state
-	private bool _facingRight = true;
+	public bool _facingRight = true;
 
 	// Glide state
 	private bool isGliding;
