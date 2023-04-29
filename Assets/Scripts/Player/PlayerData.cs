@@ -16,6 +16,4 @@ public class PlayerData : ScriptableObject
     public int max_player_health;
 
     public string next_scene_string;
-
-    public string transition_quote_text;
 }

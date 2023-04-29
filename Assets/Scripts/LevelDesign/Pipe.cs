@@ -19,7 +19,6 @@ public class Pipe : MonoBehaviour
 
     private void Start()
     {
-
         isClogged = false;
 
         StartCoroutine(StartShooting());

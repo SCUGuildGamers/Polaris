@@ -17,6 +17,8 @@ public class BossHealth : MonoBehaviour
     // Enraged threshold variable
     private int _enragedThreshold = 50;
 
+    public string next_scene_name;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -53,6 +55,10 @@ public class BossHealth : MonoBehaviour
 
         // Change state machine
         GetComponent<Animator>().SetBool("isBossDead", true);
+        Debug.LogWarning("Player Win");
+
+        // Load next level
+        FindObjectOfType<SceneController>().ChangeScene(next_scene_name);
     }
 
     private void OnTriggerEnter2D(Collider2D collider)

@@ -8,7 +8,9 @@ public class PlayerMovement : MonoBehaviour
 	private Rigidbody2D rb;
 
 	// For reference
-	GlideCharge glideCharge;
+	private GlideCharge glideCharge;
+	private PlayerHealth playerHealth;
+	private Animator _animator;
 
 	// Keeps track of whether or not the player is in a level or boss fight
 	public bool InLevel;
@@ -18,12 +20,13 @@ public class PlayerMovement : MonoBehaviour
 
 	// Movement values
 	private float HorizontalSpeed = 10f;
+	private float VerticalSpeed = 2f;
 
 	// Gravity constant
 	private float GravityConstant = 7.5f;
 
 	// Directional state
-	private bool _facingRight = true;
+	public bool _facingRight = true;
 
 	// Glide state
 	private bool isGliding;
@@ -47,7 +50,9 @@ public class PlayerMovement : MonoBehaviour
 		// For reference
 		rb = GetComponent<Rigidbody2D>();
 		glideCharge = GetComponent<GlideCharge>();
+		playerHealth = GetComponent<PlayerHealth>();
 		trajectoryLine = GetComponent<TrajectoryLine>();
+		_animator = GetComponent<Animator>();
 
 		// States
 		isGliding = false;
@@ -56,6 +61,7 @@ public class PlayerMovement : MonoBehaviour
 		// Toggles gravity depending on if the player is in a level or not
 		if (InLevel) {
 			ToggleGravity(true);
+			playerHealth.HeartStartHandler();
 
 			// For debugging the glide charge system
 			if(glideCharge != null)
@@ -108,7 +114,10 @@ public class PlayerMovement : MonoBehaviour
 	{
 		// If the player collides with something while they're gliding, the glide should stop 
 		if (isGliding)
-		{ 
+		{
+			// Stop glide animation
+			_animator.SetBool("isSwimming", false);
+
 			ToggleGravity(true);
 
 			rb.velocity = new Vector2(0, 0);
@@ -194,8 +203,24 @@ public class PlayerMovement : MonoBehaviour
 	void Move()
 	{
 		float horizontalDirection = Input.GetAxis("Horizontal");
+		float verticalDirection = Input.GetAxis("Vertical");
 
-		rb.velocity = new Vector2(horizontalDirection * HorizontalSpeed, 0);
+		// If the player is moving, set the animation
+		if (horizontalDirection != 0 || verticalDirection != 0) {
+			_animator.SetBool("isSwimming", true);
+		}
+
+		// Else, set the idle animation
+		else
+			_animator.SetBool("isSwimming", false);
+
+		// Allows player to swim downward to avoid projectiles
+		if (verticalDirection < 0)
+			rb.velocity = new Vector2(horizontalDirection * HorizontalSpeed, verticalDirection * VerticalSpeed);
+
+		// Otherwise, their inputted vertical velocity should be zero
+		else
+			rb.velocity = new Vector2(horizontalDirection * HorizontalSpeed, 0);
 
 		// If the input is moving the player right and the player is facing left, then correct the character orientation
 		if (horizontalDirection > 0 && !_facingRight)
@@ -235,6 +260,9 @@ public class PlayerMovement : MonoBehaviour
 		// Second Glide button click
 		else if (showTrajectory)
 		{
+			// Start glide animation
+			_animator.SetBool("isSwimming", true);
+
 			// Decrement the charge counter
 			glideCharge.DecreaseCharge();
 
@@ -252,6 +280,18 @@ public class PlayerMovement : MonoBehaviour
 			mousePos.z = transform.position.z;
 			var glideDirection = mousePos - transform.position;
 
+			// If the input is moving the player right and the player is facing left, then correct the character orientation
+			if (glideDirection.normalized.x > 0 && !_facingRight)
+			{
+				Flip();
+			}
+
+			// Otherwise if the input is moving the player left and the player is facing right, then correct the character orientation
+			else if (glideDirection.normalized.x < 0 && _facingRight)
+			{
+				Flip();
+			}
+
 			// Glide initiated
 			rb.velocity = new Vector2(glideDirection.normalized.x * glidingPower, glideDirection.normalized.y * glidingPower);
 
@@ -264,6 +304,9 @@ public class PlayerMovement : MonoBehaviour
 	{
 		if (isGliding)
 		{
+			// Stop glide animation
+			_animator.SetBool("isSwimming", false);
+
 			//isGliding is turned to false so that 1. the glide is "canceled" and 2. the player can now initiate another glide
 			isGliding = false;
 

@@ -7,7 +7,7 @@ public class MainMenu : MonoBehaviour
 {
     public void StartGame()
     {
-        SceneManager.LoadScene("CityProduction");
+        SceneManager.LoadScene("FirstBeachScene");
     }
 
     public void QuitGame()

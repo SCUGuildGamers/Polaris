@@ -72,10 +72,11 @@ public class Plastic : MonoBehaviour
 		}
     }
 
-    public void ReflectDirection()
+    // Changes the target position to the source
+    public void ResetTarget()
     {
         // Reverse the direction
-        _targetDirection = -_targetDirection;
+        _targetPosition = source.position;
 
         // Update state variables
         IsReflected = true;
@@ -179,10 +180,6 @@ public class Plastic : MonoBehaviour
     // Moves the projectile towards the target given by targetPosition
     private void ToTarget()
     {
-        if (transform.position == _targetPosition)
-        {
-            Destroy(gameObject);
-        }
         transform.position = Vector3.MoveTowards(transform.position, _targetPosition, 0.003f);
     }
 

@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80cc5bd5b7df226408d0ef0c7b1d5ec6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  next_scene_name: Level5 (2)
+  next_scene_name: BossProduction
 --- !u!61 &8416403
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -466,7 +466,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 6.4178696
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1256,6 +1256,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e581c9a757986e54aa19b77550c26153, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingCharge: 0
+  text: {fileID: 0}
 --- !u!114 &1383739521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1406,7 +1408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3df0b23cef6c0294e82a8bf222505ce7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerData: {fileID: 0}
+  playerData: {fileID: 11400000, guid: 1f7373f5882325f4c95b9b4cc3e56c09, type: 2}
   checkpoint_string: ChaoticFinal
 --- !u!114 &1383739528
 MonoBehaviour:
@@ -1434,7 +1436,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 219b4c4e5c97f934fbbaadafea123216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerData: {fileID: 0}
+  playerData: {fileID: 11400000, guid: 1f7373f5882325f4c95b9b4cc3e56c09, type: 2}
 --- !u!1 &1448556016
 GameObject:
   m_ObjectHideFlags: 0
@@ -3124,6 +3126,50 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 18, y: 8}
   m_EdgeRadius: 0
+--- !u!1 &1705027792
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1705027794}
+  - component: {fileID: 1705027793}
+  m_Layer: 0
+  m_Name: SceneController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1705027793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705027792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84c7f3aca26ba4948a523e331fd9788d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: 1f7373f5882325f4c95b9b4cc3e56c09, type: 2}
+--- !u!4 &1705027794
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705027792}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.49336547, y: 14.658983, z: -132.85599}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1896236700
 GameObject:
   m_ObjectHideFlags: 0

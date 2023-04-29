@@ -6,18 +6,23 @@ public class PlayerSwing : MonoBehaviour
 {
     // Swing values
     private float _swingRange = 2f;
-    public float swingCD = 0.5f;
+    public float swingCD = 0.3f;
     public float nextSwing = 0.0f;
 
     // For reference
     private BossHealth _bossHealth;
+    private StrawController _strawController;
+    private PlayerMovement _playerMovement;
     
 
     //public Animator animator;
 
     void Start()
     {
+        // Get references
         _bossHealth = FindObjectOfType<BossHealth>();
+        _strawController = FindObjectOfType<StrawController>();
+        _playerMovement = GetComponent<PlayerMovement>();
     }
 
     void Update()
@@ -60,6 +65,9 @@ public class PlayerSwing : MonoBehaviour
     // Looks for the nearest plastic within range and reflects the nearest towards the boss; returns the reflected plastic
     private bool Swing()
     {
+        // Perform swing animation
+        _strawController.SwingAnimation();
+
         Plastic[] plasticList = FindObjectsOfType<Plastic>();
         bool reflected = false;
         Plastic minPlastic = null;
@@ -80,11 +88,26 @@ public class PlayerSwing : MonoBehaviour
         // Reflect the closest plastic if it exists
         if (minPlastic != null)
         {
-            minPlastic.ReflectDirection();
+            // Change the player direction if necessary
+            Vector3 projectile_direction = minPlastic.transform.position - transform.position;
+
+            if (projectile_direction.normalized.x > 0 && !_playerMovement._facingRight)
+            {
+                _playerMovement.Flip();
+            }
+
+            // Otherwise if the input is moving the player left and the player is facing right, then correct the character orientation
+            else if (projectile_direction.normalized.x < 0 && _playerMovement._facingRight)
+            {
+                _playerMovement.Flip();
+            }
+
+            minPlastic.ResetTarget();
             reflected = true;
-            //_bossHealth.ReduceHealth(10);
         }
 
         return reflected;
     }
+
+
 }
