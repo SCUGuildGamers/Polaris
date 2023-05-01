@@ -78,7 +78,10 @@ public class DialogueManager : MonoBehaviour
             InDialogue = true;
             _dialogueBoxManager.SetVisibility(true);
             if (_playerMovement != null)
+            {
                 _playerMovement.CanPlayerMove = false;
+                _playerMovement.CanPlayerGlide = false;
+            }
 
             _sentences.Clear();
             // Loads all sentences.
@@ -151,7 +154,10 @@ public class DialogueManager : MonoBehaviour
 
             _isStall = false;
             if (_playerMovement != null)
+            {
                 _playerMovement.CanPlayerMove = true;
+                _playerMovement.CanPlayerGlide = true;
+            }
 
             StartCoroutine(DelayedInDialogueSet(false, 0.1f));
         }
