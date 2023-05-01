@@ -67,4 +67,8 @@ public class GlideCharge : MonoBehaviour
     public int GetChargeCounter() {
         return chargeCounter;
     }
+
+    public void SetChargeCounter(int input) {
+        chargeCounter = input;
+    }
 }
