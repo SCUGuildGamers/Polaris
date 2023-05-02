@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
 
 	// Keeps track of whether the player can move
 	public bool CanPlayerMove = true;
+	public bool CanPlayerGlide = true;
 
 	// Movement values
 	private float HorizontalSpeed = 10f;
@@ -83,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
 	void Update()
 	{
 		// Only perform these statements if the player is in a level/boss fight
-		if (InLevel) {
+		if (InLevel && CanPlayerGlide) {
 			// Update the trajectory line
 			if (showTrajectory)
 				UpdatePlayerTrajectory();

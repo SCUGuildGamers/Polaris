@@ -139,6 +139,9 @@ public class PlayerHealth : MonoBehaviour
         // Pause player movement
         GetComponent<PlayerMovement>().CanPlayerMove = false;
 
+        //disable glide
+        GetComponent<GlideCharge>().SetChargeCounter(0);
+
         // Change player animation to default
         _animator.SetBool("isSwimming", false);
 
