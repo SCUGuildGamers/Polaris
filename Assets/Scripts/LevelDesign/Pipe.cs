@@ -15,7 +15,7 @@ public class Pipe : MonoBehaviour
     private string direction;
 
     // Duration between firing
-    private float period = 5f;
+    private float period = 10f;
 
     private void Start()
     {

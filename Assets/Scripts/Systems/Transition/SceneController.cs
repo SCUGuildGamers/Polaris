@@ -13,6 +13,9 @@ public class SceneController : MonoBehaviour
         // Transfer the next scene string and quote so the transition properly works
         playerData.next_scene_string = next_scene_string;
 
+        // Update the respawn checkpoint
+        FindObjectOfType<CheckpointManager>().UpdateCheckpoint(next_scene_string);
+
         // Load the transition scene
         SceneManager.LoadScene(transition_scene_string);
     }

@@ -9,13 +9,6 @@ public class CheckpointManager : MonoBehaviour
 
     public string checkpoint_string;
 
-    // On start, update the checkpoint to the current level if applicable
-    private void Start()
-    {
-        if (!string.IsNullOrEmpty(checkpoint_string))
-            UpdateCheckpoint(checkpoint_string);
-    }
-
     // Update the checkpoint given a checkpoint_string
     public void UpdateCheckpoint(string checkpoint_string) {
         playerData.checkpoint_string = checkpoint_string;
