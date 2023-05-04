@@ -25,7 +25,7 @@ public class Exit : MonoBehaviour
             _coinManager.UpdateCoins();
 
             // Load next level
-            FindObjectOfType<SceneController>().ChangeScene(next_scene_name);
+            FindObjectOfType<SceneController>().ChangeSceneTransition(next_scene_name);
         }
 
     }
