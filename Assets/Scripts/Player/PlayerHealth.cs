@@ -108,6 +108,9 @@ public class PlayerHealth : MonoBehaviour
     {
         // Kill the player if they leave the level border
         if (collision.gameObject.GetComponent<LevelBorder>()) {
+            // Increment death counter
+            playerData.death_counter++;
+
             // Restore player HP
             playerData.player_health = playerData.max_player_health;
 
@@ -163,6 +166,9 @@ public class PlayerHealth : MonoBehaviour
 
         // Pause for animation effect
         yield return new WaitForSeconds(_deathAnimationDuration);
+
+        // Increment death counter
+        playerData.death_counter++;
 
         // Restore player HP
         playerData.player_health = playerData.max_player_health;

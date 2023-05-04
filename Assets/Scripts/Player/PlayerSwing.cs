@@ -27,39 +27,40 @@ public class PlayerSwing : MonoBehaviour
 
     void Update()
     {
-        //animator.SetBool("isSwinging", isSwing);
-
-        // Check for left-click
-        if (Input.GetMouseButtonDown(0))
-        {
-            // Off-cooldown
-            if (Time.time > nextSwing)
+        // If the straw exists in the level
+        if (_strawController) {
+            // Check for button click
+            if (Input.GetMouseButtonDown(0))
             {
-                //animator.SetBool("isSwinging", isSwing);
-
-                // Swing if in range
-                if (!Swing())
+                // Off-cooldown
+                if (Time.time > nextSwing)
                 {
-                    Debug.Log("miss");
-                    nextSwing = Time.time + 1;
-                    
+                    //animator.SetBool("isSwinging", isSwing);
+
+                    // Swing if in range
+                    if (!Swing())
+                    {
+                        Debug.Log("miss");
+                        nextSwing = Time.time + 1;
+
+                    }
+
+                    else
+                    {
+                        Debug.Log("hit");
+                        nextSwing = Time.time;
+                    }
                 }
 
+                // On-cooldown
                 else
                 {
-                    Debug.Log("hit");
-                    nextSwing = Time.time;
+                    Debug.Log("on cooldown");
                 }
-            }
 
-            // On-cooldown
-            else
-            {
-                Debug.Log("on cooldown");
-            }
-            
 
-        }  
+            }
+        }
     }
 
     // Looks for the nearest plastic within range and reflects the nearest towards the boss; returns the reflected plastic
