@@ -103,6 +103,19 @@ public class PlayerHealth : MonoBehaviour
         
     }
 
+    // Check for level border collision
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // Kill the player if they leave the level border
+        if (collision.gameObject.GetComponent<LevelBorder>()) {
+            // Restore player HP
+            playerData.player_health = playerData.max_player_health;
+
+            // Return player to checkpoint after they die
+            GetComponent<CheckpointManager>().ReturnToCheckpoint();
+        }
+    }
+
     // Check for collisions with hazards
     void OnCollisionStay2D(Collision2D collision)
     {
