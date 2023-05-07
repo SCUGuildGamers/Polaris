@@ -27,7 +27,7 @@ public class TransitionSceneHandler : MonoBehaviour
         pollution_quote_list = new List<string> { "More than 8 million tons of plastic enter the oceans every year - Earth", "Ocean plastic pollution Is on track to triple by 2060 and exceed one billion tons of plastic in the ocean - Earth", "In 2014, California became the first state to ban plastic bags. As of March 2018, 311 local bag ordinances have been adopted in 24 states, including Hawaii. As of July 2018, 127 countries have adopted some form of legislation to regulate plastic bags - WRI", "50 percent of all sea turtles, 44 percent of all seabirds, 22 percent of all cetaceans, and a long list of fish species have already eaten plastics - SurferToday" };
 
         // Initialize scenes in pollution list
-        pollution_scenes = new List<string> { "Chasm", "Chaotic", "TheClimb"};
+        pollution_scenes = new List<string> { "ChaoticFinal", "TheClimb"};
 
         StartCoroutine(RunTransition());
     }
