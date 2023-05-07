@@ -10,7 +10,8 @@ public class SceneController : MonoBehaviour
     private string transition_scene_string = "TransitionScene";
 
     // Changes scenes with a transition between the scene change
-    public void ChangeSceneTransition(string next_scene_string) {
+    public void ChangeSceneTransition(string next_scene_string) 
+    {
         // Transfer the next scene string and quote so the transition properly works
         playerData.next_scene_string = next_scene_string;
 
@@ -19,7 +20,14 @@ public class SceneController : MonoBehaviour
     }
 
     // Changes scene directly with no transition
-    public void ChangeScene(string next_scene_string) {
+    public void ChangeScene(string next_scene_string) 
+    {
         SceneManager.LoadScene(transition_scene_string);
+    }
+
+    // Reload current level
+    public void Reload()
+    {
+        SceneManager.LoadScene(playerData.checkpoint_string);
     }
 }

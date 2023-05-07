@@ -7,21 +7,26 @@ public class PauseMenu : MonoBehaviour
 {
 	public static bool GameIsPaused = false;
 	public GameObject pauseMenuUI;
+	public SceneController sceneController;
+	public PlayerMovement playerMovement;
 	
-	void Update (){
-		if(Input.GetKeyDown(KeyCode.Escape))
+	void Update ()
+	{
+		if(Input.GetKeyDown(KeyCode.Escape) && !playerMovement.Get_showTrajectory())
 		{
 			Pause();
 		}
 	}
 	
-	public void Resume (){
+	public void Resume ()
+	{
 		pauseMenuUI.SetActive(false);
 		Time.timeScale = 1f;
 		GameIsPaused = false;
 	}
 
-	void Pause (){
+	void Pause ()
+	{
 		pauseMenuUI.SetActive(true);
 		Time.timeScale = 0f;
 		GameIsPaused = true;
@@ -33,7 +38,12 @@ public class PauseMenu : MonoBehaviour
 		SceneManager.LoadScene("TitleProduction");
 	}
 	
-	
+	public void Restart()
+	{
+		sceneController.Reload();
+		Resume();
+	}
+
 	
 	// public void LoadOptions() must be implemented, same as MainMenu Options
 }
