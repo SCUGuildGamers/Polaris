@@ -9,6 +9,7 @@ public class Playback : MonoBehaviour
     [SerializeField] private PlayableDirector _playDirector;
     private DialogueManager _dialogueManager;
     private EventManager _eventManager;
+    private bool _trigger;
 
     // Start is called before the first frame update
     private void Start()
@@ -16,6 +17,7 @@ public class Playback : MonoBehaviour
         _playDirector = GetComponent<PlayableDirector>();
         _dialogueManager = FindObjectOfType<DialogueManager>();
         _eventManager = FindObjectOfType<EventManager>();
+        _trigger = true;
     }
 
     // Pauses the timeline
@@ -23,6 +25,11 @@ public class Playback : MonoBehaviour
     {
         Debug.Log("Pause Timeline signal recieved");
         _playDirector.Pause();
+    }
+
+    public void setTrigger(bool value)
+    {
+        _trigger = value;
     }
 
     // Resets the timeline
@@ -42,7 +49,7 @@ public class Playback : MonoBehaviour
     // Resumes the timeline once dialogue is over
     private void Update()
     {
-        if (!_dialogueManager.InDialogue)
+        if (!_dialogueManager.InDialogue && _trigger)
             _playDirector.Play();
     }
 }

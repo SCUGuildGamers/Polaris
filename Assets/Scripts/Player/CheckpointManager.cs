@@ -7,17 +7,13 @@ public class CheckpointManager : MonoBehaviour
 {
     public PlayerData playerData;
 
-    public string checkpoint_string;
-
-    // On start, update the checkpoint to the current level if applicable
-    private void Start()
-    {
-        if (!string.IsNullOrEmpty(checkpoint_string))
-            UpdateCheckpoint(checkpoint_string);
+    private void Start() {
+        // Update the checkpoint with the current scene
+        UpdateCheckpoint(SceneManager.GetActiveScene().name);
     }
 
     // Update the checkpoint given a checkpoint_string
-    public void UpdateCheckpoint(string checkpoint_string) {
+    private void UpdateCheckpoint(string checkpoint_string) {
         playerData.checkpoint_string = checkpoint_string;
     }
 

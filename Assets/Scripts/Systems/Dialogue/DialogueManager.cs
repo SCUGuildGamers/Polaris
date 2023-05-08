@@ -45,15 +45,24 @@ public class DialogueManager : MonoBehaviour
     //Event manager element
     private EventManager _eventManager;
 
+    // For reference
+    private TrajectoryLine _trajectoryLine;
+
     void Start()
     {
+        // Instantiate
         _sentences = new Queue<Pair<Pair<string [], Pair<string [], string []>>, Pair<string, string>>>();
         _buttons = new Queue<ChoiceButtonManager>();
+
+        // For reference
         _eventManager = FindObjectOfType<EventManager>();
         _playerMovement = FindObjectOfType<PlayerMovement>();
         _dialogueBoxManager = FindObjectOfType<DialogueBoxManager>();
         _choiceButton = FindObjectOfType<ChoiceButtonManager>();
+        _trajectoryLine = FindObjectOfType<TrajectoryLine>();
         _canvas = FindObjectOfType<Canvas>();
+
+        // Hide the choice button
         _choiceButton.SetVisibility(false);
     }
 
@@ -76,11 +85,24 @@ public class DialogueManager : MonoBehaviour
         if (!InDialogue)
         {
             InDialogue = true;
-            _dialogueBoxManager.SetVisibility(true);
-            if (_playerMovement != null)
-                _playerMovement.CanPlayerMove = false;
 
+            // Make dialogue box visible
+            _dialogueBoxManager.SetVisibility(true);
+
+            // Disable player movement
+            if (_playerMovement)
+            {
+                _playerMovement.CanPlayerMove = false;
+                _playerMovement.CanPlayerGlide = false;
+            }
+
+            // Clear trajectory line
+            if (_trajectoryLine)
+                _trajectoryLine.ClearLine();
+
+            // Clear previous dialogues in manager
             _sentences.Clear();
+
             // Loads all sentences.
             foreach (var lines in Dialogue.lines)
             {
@@ -151,7 +173,10 @@ public class DialogueManager : MonoBehaviour
 
             _isStall = false;
             if (_playerMovement != null)
+            {
                 _playerMovement.CanPlayerMove = true;
+                _playerMovement.CanPlayerGlide = true;
+            }
 
             StartCoroutine(DelayedInDialogueSet(false, 0.1f));
         }

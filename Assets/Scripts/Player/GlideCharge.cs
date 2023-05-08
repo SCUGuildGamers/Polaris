@@ -13,7 +13,6 @@ public class GlideCharge : MonoBehaviour
 
     // UI text for # of charges
     public Text text;
-    private string text_string = "# Glides: ";
 
     // Sets the startingCharge 
     public void SetStarting()
@@ -21,7 +20,7 @@ public class GlideCharge : MonoBehaviour
         chargeCounter = startingCharge;
 
         // Update text
-        text.text = text_string + chargeCounter;
+        text.text = chargeCounter.ToString();
     }
 
     // Resets the charge counter to its default level start value
@@ -29,7 +28,7 @@ public class GlideCharge : MonoBehaviour
         chargeCounter = startingCharge;
 
         // Update text
-        text.text = text_string + chargeCounter;
+        text.text = chargeCounter.ToString();
     }
 
     // Increment charge counter
@@ -38,7 +37,7 @@ public class GlideCharge : MonoBehaviour
         chargeCounter++;
 
         // Update text
-        text.text = text_string + chargeCounter;
+        text.text = chargeCounter.ToString();
 
         // Debug statement
         Debug.Log("The player's glide counter is " + chargeCounter);
@@ -50,7 +49,7 @@ public class GlideCharge : MonoBehaviour
         chargeCounter--;
 
         // Update text
-        text.text = text_string + chargeCounter;
+        text.text = chargeCounter.ToString();
 
         // Debug statement
         Debug.Log("The player's glide counter is " + chargeCounter);
@@ -66,5 +65,9 @@ public class GlideCharge : MonoBehaviour
     // Returns the chargeCounter
     public int GetChargeCounter() {
         return chargeCounter;
+    }
+
+    public void SetChargeCounter(int input) {
+        chargeCounter = input;
     }
 }

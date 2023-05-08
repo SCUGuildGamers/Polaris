@@ -103,6 +103,22 @@ public class PlayerHealth : MonoBehaviour
         
     }
 
+    // Check for level border collision
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // Kill the player if they leave the level border
+        if (collision.gameObject.GetComponent<LevelBorder>()) {
+            // Increment death counter
+            playerData.death_counter++;
+
+            // Restore player HP
+            playerData.player_health = playerData.max_player_health;
+
+            // Return player to checkpoint after they die
+            GetComponent<CheckpointManager>().ReturnToCheckpoint();
+        }
+    }
+
     // Check for collisions with hazards
     void OnCollisionStay2D(Collision2D collision)
     {
@@ -139,6 +155,9 @@ public class PlayerHealth : MonoBehaviour
         // Pause player movement
         GetComponent<PlayerMovement>().CanPlayerMove = false;
 
+        //disable glide
+        GetComponent<GlideCharge>().SetChargeCounter(0);
+
         // Change player animation to default
         _animator.SetBool("isSwimming", false);
 
@@ -147,6 +166,9 @@ public class PlayerHealth : MonoBehaviour
 
         // Pause for animation effect
         yield return new WaitForSeconds(_deathAnimationDuration);
+
+        // Increment death counter
+        playerData.death_counter++;
 
         // Restore player HP
         playerData.player_health = playerData.max_player_health;
