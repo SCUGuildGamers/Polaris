@@ -195,4 +195,14 @@ public class Plastic : MonoBehaviour
     public bool getIsCopy() {
         return IsCopy;
     }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        // Check for tilemap collisions
+        if (collider.name.Contains("errain") & IsCopy & _duration > 20)
+        {
+            Debug.Log("collided");
+            Destroy(gameObject);
+        }
+    }
 }
