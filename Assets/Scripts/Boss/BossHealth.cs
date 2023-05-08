@@ -19,11 +19,16 @@ public class BossHealth : MonoBehaviour
 
     public string next_scene_name;
 
+    public PlayerData data;
+
     // Start is called before the first frame update
     void Start()
     {
         _health = _maxHealth;
         HealthBar.set_max_health(_maxHealth);
+        int coinReward =  (int)((data.coin_counter/data.total_coins)*50);
+        Debug.Log(coinReward);
+        ReduceHealth(coinReward);
     }
 
     public void ReduceHealth(int i)
