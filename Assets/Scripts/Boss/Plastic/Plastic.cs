@@ -198,11 +198,10 @@ public class Plastic : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        
-        Debug.Log("collided");
         // Check for tilemap collisions
-        if (collider.gameObject.CompareTag("terrain") & IsCopy & gameObject.transform.position != _spawnPosition)
+        if (collider.name.Contains("errain") & IsCopy & _duration > 20)
         {
+            Debug.Log("collided");
             Destroy(gameObject);
         }
     }
