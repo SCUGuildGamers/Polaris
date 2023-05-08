@@ -18,10 +18,6 @@ public class BossController : MonoBehaviour
     private float _waveHeight = 5.5f;
     private float _screenHeight = 9f;
 
-    void Start(){
-        //when scene starts reduce boss health when scene starts
-        PlasticBoss.GetComponent<"BossHealth">().ReduceHealth((coin_counter/total_coins)*50);
-    }
     void Update()
     {
         if (!PauseMenu.GameIsPaused)

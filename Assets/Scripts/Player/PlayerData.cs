@@ -9,7 +9,7 @@ public class PlayerData : ScriptableObject
 {
     public int coin_counter;
 
-    public int total_coins;
+    public float total_coins;
 
     public int death_counter;
 
