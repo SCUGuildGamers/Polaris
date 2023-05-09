@@ -20,6 +20,10 @@ public class TransitionSceneHandler : MonoBehaviour
 
     private List<string> pollution_scenes;
 
+    // Loading icon
+    public GameObject loadingIcon;
+    private int icon_count = 3;
+
     private void Start()
     {
         // Initialize quotes in list
@@ -30,6 +34,9 @@ public class TransitionSceneHandler : MonoBehaviour
         pollution_scenes = new List<string> { "ChaoticFinal", "TheClimb"};
 
         StartCoroutine(RunTransition());
+
+        // Set random loading icon
+        SetRandomLoadingIcon(); 
     }
 
     // Handles the running of the transition scene
@@ -70,5 +77,14 @@ public class TransitionSceneHandler : MonoBehaviour
             return true;
 
         return false;
+    }
+
+    // Set a random loading icon
+    private void SetRandomLoadingIcon() {
+        // Get a random integer to decide the loading icon
+        int random_int = Random.Range(1, icon_count+1);
+
+        // Set the state as the random integer
+        loadingIcon.GetComponent<Animator>().SetInteger("loadingIconState", random_int);
     }
 }
