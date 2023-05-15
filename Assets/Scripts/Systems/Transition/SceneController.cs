@@ -22,4 +22,10 @@ public class SceneController : MonoBehaviour
     public void ChangeScene(string next_scene_string) {
         SceneManager.LoadScene(transition_scene_string);
     }
+
+    // Reload current level
+    public void Reload()
+    {
+        SceneManager.LoadScene(playerData.checkpoint_string);
+    }
 }
