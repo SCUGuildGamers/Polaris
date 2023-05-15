@@ -254,7 +254,7 @@ SpriteRenderer:
   m_Size: {x: 2.56, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &29067144
@@ -870,7 +870,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &499213713
@@ -901,6 +901,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InLevel: 1
   CanPlayerMove: 1
+  CanPlayerGlide: 1
+  _facingRight: 1
 --- !u!114 &499213715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -954,7 +956,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: 1f7373f5882325f4c95b9b4cc3e56c09, type: 2}
-  checkpoint_string: PipeNPCTesting (3)
 --- !u!114 &499213719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1017,6 +1018,7 @@ MonoBehaviour:
   TypingDelay: 0.02
   NameText: {fileID: 1291696027}
   DialogueText: {fileID: 610372919}
+  playerData: {fileID: 11400000, guid: 1f7373f5882325f4c95b9b4cc3e56c09, type: 2}
 --- !u!4 &565728903
 Transform:
   m_ObjectHideFlags: 0

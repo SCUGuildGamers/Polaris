@@ -204,6 +204,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CanReflect: 0
   IsReflected: 0
+  _nonReflectSprite: {fileID: 0}
+  _reflectSprite: {fileID: 0}
 --- !u!212 &29067143
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -428,6 +430,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Indicator: {fileID: 626840317}
   Dialogue: {fileID: 11400000, guid: f509f6ff18edd8f49b3c38e9aa8e1dd5, type: 2}
+  npcAddCharge: {fileID: 0}
 --- !u!212 &436441047
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3855,7 +3858,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &499213713
@@ -3886,6 +3889,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InLevel: 1
   CanPlayerMove: 1
+  CanPlayerGlide: 1
+  _facingRight: 1
 --- !u!114 &499213715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3924,6 +3929,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e581c9a757986e54aa19b77550c26153, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingCharge: 0
+  text: {fileID: 0}
 --- !u!1 &565728901
 GameObject:
   m_ObjectHideFlags: 0
@@ -3957,6 +3964,7 @@ MonoBehaviour:
   TypingDelay: 0.02
   NameText: {fileID: 1291696027}
   DialogueText: {fileID: 610372919}
+  playerData: {fileID: 11400000, guid: 1f7373f5882325f4c95b9b4cc3e56c09, type: 2}
 --- !u!4 &565728903
 Transform:
   m_ObjectHideFlags: 0
@@ -4165,6 +4173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76fbcddd1c39e1942b4529d33b4bc3be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  plastic: {fileID: 0}
   direction: Down
 --- !u!4 &585863287
 Transform:

@@ -1,3 +1,4 @@
+using static System.String;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -47,6 +48,9 @@ public class DialogueManager : MonoBehaviour
 
     // For reference
     private TrajectoryLine _trajectoryLine;
+
+    // For inserting player data
+    public PlayerData playerData;
 
     void Start()
     {
@@ -142,7 +146,10 @@ public class DialogueManager : MonoBehaviour
         
 
         NameText.text = sentence.Second.First;
-        StartCoroutine(TypeSentence(sentence.Second.Second));
+        //for inserting stats, put "{0}" for coins and "{1}" for deaths
+        //example:  string example = "Coins: {0}    Deaths: {1}"
+        //output:                     Coins: 4    Deaths: 1
+        StartCoroutine(TypeSentence(Format(sentence.Second.Second, (int)playerData.total_coins, playerData.death_counter)));
 
         //if choices exist, create choice buttons for each
         if (sentence.First.First.Length > 0){

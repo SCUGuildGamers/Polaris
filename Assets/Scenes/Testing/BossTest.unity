@@ -577,6 +577,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HealthBar: {fileID: 1321503337}
+  next_scene_name: 
+  data: {fileID: 0}
 --- !u!95 &135253525
 Animator:
   serializedVersion: 3
@@ -893,7 +895,7 @@ SpriteRenderer:
   m_Size: {x: 2.56, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &254576554
@@ -1429,6 +1431,7 @@ MonoBehaviour:
   TypingDelay: 0.02
   NameText: {fileID: 567048283}
   DialogueText: {fileID: 1395706266}
+  playerData: {fileID: 11400000, guid: 1f7373f5882325f4c95b9b4cc3e56c09, type: 2}
 --- !u!4 &554903913
 Transform:
   m_ObjectHideFlags: 0
@@ -4427,7 +4430,7 @@ SpriteRenderer:
   m_Size: {x: 2.56, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &2115856466
@@ -4484,6 +4487,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InLevel: 1
   CanPlayerMove: 1
+  CanPlayerGlide: 1
+  _facingRight: 1
 --- !u!50 &2115856469
 Rigidbody2D:
   serializedVersion: 4
@@ -4517,7 +4522,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ff84b18a0c74cf448c55a622fd6b42d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthBar: {fileID: 806347400}
+  playerData: {fileID: 0}
+  heart1: {fileID: 0}
+  heart2: {fileID: 0}
+  heart3: {fileID: 0}
 --- !u!114 &2115856471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4530,6 +4538,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e581c9a757986e54aa19b77550c26153, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingCharge: 0
+  text: {fileID: 0}
 --- !u!114 &2115856472
 MonoBehaviour:
   m_ObjectHideFlags: 0
