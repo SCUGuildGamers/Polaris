@@ -14,7 +14,8 @@ public class Pipe : MonoBehaviour
     [SerializeField]
     private string direction;
 
-    // Duration between firing
+    // Duration between firing (made editable)
+    [SerializeField]
     private float period = 10f;
 
     private void Start()

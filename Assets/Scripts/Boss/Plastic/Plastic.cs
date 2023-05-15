@@ -29,7 +29,7 @@ public class Plastic : MonoBehaviour
 
     // _lifeSpan determines how long the projectile stays before it disappears
     private int _duration = 0;
-    private int _lifeSpan = 4000;
+    private int _lifeSpan = 6000;
     private int _movementMode;
 
     // Reference to Player Transform
