@@ -13,7 +13,7 @@ public class Plastic : MonoBehaviour
     public Sprite _nonReflectSprite;
     public Sprite _reflectSprite;
 
-    // Source of projecitile spawning
+    // Source of projectile spawning
     private Transform source;
 
     // Determines how often a reflectable plastic spawns where the chance is 1/_pickupChance
@@ -69,7 +69,12 @@ public class Plastic : MonoBehaviour
             {
                 Destroy(gameObject);
             }
-		}
+            if (!gameObject.name.Contains("Lane"))
+            {
+                transform.Rotate(0, 0, 50 * Time.deltaTime);
+            }
+
+        }
     }
 
     // Changes the target position to the source
