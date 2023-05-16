@@ -10,7 +10,7 @@ public class TransitionSceneHandler : MonoBehaviour
     public PlayerData playerData;
 
     // Transition time for scene
-    private float transition_time = 5f;
+    public float transition_time;
 
     // Quote text
     public Text quote_text;
