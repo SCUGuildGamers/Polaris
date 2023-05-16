@@ -253,7 +253,7 @@ public class PlayerMovement : MonoBehaviour
 	private void Glide()
 	{
 		// First Glide button click
-		if (!showTrajectory && glideCharge.GetChargeCounter() > 0)
+		if (!showTrajectory && glideCharge.GetChargeCounter() > 0 && !PauseMenu.GameIsPaused)
 		{
 			showTrajectory = true;
 		}
@@ -320,5 +320,10 @@ public class PlayerMovement : MonoBehaviour
 			//Player can move once again so they can move side to side while falling
 			CanPlayerMove = true;
 		}
+	}
+
+	public bool Get_showTrajectory()
+	{
+		return showTrajectory;
 	}
 }

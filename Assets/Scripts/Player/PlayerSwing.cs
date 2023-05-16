@@ -28,7 +28,7 @@ public class PlayerSwing : MonoBehaviour
     void Update()
     {
         // If the straw exists in the level
-        if (_strawController) {
+        if (_strawController && !PauseMenu.GameIsPaused) {
             // Check for button click
             if (Input.GetMouseButtonDown(0))
             {
