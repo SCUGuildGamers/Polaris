@@ -103,6 +103,9 @@ public class Plastic : MonoBehaviour
         Plastic plasticObjCopy = plasticCopy.GetComponent<Plastic>();
         plasticObjCopy.IsCopy = true;
 
+        // Reset the plastic's lifetime
+        plasticObjCopy._duration = 0;
+
         // Set the source of the projectile
         plasticObjCopy.source = source;
 

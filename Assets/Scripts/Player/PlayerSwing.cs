@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlayerSwing : MonoBehaviour
 {
     // Swing values
-    private float _swingRange = 2f;
-    public float swingCD = 0.3f;
+    private float _swingRange = 2.5f;
+    public float swingCD = 0.05f;
     public float nextSwing = 0.0f;
 
     // For reference
