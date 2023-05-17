@@ -23,9 +23,13 @@ public class SceneController : MonoBehaviour
         SceneManager.LoadScene(transition_scene_string);
     }
 
-    // Reload current level
+    // Reload current level and restore player health
     public void Reload()
     {
+        // Restore player health
+        playerData.player_health = playerData.max_player_health;
+
+        // Reload the current scene
         SceneManager.LoadScene(playerData.checkpoint_string);
     }
 }
