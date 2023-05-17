@@ -7,6 +7,7 @@ public class PauseMenu : MonoBehaviour
 {
 	public static bool GameIsPaused = false;
 	public GameObject pauseMenuUI;
+	public GameObject optionsMenuUI;
 
 	// For reference
 	private SceneController sceneController;
@@ -21,10 +22,29 @@ public class PauseMenu : MonoBehaviour
 
     void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Escape) && !playerMovement.Get_showTrajectory())
-		{
-			Pause();
-		}
+		if (!pauseMenuUI.activeSelf && !optionsMenuUI.activeSelf)
+        {
+			if (Input.GetKeyDown(KeyCode.Escape) && !playerMovement.Get_showTrajectory())
+			{
+				Pause();
+			}
+        }
+		else if (optionsMenuUI.activeSelf)
+        {
+			if (Input.GetKeyDown(KeyCode.Escape))
+            {
+				optionsMenuUI.SetActive(false);
+				pauseMenuUI.SetActive(true);
+            }
+        }
+		else
+        {
+			if (Input.GetKeyDown(KeyCode.Escape))
+            {
+				Resume();
+            }
+        }
+		
 	}
 
 	public void Resume (){
