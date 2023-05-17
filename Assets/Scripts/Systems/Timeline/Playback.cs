@@ -9,7 +9,10 @@ public class Playback : MonoBehaviour
     [SerializeField] private PlayableDirector _playDirector;
     private DialogueManager _dialogueManager;
     private EventManager _eventManager;
+    private PlayerMovement _playerMovement;
+    private PlayerSwing _playerSwing;
     private bool _trigger;
+    private bool _movementAllowed;
 
     // Start is called before the first frame update
     private void Start()
@@ -17,7 +20,10 @@ public class Playback : MonoBehaviour
         _playDirector = GetComponent<PlayableDirector>();
         _dialogueManager = FindObjectOfType<DialogueManager>();
         _eventManager = FindObjectOfType<EventManager>();
+        _playerMovement = FindObjectOfType<PlayerMovement>();
+        _playerSwing = FindObjectOfType<PlayerSwing>();
         _trigger = true;
+        _movementAllowed = false;
     }
 
     // Pauses the timeline
@@ -30,6 +36,18 @@ public class Playback : MonoBehaviour
     public void setTrigger(bool value)
     {
         _trigger = value;
+    }
+
+    public void setMovement(bool value)
+    {
+        _movementAllowed = value;
+        if (_playerMovement != null)
+        {
+            _playerMovement.CanPlayerMove = value;
+            _playerMovement.CanPlayerGlide = value;
+        }
+        if (_playerSwing != null)
+            _playerSwing.CanPlayerSwing = value;
     }
 
     // Resets the timeline
@@ -51,5 +69,15 @@ public class Playback : MonoBehaviour
     {
         if (!_dialogueManager.InDialogue && _trigger)
             _playDirector.Play();
+        if (!_movementAllowed)
+        {
+            if (_playerMovement != null)
+            {
+                _playerMovement.CanPlayerMove = false;
+                _playerMovement.CanPlayerGlide = false;
+            }
+            if (_playerSwing != null)
+                _playerSwing.CanPlayerSwing = false;
+        }
     }
 }
