@@ -3928,6 +3928,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plastic: {fileID: 1645656021}
   direction: Up
+  period: 10
 --- !u!4 &186034041
 Transform:
   m_ObjectHideFlags: 0
@@ -7440,6 +7441,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 3d922e2df3caf0d4296a800c803d81fb, type: 2}
     - {fileID: 11400000, guid: bcc2a2e07a869844091fa79d7d81040e, type: 2}
     - {fileID: 11400000, guid: 4c51c75dd50557c43b47cb06a1d0de22, type: 2}
+    - {fileID: 11400000, guid: a4f64df2489af224daf69206895519e8, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
@@ -7604,6 +7606,20 @@ MonoBehaviour:
         - m_Target: {fileID: 1007521351}
           m_TargetAssemblyTypeName: Playback, Assembly-CSharp
           m_MethodName: setTrigger
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1007521351}
+          m_TargetAssemblyTypeName: Playback, Assembly-CSharp
+          m_MethodName: setMovement
           m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -9693,6 +9709,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swingCD: 1
   nextSwing: 0
+  CanPlayerSwing: 1
 --- !u!114 &1481837776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11631,6 +11648,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plastic: {fileID: 1645656021}
   direction: Right
+  period: 10
 --- !u!4 &2078632201
 Transform:
   m_ObjectHideFlags: 0

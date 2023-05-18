@@ -9,11 +9,12 @@ public class PlayerSwing : MonoBehaviour
     public float swingCD = 0.05f;
     public float nextSwing = 0.0f;
 
+    public bool CanPlayerSwing = true;
+
     // For reference
     private BossHealth _bossHealth;
     private StrawController _strawController;
     private PlayerMovement _playerMovement;
-    
 
     //public Animator animator;
 
@@ -28,7 +29,7 @@ public class PlayerSwing : MonoBehaviour
     void Update()
     {
         // If the straw exists in the level
-        if (_strawController && !PauseMenu.GameIsPaused) {
+        if (_strawController && !PauseMenu.GameIsPaused && CanPlayerSwing) {
             // Check for button click
             if (Input.GetMouseButtonDown(0))
             {
