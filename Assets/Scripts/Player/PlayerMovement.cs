@@ -109,8 +109,6 @@ public class PlayerMovement : MonoBehaviour
 		}
 	}
 
-
-
 	// When the player collides with anything, the player stop moving (implemented to stop glide movement)
 	void OnCollisionEnter2D(Collision2D collider)
 	{
