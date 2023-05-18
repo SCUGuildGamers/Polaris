@@ -39,7 +39,7 @@ public class TransitionSceneHandler : MonoBehaviour
                                                 };
 
         // Initialize scenes in pollution list
-        pollution_scenes = new List<string> { "ChaoticFinal", "TheClimb"};
+        pollution_scenes = new List<string> { "ChasmLevel", "ChaoticFinal", "TheClimb"};
 
         StartCoroutine(RunTransition());
 
