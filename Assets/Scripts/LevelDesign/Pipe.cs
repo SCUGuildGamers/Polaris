@@ -46,7 +46,7 @@ public class Pipe : MonoBehaviour
         Vector3 proj_direction = GetDirection() + transform.position;
 
         // Spawn/shoot the projectile
-        plastic.Spawn(transform.position, proj_direction, transform, 3, true);
+        plastic.Spawn(transform.position + GetDirection()*0.5f, proj_direction, transform, 3, true);
     }
 
     // Returns the direction of the projectile
