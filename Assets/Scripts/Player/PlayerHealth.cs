@@ -164,6 +164,9 @@ public class PlayerHealth : MonoBehaviour
         // Change color to indicate death; temporary
         sprite.color = Color.red;
 
+        // Disallows pausing while dying/respawning
+        PauseMenu.CanPause = false;
+
         // Pause for animation effect
         yield return new WaitForSeconds(_deathAnimationDuration);
 
@@ -175,6 +178,9 @@ public class PlayerHealth : MonoBehaviour
 
         // Return player to checkpoint after they die
         GetComponent<CheckpointManager>().ReturnToCheckpoint();
+
+        // Allows pausing again
+        PauseMenu.CanPause = true;
     }
 
     // Handles the heart visibility when the level starts
