@@ -81,6 +81,7 @@ public class UrchinController : MonoBehaviour
     {
         GameObject urchinCopy = Instantiate(gameObject);
         urchinCopy.SetActive(true);
+        urchinCopy.gameObject.GetComponent<SpriteRenderer>().enabled = true;
         UrchinController urchinObjCopy = urchinCopy.GetComponent<UrchinController>();
         urchinObjCopy.NumPlasticSpawn = numPlasticSpawn;
         urchinObjCopy._targetPosition = targetPosition;
