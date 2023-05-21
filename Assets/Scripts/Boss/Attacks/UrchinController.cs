@@ -35,7 +35,7 @@ public class UrchinController : MonoBehaviour
         if(!PauseMenu.GameIsPaused)
         {
         // Checks when the turtle is close to its target
-          if (Vector3.Distance(Urchin.position, _targetPosition) < 0.05f)
+          if (Vector3.Distance(Urchin.position, _targetPosition) < 0.05f && isCopy)
           {
               StartCoroutine(Explode());
           }
