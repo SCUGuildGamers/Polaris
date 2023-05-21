@@ -213,6 +213,12 @@ public class PlayerMovement : MonoBehaviour
 		else
 			_animator.SetBool("isSwimming", false);
 
+		if  (rb.velocity.y < -0.1) { 
+			HorizontalSpeed = 1f;
+		}
+		else
+			HorizontalSpeed = 10f;
+
 		// Allows player to swim downward to avoid projectiles
 		if (verticalDirection < 0)
 			rb.velocity = new Vector2(horizontalDirection * HorizontalSpeed, verticalDirection * VerticalSpeed);
