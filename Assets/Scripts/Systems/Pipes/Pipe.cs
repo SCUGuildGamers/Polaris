@@ -69,8 +69,13 @@ public class Pipe : MonoBehaviour
     {
         Plastic plastic = col.gameObject.GetComponent<Plastic>();
         if (plastic != null && plastic.IsReflected) {
+            // Update the clog variable
             isClogged = true;
+
+            // Destroy the plastic on collision
             Destroy(col.gameObject);
+            
+            // Update the pipe clogged counter
             FindObjectOfType<PipeManager>().ClogPipe();
 
             // For debugging

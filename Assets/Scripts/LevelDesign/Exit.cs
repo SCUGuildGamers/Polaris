@@ -25,7 +25,9 @@ public class Exit : MonoBehaviour
 
             // Update the player's coins and pipes clogged when they complete level
             _coinManager.UpdateCoins();
-            _pipeManager.UpdateCloggedPipes();
+
+            if(_pipeManager)
+                _pipeManager.UpdateCloggedPipes();
 
             // Load next level
             FindObjectOfType<SceneController>().ChangeSceneTransition(next_scene_name);

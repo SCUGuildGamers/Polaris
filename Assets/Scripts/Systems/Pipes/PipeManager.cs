@@ -11,6 +11,12 @@ public class PipeManager : MonoBehaviour
 
     public PlayerData playerData;
 
+    private void Start()
+    {
+        // Initialize counter to 0
+        _interalCounter = 0;
+    }
+
     // Increments the coin counter
     public void ClogPipe() {
         _interalCounter++;

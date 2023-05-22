@@ -5,11 +5,15 @@ using UnityEngine.UI;
 
 public class CoinManager : MonoBehaviour
 {
-    private int _totalPossible;
-
     private int _interalCounter;
 
     public PlayerData playerData;
+
+    private void Start()
+    {
+        // Initialize counter to 0
+        _interalCounter = 0;
+    }
 
     // Increments the coin counter
     private void PickupCoin() {
