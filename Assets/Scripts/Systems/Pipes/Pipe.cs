@@ -71,6 +71,7 @@ public class Pipe : MonoBehaviour
         if (plastic != null && plastic.IsReflected) {
             isClogged = true;
             Destroy(col.gameObject);
+            FindObjectOfType<PipeManager>().ClogPipe();
 
             // For debugging
             GetComponent<SpriteRenderer>().color = Color.red;
