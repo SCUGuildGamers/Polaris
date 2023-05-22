@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CoinManager : MonoBehaviour
 {
@@ -32,4 +33,12 @@ public class CoinManager : MonoBehaviour
             Destroy(col.gameObject);
         }
     }
+
+    public Text CoinValue;
+
+    void Start()
+    {
+        CoinValue.text = "Trash Collected:" + GetCounter().ToString();
+    }
+
 }
