@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CoinManager : MonoBehaviour
+public class PipeManager : MonoBehaviour
 {
     private int _totalPossible;
 
@@ -12,26 +12,19 @@ public class CoinManager : MonoBehaviour
     public PlayerData playerData;
 
     // Increments the coin counter
-    private void PickupCoin() {
+    public void ClogPipe() {
         _interalCounter++;
-        Debug.Log("The player has " + GetCounter() + " coin(s).");
+        Debug.Log("The player has clogged " + GetCounter() + " pipe(s).");
     }
     
     // Updates the coin_counter to the given amount
-    public void UpdateCoins() {
-        playerData.coin_counter += _interalCounter;
+    public void UpdateCloggedPipes() {
+        playerData.clogged_pipes_counter += _interalCounter;
     }
 
     // Returns the current amount of coins
     public int GetCounter() {
         return _interalCounter;
-    }
-
-    void OnCollisionEnter2D(Collision2D col) {
-        if (col.gameObject.name.Contains("Coin")) {
-            PickupCoin();
-            Destroy(col.gameObject);
-        }
     }
 
 }

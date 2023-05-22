@@ -600,8 +600,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.875, y: 1.875}
-    newSize: {x: 1, y: 1}
+    oldSize: {x: 0.3, y: 0.4}
+    newSize: {x: 1.2, y: 1.9}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -670,12 +670,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea4526ee45d01fb4cbb773cdbf0ca62e, type: 3}
+  m_Sprite: {fileID: -4712320359566848197, guid: 97db6b40894609249887b78e42afea04, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.2, y: 1.9}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -689,8 +689,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 499213709}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.75, y: -5.04, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -5.33, y: 2.99, z: 0}
+  m_LocalScale: {x: 7, y: 7, z: 7}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -709,6 +709,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InLevel: 1
   CanPlayerMove: 1
+  CanPlayerGlide: 1
+  _facingRight: 1
 --- !u!114 &499213715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -734,6 +736,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: 1f7373f5882325f4c95b9b4cc3e56c09, type: 2}
+  CoinValue: {fileID: 0}
 --- !u!114 &499213717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -746,6 +749,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e581c9a757986e54aa19b77550c26153, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingCharge: 0
+  text: {fileID: 0}
 --- !u!114 &499213718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -759,7 +764,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: 1f7373f5882325f4c95b9b4cc3e56c09, type: 2}
-  checkpoint_string: CoinTest (1)
 --- !u!1 &717336349
 GameObject:
   m_ObjectHideFlags: 0
@@ -2740,7 +2744,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80cc5bd5b7df226408d0ef0c7b1d5ec6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  next_scene_name: Level5 (2)
+  next_scene_name: BossTest
 --- !u!61 &1521676041
 BoxCollider2D:
   m_ObjectHideFlags: 0
