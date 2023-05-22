@@ -11,6 +11,10 @@ public class PlayerData : ScriptableObject
 
     public float total_coins;
 
+    public int clogged_pipes_counter;
+
+    public float total_pipes_clogged;
+
     public int death_counter;
 
     public int player_health;

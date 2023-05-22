@@ -19,7 +19,7 @@ public class CoinManager : MonoBehaviour
     
     // Updates the coin_counter to the given amount
     public void UpdateCoins() {
-        playerData.coin_counter = _interalCounter;
+        playerData.coin_counter += _interalCounter;
     }
 
     // Returns the current amount of coins
