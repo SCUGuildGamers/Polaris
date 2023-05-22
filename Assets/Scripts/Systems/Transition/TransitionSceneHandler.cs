@@ -24,8 +24,17 @@ public class TransitionSceneHandler : MonoBehaviour
     public GameObject loadingIcon;
     private int icon_count = 3;
 
+    // Typing delay for quote
+    private float _typingDelay = 0.03f;
+
+    // Boolean value to keep track of when the typing is complete
+    private bool _isTyped;
+
     private void Start()
     {
+        // Set the typing boolean
+        _isTyped = false;
+
         // Initialize quotes in list
         ocean_quote_list = new List<string> { "The ocean covers 71% of the Earth's surface - USGS", // https://www.usgs.gov/programs/cmhrp/news/top-10-things-you-didnt-know-about-ocean
                                             "According to World Register of Marine Species, there are currently at least 236,878 named marine species - World Register of Marine Species", // http://www.marinespecies.org/
@@ -49,8 +58,11 @@ public class TransitionSceneHandler : MonoBehaviour
 
     // Handles the running of the transition scene
     private IEnumerator RunTransition() {
-        // Set the text for the quote
-        quote_text.text = GetRandomQuote();
+        // Types the quote in the text field
+        StartCoroutine(TypeSentence(GetRandomQuote()));
+
+        // Wait until the quote is typed to proceed
+        yield return new WaitUntil(() => _isTyped);
 
         // Pause for transition
         yield return new WaitForSeconds(transition_time);
@@ -94,5 +106,23 @@ public class TransitionSceneHandler : MonoBehaviour
 
         // Set the state as the random integer
         loadingIcon.GetComponent<Animator>().SetInteger("loadingIconState", random_int);
+    }
+
+    // Animates the typing of the quote
+    IEnumerator TypeSentence(string sentence)
+    {
+        quote_text.text = "";
+
+        // Iterates through each character in the sentence, updating the dialogue and pausing per each iteration.
+        foreach (char letter in sentence.ToCharArray())
+        {
+            quote_text.text += letter;
+
+            // Typing delay
+            yield return new WaitForSeconds(_typingDelay);
+        }
+
+        // Update the state of the typing
+        _isTyped = true;
     }
 }
