@@ -13,6 +13,9 @@ public class UrchinController : MonoBehaviour
     public int NumPlasticSpawn = 9;
     public float PlasticProjectileSpeed = 2.0f;
 
+    // Distinguishes between a copy and the original
+    private bool isCopy = false;
+
     // Flag that ensures that the explosion only occurs once
     private bool _exploded = false;
 
@@ -32,7 +35,7 @@ public class UrchinController : MonoBehaviour
         if(!PauseMenu.GameIsPaused)
         {
         // Checks when the turtle is close to its target
-          if (Vector3.Distance(Urchin.position, _targetPosition) < 0.05f)
+          if (Vector3.Distance(Urchin.position, _targetPosition) < 0.05f && isCopy)
           {
               StartCoroutine(Explode());
           }
@@ -81,7 +84,9 @@ public class UrchinController : MonoBehaviour
     {
         GameObject urchinCopy = Instantiate(gameObject);
         urchinCopy.SetActive(true);
+        urchinCopy.gameObject.GetComponent<SpriteRenderer>().enabled = true;
         UrchinController urchinObjCopy = urchinCopy.GetComponent<UrchinController>();
+        urchinObjCopy.isCopy = true;
         urchinObjCopy.NumPlasticSpawn = numPlasticSpawn;
         urchinObjCopy._targetPosition = targetPosition;
     }
