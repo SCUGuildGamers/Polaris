@@ -34,11 +34,4 @@ public class CoinManager : MonoBehaviour
         }
     }
 
-    public Text CoinValue;
-
-    void Start()
-    {
-        CoinValue.text = "Trash Collected:" + GetCounter().ToString();
-    }
-
 }
