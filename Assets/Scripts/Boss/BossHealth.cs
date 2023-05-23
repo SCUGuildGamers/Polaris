@@ -24,8 +24,11 @@ public class BossHealth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Set the max health
         _health = _maxHealth;
         HealthBar.set_max_health(_maxHealth);
+
+        // Calculate the health lower based on the coins and decrease
         int coinReward =  (int)((data.coin_counter/data.total_coins)*50);
         Debug.Log(coinReward);
         ReduceHealth(coinReward);
