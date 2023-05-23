@@ -89,12 +89,12 @@ public class PlayerMovement : MonoBehaviour
 			if (showTrajectory)
 				UpdatePlayerTrajectory();
 
-			if (Input.GetKeyDown("g"))
+			if (Input.GetKeyDown(KeyCode.LeftShift))
 			{
 				Glide();
 			}
 
-			if (Input.GetKeyDown("h"))
+			if (Input.GetKeyDown(KeyCode.LeftControl))
 			{
 				Glide_Cancel();
 			}
