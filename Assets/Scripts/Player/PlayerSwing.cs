@@ -104,7 +104,7 @@ public class PlayerSwing : MonoBehaviour
                 _playerMovement.Flip();
             }
 
-            minPlastic.ResetTarget();
+            //minPlastic.ResetTarget(); look into later !!!!!!
             reflected = true;
         }
 
