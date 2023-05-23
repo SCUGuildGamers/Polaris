@@ -25,7 +25,7 @@ public class PauseMenu : MonoBehaviour
     void Update()
 	{
 		// If no menu is open
-		if (!pauseMenuUI.activeSelf && !optionsMenuUI.activeSelf)
+		if (!pauseMenuUI.activeSelf && !optionsMenuUI.activeSelf && !controlsMenuUI.activeSelf)
 		{
 			if (Input.GetKeyDown(KeyCode.Escape) && CanPause)
 			{
