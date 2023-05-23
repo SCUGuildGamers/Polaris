@@ -14,7 +14,7 @@ public class PlayerHealth : MonoBehaviour
     public PlayerData playerData;
 
     // I-frame
-    private float _iframeDuration = 4f;
+    private float _iframeDuration = 3f;
     private bool _isIframe;
     private int _iframeCounter;
     private int _iframeToggle = 7;
