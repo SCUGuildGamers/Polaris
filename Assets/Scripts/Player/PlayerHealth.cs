@@ -14,7 +14,7 @@ public class PlayerHealth : MonoBehaviour
     public PlayerData playerData;
 
     // I-frame
-    private float _iframeDuration = 4f;
+    private float _iframeDuration = 3f;
     private bool _isIframe;
     private int _iframeCounter;
     private int _iframeToggle = 7;
@@ -164,6 +164,9 @@ public class PlayerHealth : MonoBehaviour
         // Change color to indicate death; temporary
         sprite.color = Color.red;
 
+        // Disallows pausing while dying/respawning
+        PauseMenu.CanPause = false;
+
         // Pause for animation effect
         yield return new WaitForSeconds(_deathAnimationDuration);
 
@@ -175,6 +178,9 @@ public class PlayerHealth : MonoBehaviour
 
         // Return player to checkpoint after they die
         GetComponent<CheckpointManager>().ReturnToCheckpoint();
+
+        // Allows pausing again
+        PauseMenu.CanPause = true;
     }
 
     // Handles the heart visibility when the level starts

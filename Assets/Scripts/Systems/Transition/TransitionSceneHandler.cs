@@ -10,7 +10,7 @@ public class TransitionSceneHandler : MonoBehaviour
     public PlayerData playerData;
 
     // Transition time for scene
-    private float transition_time = 5f;
+    public float transition_time;
 
     // Quote text
     public Text quote_text;
@@ -24,14 +24,31 @@ public class TransitionSceneHandler : MonoBehaviour
     public GameObject loadingIcon;
     private int icon_count = 3;
 
+    // Typing delay for quote
+    private float _typingDelay = 0.03f;
+
+    // Boolean value to keep track of when the typing is complete
+    private bool _isTyped;
+
     private void Start()
     {
+        // Set the typing boolean
+        _isTyped = false;
+
         // Initialize quotes in list
-        ocean_quote_list = new List<string> { "The ocean covers 71% of the Earth's surface - USGS", "According to World Register of Marine Species, there are currently at least 236,878 named marine species - WoRMS", "The record for the deepest free dive is held by Jacques Mayol. He dove to an astounding depth of 86m (282ft) without any breathing equipment - MarineBio", "The Atlantic Ocean is the youngest of the five oceans, having formed during the Jurassic Period approximately 150 million years ago following the breakup of the supercontinent Pangaea - Britannica" };
-        pollution_quote_list = new List<string> { "More than 8 million tons of plastic enter the oceans every year - Earth", "Ocean plastic pollution Is on track to triple by 2060 and exceed one billion tons of plastic in the ocean - Earth", "In 2014, California became the first state to ban plastic bags. As of March 2018, 311 local bag ordinances have been adopted in 24 states, including Hawaii. As of July 2018, 127 countries have adopted some form of legislation to regulate plastic bags - WRI", "50 percent of all sea turtles, 44 percent of all seabirds, 22 percent of all cetaceans, and a long list of fish species have already eaten plastics - SurferToday" };
+        ocean_quote_list = new List<string> { "The ocean covers 71% of the Earth's surface - USGS", // https://www.usgs.gov/programs/cmhrp/news/top-10-things-you-didnt-know-about-ocean
+                                            "According to World Register of Marine Species, there are currently at least 236,878 named marine species - World Register of Marine Species", // http://www.marinespecies.org/
+                                            "The record for the deepest free dive is held by Jacques Mayol. He dove to an astounding depth of 86m (282ft) without any breathing equipment - MarineBio", // https://marinebio.life/
+                                            "The Atlantic Ocean is the youngest of the five oceans, having formed during the Jurassic Period approximately 150 million years ago following the breakup of the supercontinent Pangaea - Britannica" // https://www.britannica.com/
+                                            };
+        pollution_quote_list = new List<string> { "More than 8 million tons of plastic enter the oceans every year - Earth", // https://earth.org/plastic-pollution-in-the-ocean-facts/
+                                                "Ocean plastic pollution is on track to triple by 2060 and exceed one billion tons of plastic in the ocean - Earth", // https://earth.org/plastic-pollution-in-the-ocean-facts/
+                                                "In 2014, California became the first state to ban plastic bags. As of March 2018, 311 local bag ordinances have been adopted in 24 states, including Hawaii. As of July 2018, 127 countries have adopted some form of legislation to regulate plastic bags - WRI", // https://www.plasticbaglaws.org/
+                                                "Headline-grabbing oil spills account for just 12 percent of the oil in our oceans. Two to three times as much oil is carried out to sea via runoff from our roads, rivers and drainpipes - Conversation" // https://www.conservation.org/stories/ocean-pollution-facts
+                                                };
 
         // Initialize scenes in pollution list
-        pollution_scenes = new List<string> { "ChaoticFinal", "TheClimb"};
+        pollution_scenes = new List<string> { "ChasmLevel", "ChaoticFinal", "TheClimb"};
 
         StartCoroutine(RunTransition());
 
@@ -41,8 +58,11 @@ public class TransitionSceneHandler : MonoBehaviour
 
     // Handles the running of the transition scene
     private IEnumerator RunTransition() {
-        // Set the text for the quote
-        quote_text.text = GetRandomQuote();
+        // Types the quote in the text field
+        StartCoroutine(TypeSentence(GetRandomQuote()));
+
+        // Wait until the quote is typed to proceed
+        yield return new WaitUntil(() => _isTyped);
 
         // Pause for transition
         yield return new WaitForSeconds(transition_time);
@@ -86,5 +106,23 @@ public class TransitionSceneHandler : MonoBehaviour
 
         // Set the state as the random integer
         loadingIcon.GetComponent<Animator>().SetInteger("loadingIconState", random_int);
+    }
+
+    // Animates the typing of the quote
+    IEnumerator TypeSentence(string sentence)
+    {
+        quote_text.text = "";
+
+        // Iterates through each character in the sentence, updating the dialogue and pausing per each iteration.
+        foreach (char letter in sentence.ToCharArray())
+        {
+            quote_text.text += letter;
+
+            // Typing delay
+            yield return new WaitForSeconds(_typingDelay);
+        }
+
+        // Update the state of the typing
+        _isTyped = true;
     }
 }

@@ -27,6 +27,9 @@ public class DialogueManager : MonoBehaviour
     // PlayerMovement field to control whether or not the player can move or not
     private PlayerMovement _playerMovement;
 
+    // PlayerSwing field to control whether or not the player can swing or not
+    private PlayerSwing _playerSwing;
+
     // DialogueBoxManager field to control the visiblity of the dialogue box
     private DialogueBoxManager _dialogueBoxManager;
 
@@ -61,6 +64,7 @@ public class DialogueManager : MonoBehaviour
         // For reference
         _eventManager = FindObjectOfType<EventManager>();
         _playerMovement = FindObjectOfType<PlayerMovement>();
+        _playerSwing = FindObjectOfType<PlayerSwing>();
         _dialogueBoxManager = FindObjectOfType<DialogueBoxManager>();
         _choiceButton = FindObjectOfType<ChoiceButtonManager>();
         _trajectoryLine = FindObjectOfType<TrajectoryLine>();
@@ -99,6 +103,10 @@ public class DialogueManager : MonoBehaviour
                 _playerMovement.CanPlayerMove = false;
                 _playerMovement.CanPlayerGlide = false;
             }
+
+            //Disable player swing
+            if (_playerSwing)
+                _playerSwing.CanPlayerSwing = false;
 
             // Clear trajectory line
             if (_trajectoryLine)
@@ -184,6 +192,8 @@ public class DialogueManager : MonoBehaviour
                 _playerMovement.CanPlayerMove = true;
                 _playerMovement.CanPlayerGlide = true;
             }
+            if (_playerSwing != null)
+                _playerSwing.CanPlayerSwing = true;
 
             StartCoroutine(DelayedInDialogueSet(false, 0.1f));
         }

@@ -89,26 +89,25 @@ public class PlayerMovement : MonoBehaviour
 			if (showTrajectory)
 				UpdatePlayerTrajectory();
 
-			if (Input.GetKeyDown("g"))
+			if (Input.GetKeyDown(KeyCode.LeftShift))
 			{
 				Glide();
 			}
 
-			if (Input.GetKeyDown("h"))
+			if (Input.GetKeyDown(KeyCode.LeftControl))
 			{
 				Glide_Cancel();
 			}
 
 			// Canceling the trajectory line
-			else if (Input.GetKeyDown(KeyCode.Escape) && showTrajectory)
+			else if (Input.GetKeyDown(KeyCode.Escape) && showTrajectory && !PauseMenu.CanPause)
 			{
 				showTrajectory = false;
 				trajectoryLine.ClearLine(); // Clear the trajectory line
+				PauseMenu.CanPause = true; // Game can be paused when trajectory isn't showing
 			}
 		}
 	}
-
-
 
 	// When the player collides with anything, the player stop moving (implemented to stop glide movement)
 	void OnCollisionEnter2D(Collision2D collider)
@@ -129,7 +128,6 @@ public class PlayerMovement : MonoBehaviour
 			// Toggle glide state variables
 			isGliding = false;
 		}
-
 	}
 
 	void OnTriggerEnter2D(Collider2D col)
@@ -215,6 +213,12 @@ public class PlayerMovement : MonoBehaviour
 		else
 			_animator.SetBool("isSwimming", false);
 
+		if  (rb.velocity.y < -0.1) { 
+			HorizontalSpeed = 1f;
+		}
+		else
+			HorizontalSpeed = 10f;
+
 		// Allows player to swim downward to avoid projectiles
 		if (verticalDirection < 0)
 			rb.velocity = new Vector2(horizontalDirection * HorizontalSpeed, verticalDirection * VerticalSpeed);
@@ -256,6 +260,7 @@ public class PlayerMovement : MonoBehaviour
 		if (!showTrajectory && glideCharge.GetChargeCounter() > 0 && !PauseMenu.GameIsPaused)
 		{
 			showTrajectory = true;
+			PauseMenu.CanPause = false; // Game can't be paused when trajectory line is showing
 		}
 
 		// Second Glide button click
@@ -275,6 +280,8 @@ public class PlayerMovement : MonoBehaviour
 
 			showTrajectory = false;
 			trajectoryLine.ClearLine(); // Clear the trajectory line
+
+			PauseMenu.CanPause = true; // Game can be paused when trajectory isn't showing
 
 			// Direction of dash is the unit vector of mouse position - rigidbody position
 			Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -320,10 +327,5 @@ public class PlayerMovement : MonoBehaviour
 			//Player can move once again so they can move side to side while falling
 			CanPlayerMove = true;
 		}
-	}
-
-	public bool Get_showTrajectory()
-	{
-		return showTrajectory;
 	}
 }

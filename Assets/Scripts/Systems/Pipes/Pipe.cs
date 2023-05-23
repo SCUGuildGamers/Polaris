@@ -14,7 +14,8 @@ public class Pipe : MonoBehaviour
     [SerializeField]
     private string direction;
 
-    // Duration between firing
+    // Duration between firing (made editable)
+    [SerializeField]
     private float period = 10f;
 
     private void Start()
@@ -45,7 +46,7 @@ public class Pipe : MonoBehaviour
         Vector3 proj_direction = GetDirection() + transform.position;
 
         // Spawn/shoot the projectile
-        plastic.Spawn(transform.position, proj_direction, transform, 3, true);
+        plastic.Spawn(transform.position + GetDirection()*0.5f, proj_direction, transform, 3, true);
     }
 
     // Returns the direction of the projectile
@@ -68,8 +69,14 @@ public class Pipe : MonoBehaviour
     {
         Plastic plastic = col.gameObject.GetComponent<Plastic>();
         if (plastic != null && plastic.IsReflected) {
+            // Update the clog variable
             isClogged = true;
+
+            // Destroy the plastic on collision
             Destroy(col.gameObject);
+            
+            // Update the pipe clogged counter
+            FindObjectOfType<PipeManager>().ClogPipe();
 
             // For debugging
             GetComponent<SpriteRenderer>().color = Color.red;

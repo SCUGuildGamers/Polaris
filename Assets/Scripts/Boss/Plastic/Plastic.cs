@@ -13,7 +13,7 @@ public class Plastic : MonoBehaviour
     public Sprite _nonReflectSprite;
     public Sprite _reflectSprite;
 
-    // Source of projecitile spawning
+    // Source of projectile spawning
     private Transform source;
 
     // Determines how often a reflectable plastic spawns where the chance is 1/_pickupChance
@@ -29,7 +29,7 @@ public class Plastic : MonoBehaviour
 
     // _lifeSpan determines how long the projectile stays before it disappears
     private int _duration = 0;
-    private int _lifeSpan = 4000;
+    private int _lifeSpan = 6000;
     private int _movementMode;
 
     // Reference to Player Transform
@@ -70,7 +70,12 @@ public class Plastic : MonoBehaviour
             {
                 Destroy(gameObject);
             }
-		}
+            if (!gameObject.name.Contains("Lane"))
+            {
+                transform.Rotate(0, 0, 50 * Time.deltaTime);
+            }
+
+        }
     }
 
     public void ReflectDirection()
@@ -97,6 +102,9 @@ public class Plastic : MonoBehaviour
 
         Plastic plasticObjCopy = plasticCopy.GetComponent<Plastic>();
         plasticObjCopy.IsCopy = true;
+
+        // Reset the plastic's lifetime
+        plasticObjCopy._duration = 0;
 
         // Set the source of the projectile
         plasticObjCopy.source = source;
