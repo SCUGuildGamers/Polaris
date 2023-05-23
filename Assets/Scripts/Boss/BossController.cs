@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class BossController : MonoBehaviour
@@ -17,26 +18,34 @@ public class BossController : MonoBehaviour
 
     private float _waveHeight = 5.5f;
     private float _screenHeight = 9f;
-
+    public bool suck = false;
+    public bool temp = true;
     void Update()
     {
         if (!PauseMenu.GameIsPaused)
         {
             if (Input.GetKeyDown(KeyCode.T))
             {
-                StartCoroutine(SetTrajectoryWaves(5, 0.5f, 3, 5));
+                StartCoroutine(SetTrajectoryWaves(5, 0.5f, 3, 5, 0.05f));
             }
 
             if (Input.GetKeyDown(KeyCode.R))
             {
-                StartCoroutine(HomingShots(3, 5f));
+                StartCoroutine(HomingShots(3, 5f, .1f));
             }
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                StartCoroutine(LaneShots(3, 4f));
+              // StartCoroutine(LaneShots(3, 4f, .1f));
             }
-
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                StartCoroutine(Suck(4f));
+            }
+            if (suck)
+            {
+                Player.position = Vector3.MoveTowards(Player.position, PlasticBoss.position, .007f);
+            }
             if (Input.GetKeyDown(KeyCode.P))
             {
                 platform.Spawn(new Vector3(-10, -6, 0), new Vector3(-10, 3, 0));
@@ -47,6 +56,8 @@ public class BossController : MonoBehaviour
 
         }
     }
+
+   
 
     // Performs a single sweep left projectile attack with a sec delay between each wave adjusted by a xOffset and yOffset
     private IEnumerator SweepLeft(int xOffset, int yOffset, float sec, int numWaves)
@@ -215,21 +226,21 @@ public class BossController : MonoBehaviour
     }
 
     // Spawns a set trajectory shot moving from right to left spawning at the Boss' position with offset by y_offset
-    private void SetTrajectoryShot(float y_offset)
+    private void SetTrajectoryShot(float y_offset, float speed)
     {
         // Spawn position of the trajectory shot
         Vector3 spawn_position = transform.position + new Vector3(0, y_offset, 0);
 
-        _plastic.Spawn(spawn_position, spawn_position + new Vector3(-1, 0, 0), transform, 3);
+        _plastic.Spawn(spawn_position, spawn_position + new Vector3(-1, 0, 0), transform, 3, false, 0, false, speed);
     }
 
     // Spawns a set trajectory wave with num_projectiles projectiles and a wait of projectile_wait between each projectile
-    private IEnumerator SetTrajectoryWave(int num_projectiles, float projectile_wait)
+    public IEnumerator SetTrajectoryWave(int num_projectiles, float projectile_wait, float speed)
     {
         animator.SetTrigger("bossTossTrigger");
         for (int i = 0; i < num_projectiles; i++)
         {
-            SetTrajectoryShot(GenerateWaveOffset());
+            SetTrajectoryShot(GenerateWaveOffset(), speed);
             yield return new WaitForSecondsRealtime(projectile_wait);
         }
     }
@@ -243,45 +254,113 @@ public class BossController : MonoBehaviour
     }
 
     // Spawns num_waves number of waves with wave_wait between each wave; each wave has num_projectiles projectiles with a wait of projectile_wait between them
-    private IEnumerator SetTrajectoryWaves(int num_projectiles, float projectile_wait, int num_waves, float wave_wait)
+    public IEnumerator SetTrajectoryWaves(int num_projectiles, float projectile_wait, int num_waves, float wave_wait, float speed)
     {
         for (int i = 0; i < num_waves; i++) {
-            StartCoroutine(SetTrajectoryWave(num_projectiles, projectile_wait));
+            StartCoroutine(SetTrajectoryWave(num_projectiles, projectile_wait, speed));
             yield return new WaitForSecondsRealtime(wave_wait);
         }
     }
 
+    public void ShootSetTrajectoryWaves(int num_projectiles, float projectile_wait, int num_waves, float wave_wait, float speed)
+    {
+        StartCoroutine(SetTrajectoryWaves(num_projectiles, projectile_wait, num_waves, wave_wait, speed));
+    }
+
     // Spawns a single homing projectile that moves towards the player until they deflect it / collide with the player
-    private void HomingShot() {
-        _plastic.Spawn(transform.position, transform.position, transform, 5, true);
+    public void HomingShot(float speed) {
+        _plastic.Spawn(transform.position, transform.position, transform, 5, true, 0, false, speed);
     }
 
     // Spawns multiple homing projectiles depending on the parameters passed
-    private IEnumerator HomingShots(int num_shots, float shot_wait) {
-        animator.SetTrigger("bossTossTrigger");
+    public IEnumerator HomingShots(int num_shots, float shot_wait, float speed) {
+        //animator.SetTrigger("bossTossTrigger");
 
         for (int i = 0; i < num_shots; i++) {
-            HomingShot();
+            HomingShot(speed);
             yield return new WaitForSecondsRealtime(shot_wait);
         }
     }
 
+
+
+    //THE FOLLOWING TWO FUNCTIONS ARE FOR TESTING PURPOSES
+    
+    public async Task HomingShots2(int num_shots, float shot_wait, float speed) {
+        animator.SetBool("specialDone", false);
+        var tasks = new Task[num_shots];
+        for (int i = 0; i < num_shots; i++) {
+            HomingShot(speed);
+            await Task.Delay((int)shot_wait);
+        }
+        animator.SetBool("specialDone", true);
+    }
+    
+    public void ShootHomingShots(int num_shots, float shot_wait, float speed)
+    {
+        StartCoroutine(HomingShots(num_shots, shot_wait, speed));
+    }
+
+    
+
+    private void SlowHomingShot()
+    {
+        _plastic.Spawn(transform.position, transform.position, transform, 5, false, 0, true, 0.001f); ;
+    }
+
+    // Spawns multiple homing projectiles depending on the parameters passed
+    public IEnumerator SlowHomingShots(int num_shots, float shot_wait)
+    {
+        //animator.SetTrigger("bossTossTrigger");
+
+        for (int i = 0; i < num_shots; i++)
+        {
+            SlowHomingShot();
+            yield return new WaitForSecondsRealtime(shot_wait);
+        }
+    }
+
+    public void ShootSlowHomingShots(int num_shots, float shot_wait)
+    {
+        StartCoroutine(SlowHomingShots(num_shots, shot_wait));
+    }
+
     // Spawns a single lane shot which covers a certain vertical lane of the screen
-    private void LaneShot(float y_offset) {
-        animator.SetTrigger("bossTossTrigger");
+    private void LaneShot(float y_offset, float speed) {
+        //animator.SetTrigger("bossTossTrigger");
 
         // Spawn position of the trajectory shot
         Vector3 spawn_position = transform.position + new Vector3(0, y_offset, 0);
 
-        _lanePlastic.Spawn(spawn_position, spawn_position + new Vector3(-1, 0, 0), transform, 3, false, 0, true, 0.015f);
+        _lanePlastic.Spawn(spawn_position, spawn_position + new Vector3(-1, 0, 0), transform, 3, false, 0, true, speed);
     }
 
     // Spawns multiple lane projectiles depending on the parameters passed
-    private IEnumerator LaneShots(int num_shots, float shot_wait) {
+    private IEnumerator LaneShots(int num_shots, float shot_wait, float speed, bool done) {
         for (int i = 0; i < num_shots; i++) {
-            LaneShot(GenerateLaneOffset());
+            LaneShot(GenerateLaneOffset(), speed);
             yield return new WaitForSecondsRealtime(shot_wait);
         }
+        
+    }
+
+    public async Task LaneShots2(int num_shots, float shot_wait, float speed, bool done)
+    {
+        var tasks = new Task[num_shots];
+        for (int i = 0; i < num_shots; i++)
+        {
+            LaneShot(GenerateLaneOffset(), speed);
+            await Task.Delay((int)shot_wait);
+        }
+
+    }
+
+    public void ShootLaneShots(int num_shots, float shot_wait, float speed, bool done)
+    {
+        StartCoroutine(LaneShots(num_shots, shot_wait, speed, done));
+
+  
+
     }
 
     // Generates a random y offset for the LaneShot to spawn the projectile at
@@ -300,5 +379,28 @@ public class BossController : MonoBehaviour
 
         else
             return -(float)_screenHeight / 2f;
+    }
+    private IEnumerator Suck(float wait, int waves = 5, int numProjectiles = 10)
+    {
+        //Trash projectiles will begin to spawn from the left side of the screen 
+        //The projectiles will funnel into the boss
+        suck = true;
+        int top = 6;
+        int space = (int)(top * 2 / numProjectiles);
+        Vector3 left = new Vector3(-10, 0, 0);
+        for (int j = 0; j < waves; j++)
+        {
+            for (int i = 0; i < numProjectiles + 2; i++)
+            {
+                _plastic.Spawn(left + new Vector3(0, top - space * i, 0), PlasticBoss.position, transform, 4, true);
+            }
+            yield return new WaitForSeconds(wait);
+        }
+        suck = false;
+        //destroys the platforms and the spikes 
+    }
+    public void startSuck()
+    {
+        StartCoroutine(Suck(4f));
     }
 }

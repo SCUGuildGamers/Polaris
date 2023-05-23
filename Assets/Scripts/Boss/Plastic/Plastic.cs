@@ -54,7 +54,8 @@ public class Plastic : MonoBehaviour
             }
             else if (_movementMode == 4)
             {
-                ToTarget();
+                ToTarget();  // THESE MAYBE SHOULD TAKE AN INT TO SET THE SPEED OF THE PROJECTILE
+
             }
 
             else if (_movementMode == 5) {
@@ -72,11 +73,10 @@ public class Plastic : MonoBehaviour
 		}
     }
 
-    // Changes the target position to the source
-    public void ResetTarget()
+    public void ReflectDirection()
     {
         // Reverse the direction
-        _targetPosition = source.position;
+        _targetDirection = -_targetDirection;
 
         // Update state variables
         IsReflected = true;
@@ -180,15 +180,19 @@ public class Plastic : MonoBehaviour
     // Moves the projectile towards the target given by targetPosition
     private void ToTarget()
     {
-        transform.position = Vector3.MoveTowards(transform.position, _targetPosition, 0.003f);
+        if (transform.position == _targetPosition)
+        {
+            Destroy(gameObject);
+        }
+        transform.position = Vector3.MoveTowards(transform.position, _targetPosition, _speed);
     }
 
     // Follows player
     private void FollowPlayer() {
-        transform.position = Vector3.MoveTowards(transform.position, _playerTranform.position, 0.003f);
+        transform.position = Vector3.MoveTowards(transform.position, _playerTranform.position, _speed);
     }
 
-    private void SetSpeed(float speed) {
+    public void SetSpeed(float speed) {
         _speed = speed;
     }
 
@@ -196,13 +200,4 @@ public class Plastic : MonoBehaviour
         return IsCopy;
     }
 
-    private void OnTriggerEnter2D(Collider2D collider)
-    {
-        // Check for tilemap collisions
-        if (collider.name.Contains("errain") & IsCopy & _duration > 20)
-        {
-            Debug.Log("collided");
-            Destroy(gameObject);
-        }
-    }
 }
