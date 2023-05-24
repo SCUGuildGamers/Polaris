@@ -221,6 +221,7 @@ public class DialogueManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         InDialogue = false;
 
+        // 2 second cooldown for starting new dialogue
         yield return new WaitForSeconds(2f);
         CanStartDialogue = true;
 
