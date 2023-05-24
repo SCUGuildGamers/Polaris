@@ -24,6 +24,9 @@ public class DialogueManager : MonoBehaviour
     // Boolean to track wether or not player is making a choice or not
     private bool _choosing = false;
 
+    // Boolean to track if player is able to start dialogue with a NPC
+    public bool CanStartDialogue = true;
+
     // PlayerMovement field to control whether or not the player can move or not
     private PlayerMovement _playerMovement;
 
@@ -93,6 +96,7 @@ public class DialogueManager : MonoBehaviour
         if (!InDialogue)
         {
             InDialogue = true;
+            CanStartDialogue = false;
 
             // Make dialogue box visible
             _dialogueBoxManager.SetVisibility(true);
@@ -195,7 +199,8 @@ public class DialogueManager : MonoBehaviour
             if (_playerSwing != null)
                 _playerSwing.CanPlayerSwing = true;
 
-            StartCoroutine(DelayedInDialogueSet(false, 0.1f));
+            // Delay the ability to start dialogue again
+            StartCoroutine(DelayedInDialogueSet());
         }
 
         // Else, there is still dialogue left in the queue
@@ -210,11 +215,14 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    // Helper function which delays the set of the InDialogue boolean field to properly clear the textbox after the last dialogue line
-    private IEnumerator DelayedInDialogueSet(bool value, float time)
+    // Helper function which delays the set of the InDialogue boolean field to properly clear the textbox after the last dialogue line and prevent players from spamming 'Continue Dialogue'
+    private IEnumerator DelayedInDialogueSet()
     {
-        yield return new WaitForSeconds(time);
-        InDialogue = value;
+        yield return new WaitForSeconds(0.1f);
+        InDialogue = false;
+
+        yield return new WaitForSeconds(2f);
+        CanStartDialogue = true;
 
         // Performs the internal update delayed in case any dialogue needs to be played after
         _eventManager.InternalUpdate();
