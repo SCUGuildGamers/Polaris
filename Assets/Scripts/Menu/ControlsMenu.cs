@@ -12,4 +12,10 @@ public class ControlsMenu : MonoBehaviour
         controlMenuUI.SetActive(false);
         inGameMenuUI.SetActive(true);
     }
+
+    public void ShowMenu()
+    {
+        controlMenuUI.SetActive(true);
+        inGameMenuUI.SetActive(false);
+    }
 }
