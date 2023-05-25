@@ -70,4 +70,16 @@ public class GlideCharge : MonoBehaviour
     public void SetChargeCounter(int input) {
         chargeCounter = input;
     }
+
+    // Glide-restoring terrain
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        // If the player touches glide restoring terrain
+        if (col.gameObject.GetComponent<GlideRestoreTerrain>())
+        {
+            AddCharge();
+            AddCharge();
+        }
+
+    }
 }
