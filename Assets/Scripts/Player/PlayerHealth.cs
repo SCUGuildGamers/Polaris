@@ -46,7 +46,8 @@ public class PlayerHealth : MonoBehaviour
     }
 
     // Handles logic for the changing of sprite during i-frame
-    private void IFrameSpriteToggle() {
+    private void IFrameSpriteToggle() 
+    {
         // Toggle the sprite if counter at the value
         if (_iframeCounter == _iframeToggle)
         {
@@ -132,7 +133,8 @@ public class PlayerHealth : MonoBehaviour
          }
     }
 
-    private IEnumerator iFrameHandler() {
+    private IEnumerator iFrameHandler() 
+    {
         // Set the player's i-frame state to true
         _isIframe = true;
 
@@ -184,36 +186,31 @@ public class PlayerHealth : MonoBehaviour
     }
 
     // Handles the heart visibility when the level starts
-    public void HeartStartHandler() {
-        Animator animator;
-
+    public void HeartStartHandler() 
+    {
         int current_health = playerData.player_health;
 
         // Set the visibility of hearts depending on how many lives they start with
-        if (current_health <= 2) {
-            animator = heart3.GetComponent<Animator>(); 
-
-            animator.ResetTrigger("NoHealth");
-            animator.SetTrigger("NoHealth");
+        if (current_health == 2)
+        {
+            heart3.SetActive(false);
         }
-            
-        if (current_health <= 1) {
-            animator = heart2.GetComponent<Animator>();
-
-            animator.ResetTrigger("NoHealth");
-            animator.SetTrigger("NoHealth");
+        else if (current_health == 1)
+        {
+            heart3.SetActive(false);
+            heart2.SetActive(false);
         }
-
-        if (current_health == 0) {
-            animator = heart1.GetComponent<Animator>();
-
-            animator.ResetTrigger("NoHealth");
-            animator.SetTrigger("NoHealth");
+        else if (current_health == 0)
+        {
+            heart3.SetActive(false);
+            heart2.SetActive(false);
+            heart1.SetActive(false);
         }
     }
 
     // Handles the heart animation logic when health is loss
-    private void HeartLossHandler(int current_health) {
+    private void HeartLossHandler(int current_health) 
+    {
         Animator animator;
 
         // Interact with the correct animator
