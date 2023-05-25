@@ -36,6 +36,7 @@ public class PreLevelController : MonoBehaviour
     private void InitializeScene() {
         // Update the title with the corresponding text
         string scene_name = SceneManager.GetActiveScene().name;
+        Debug.Log(scene_name);
         string level_name = titles_dict[scene_name];
         StartCoroutine(TypeSentence(level_name));
     }
