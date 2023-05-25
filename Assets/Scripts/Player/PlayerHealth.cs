@@ -91,17 +91,20 @@ public class PlayerHealth : MonoBehaviour
     // Check for collisions with projectile objects
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        // If not in i-frame
-        if (!_isIframe) {
-            // Check for plastic collisions
-            Plastic plastic = collider.gameObject.GetComponent<Plastic>();
-            if (plastic && plastic.getIsCopy() && !plastic.IsReflected)
-            {
+        // Check for collision with a non-reflected plastic
+        Plastic plastic = collider.gameObject.GetComponent<Plastic>();
+        if (plastic && plastic.getIsCopy() && !plastic.IsReflected)
+        {
+            // If in i-frame, then just destroy the plastic
+            if (_isIframe)
+                Destroy(collider.gameObject);
+
+            // If not in i-frame, then destroy the plastic and take damage
+            else {
                 Destroy(collider.gameObject);
                 ReduceHealth(1);
             }
-        }
-        
+        } 
     }
 
     // Check for level border collision

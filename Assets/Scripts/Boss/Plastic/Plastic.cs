@@ -16,8 +16,8 @@ public class Plastic : MonoBehaviour
     // Source of projectile spawning
     private Transform source;
 
-    // Determines how often a reflectable plastic spawns where the chance is 1/_pickupChance
-    private int _reflectableChance = 3;
+    // Determines how often a reflectable plastic spawns where the chance is 1/_reflectableChance
+    private int _reflectableChance = 4;
 
     private Vector3 _targetPosition;
     private Vector3 _spawnPosition;
