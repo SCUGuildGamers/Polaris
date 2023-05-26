@@ -51,9 +51,6 @@ public class TransitionSceneHandler : MonoBehaviour
         pollution_scenes = new List<string> { "ChasmLevel", "ChaoticFinal", "TheClimb"};
 
         StartCoroutine(RunTransition());
-
-        // Set random loading icon
-        SetRandomLoadingIcon(); 
     }
 
     // Handles the running of the transition scene
@@ -63,6 +60,9 @@ public class TransitionSceneHandler : MonoBehaviour
 
         // Wait until the quote is typed to proceed
         yield return new WaitUntil(() => _isTyped);
+
+        // Set and show the loading icon after the quote is typed
+        SetRandomLoadingIcon();
 
         // Pause for transition
         yield return new WaitForSeconds(transition_time);
@@ -101,6 +101,9 @@ public class TransitionSceneHandler : MonoBehaviour
 
     // Set a random loading icon
     private void SetRandomLoadingIcon() {
+        // Show the loading icon
+        loadingIcon.SetActive(true);
+
         // Get a random integer to decide the loading icon
         int random_int = Random.Range(1, icon_count+1);
 
