@@ -44,7 +44,7 @@ public class AudioManager : MonoBehaviour
     // Creates a temporary GameObject to play the Sound s; automatically destroyed after played
     private void CreateTempSound(Sound s) {
         // Instantiate an empty object
-        GameObject gameObject = new GameObject("SoundSource");
+        GameObject gameObject = new GameObject(s.name + "SoundSource");
 
         // Add audio source to the object
         AudioSource audioSource = gameObject.AddComponent<AudioSource>();
