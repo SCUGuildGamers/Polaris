@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
 	public static bool GameIsPaused = false;
-	public static bool CanPause = true;
+	public static bool CanPause = false;
 	public GameObject pauseMenuUI;
 	public GameObject optionsMenuUI;
 	public GameObject controlsMenuUI;
@@ -83,6 +83,10 @@ public class PauseMenu : MonoBehaviour
 		Resume();
 	}
 
+	public void SetCanPause(bool isActive)
+    {
+		CanPause = isActive;
+    }
 
 
 	// public void LoadOptions() must be implemented, same as MainMenu Options

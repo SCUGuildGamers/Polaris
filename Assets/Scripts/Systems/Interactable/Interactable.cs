@@ -36,7 +36,7 @@ public class Interactable : MonoBehaviour
     {
         if(IsInteractable()){
             _indicatorCopy.GetComponent<Renderer>().enabled = true;
-            if (Input.GetKeyUp(KeyCode.Space) && !_dialogueManager.InDialogue)
+            if (Input.GetKeyUp(KeyCode.Space) && _dialogueManager.CanStartDialogue)
             {
                 OnInteract();
             }

@@ -104,7 +104,8 @@ public class PlayerSwing : MonoBehaviour
                 _playerMovement.Flip();
             }
 
-            //minPlastic.ResetTarget(); look into later !!!!!!
+            // Reflect the plastic direction back to its source
+            minPlastic.ReflectToSource();
             reflected = true;
         }
 
