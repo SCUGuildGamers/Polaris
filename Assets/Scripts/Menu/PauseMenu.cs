@@ -14,6 +14,7 @@ public class PauseMenu : MonoBehaviour
 	// For reference
 	private SceneController sceneController;
 	private PlayerMovement playerMovement;
+	private ControlsMenu controlsMenu;
 
     private void Start()
     {
@@ -43,9 +44,10 @@ public class PauseMenu : MonoBehaviour
 		}
 		// If Controls Menu is open
 		else if (controlsMenuUI.activeSelf) {
-			if (Input.GetKeyDown(KeyCode.Escape)) {
-				controlsMenuUI.SetActive(false);
-				pauseMenuUI.SetActive(true);
+			if (Input.GetKeyDown(KeyCode.Escape)) 
+			{
+				controlsMenu = FindObjectOfType<ControlsMenu>();
+				controlsMenu.CloseMenu();
 			}
 		}
 		// If Pause Menu is open
