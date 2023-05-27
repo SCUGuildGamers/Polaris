@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
 	public static bool GameIsPaused = false;
-	public static bool CanPause = true;
+	public static bool CanPause = false;
 	public GameObject pauseMenuUI;
 	public GameObject optionsMenuUI;
 	public GameObject controlsMenuUI;
@@ -14,6 +14,7 @@ public class PauseMenu : MonoBehaviour
 	// For reference
 	private SceneController sceneController;
 	private PlayerMovement playerMovement;
+	private ControlsMenu controlsMenu;
 
     private void Start()
     {
@@ -43,9 +44,10 @@ public class PauseMenu : MonoBehaviour
 		}
 		// If Controls Menu is open
 		else if (controlsMenuUI.activeSelf) {
-			if (Input.GetKeyDown(KeyCode.Escape)) {
-				controlsMenuUI.SetActive(false);
-				pauseMenuUI.SetActive(true);
+			if (Input.GetKeyDown(KeyCode.Escape)) 
+			{
+				controlsMenu = FindObjectOfType<ControlsMenu>();
+				controlsMenu.CloseMenu();
 			}
 		}
 		// If Pause Menu is open
@@ -83,6 +85,10 @@ public class PauseMenu : MonoBehaviour
 		Resume();
 	}
 
+	public void SetCanPause(bool isActive)
+    {
+		CanPause = isActive;
+    }
 
 
 	// public void LoadOptions() must be implemented, same as MainMenu Options
