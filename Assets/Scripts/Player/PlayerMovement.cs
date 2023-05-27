@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
 	private TrajectoryLine trajectoryLine;
 
 	// Current forces
-	private static float currentPower = glidingPower;
+	private static float currentPower = glidingPower * 0.75f ;
 	private Vector2 currUpVelocity = new Vector3(0, currentPower);
 	private Vector2 currRightVelocity = new Vector3(currentPower, 0);
 	private Vector2 currDownVelocity = new Vector3(0, -currentPower);
