@@ -23,15 +23,6 @@ public class AudioManager : MonoBehaviour
 
         // Transferring of the audio manager to carry over music
         DontDestroyOnLoad(gameObject);
-
-        foreach (Sound s in sounds) {
-            s.source = gameObject.AddComponent<AudioSource>();
-            s.source.clip = s.clip;
-
-            s.source.volume = s.volume;
-            s.source.pitch = s.pitch;
-            s.source.loop = s.loop;
-        }
     }
 
     // Searches and plays the associated audio clip
@@ -46,9 +37,11 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
-        s.source.Play();
+        // Play the sound s
+        CreateTempSound(s);
     }
 
+    // Creates a temporary GameObject to play the Sound s; automatically destroyed after played
     private void CreateTempSound(Sound s) {
         // Instantiate an empty object
         GameObject gameObject = new GameObject("SoundSource");
@@ -56,10 +49,16 @@ public class AudioManager : MonoBehaviour
         // Add audio source to the object
         AudioSource audioSource = gameObject.AddComponent<AudioSource>();
 
-        // Destroy the object after its length is played; I NEED TO ADD THE CLIP DURATION
-        Destroy(gameObject, 0f);
+        // Set the audio source settings from the Sound object
+        audioSource.clip = s.clip;
+        audioSource.volume = s.volume;
+        audioSource.pitch = s.pitch;
+        audioSource.loop = s.loop;
 
-        // Play the sound; I NEED TO INSERT THE CLIP
-        audioSource.PlayOneShot();
+        // Destroy the object after the clip is played
+        Destroy(gameObject, s.clip.length);
+
+        // Play the sound
+        audioSource.PlayOneShot(audioSource.clip, audioSource.volume);
     }
 }
