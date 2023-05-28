@@ -143,6 +143,8 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
+        FindObjectOfType<AudioManager>().Play("player_dialogue");
+
         Pair<Pair<string [], Pair<string [], string []>>, Pair<string, string>> sentence = _sentences.Dequeue();
         StopAllCoroutines();
 

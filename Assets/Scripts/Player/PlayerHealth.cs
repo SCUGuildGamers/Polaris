@@ -231,6 +231,9 @@ public class PlayerHealth : MonoBehaviour
 
         // Activate trigger
         animator.SetTrigger("HealthLoss");
+
+        // Play heart loss sound 
+        FindObjectOfType<AudioManager>().Play("npc_player_heartloss");
     }
 }
 

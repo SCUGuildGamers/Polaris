@@ -33,6 +33,7 @@ public class CoinManager : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col) {
         if (col.gameObject.name.Contains("Coin")) {
+            FindObjectOfType<AudioManager>().Play("player_collecttrash");
             PickupCoin();
             Destroy(col.gameObject);
         }
