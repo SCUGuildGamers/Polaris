@@ -31,7 +31,8 @@ public class CoinManager : MonoBehaviour
         return _interalCounter;
     }
 
-    void OnCollisionEnter2D(Collision2D col) {
+    void OnTriggerEnter2D(Collider2D col)
+    {
         if (col.gameObject.name.Contains("Coin")) {
             PickupCoin();
             Destroy(col.gameObject);
