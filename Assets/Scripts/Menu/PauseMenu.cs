@@ -15,8 +15,6 @@ public class PauseMenu : MonoBehaviour
 	private SceneController sceneController;
 	private PlayerMovement playerMovement;
 	private ControlsMenu controlsMenu;
-	private ChoiceButtonManager[] choiceButtonManager;
-	private DialogueManager dialogueManager;
 
     private void Start()
     {
@@ -67,16 +65,12 @@ public class PauseMenu : MonoBehaviour
 		pauseMenuUI.SetActive(false);
 		Time.timeScale = 1f;
 		GameIsPaused = false;
-
-		ChoiceButtonCheck(!GameIsPaused);
 	}
 
 	void Pause (){
 		pauseMenuUI.SetActive(true);
 		Time.timeScale = 0f;
 		GameIsPaused = true;
-
-		ChoiceButtonCheck(!GameIsPaused);
 	}
 	
 	public void LoadMenu()
@@ -95,23 +89,6 @@ public class PauseMenu : MonoBehaviour
     {
 		CanPause = isActive;
     }
-
-	private void ChoiceButtonCheck(bool value)
-    {
-		if (dialogueManager = FindObjectOfType<DialogueManager>())
-		{
-			if (dialogueManager.GetChoosing())
-			{
-				//Hide clone choice buttons
-				choiceButtonManager = FindObjectsOfType<ChoiceButtonManager>();
-				for (int i = 0; i < choiceButtonManager.Length; i++)
-				{
-					if (choiceButtonManager[i].flag != "original")
-						choiceButtonManager[i].SetVisibility(value);
-				}
-			}
-		}
-	}
 
 
 	// public void LoadOptions() must be implemented, same as MainMenu Options
