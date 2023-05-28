@@ -328,4 +328,10 @@ public class PlayerMovement : MonoBehaviour
 			CanPlayerMove = true;
 		}
 	}
+
+    public void AllowPlayerMovement(bool value)
+    {
+		CanPlayerMove = value;
+		CanPlayerGlide = value;
+    }
 }
