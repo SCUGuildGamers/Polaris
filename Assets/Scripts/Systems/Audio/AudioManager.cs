@@ -6,6 +6,7 @@ using UnityEngine.Audio;
 public class AudioManager : MonoBehaviour
 {
     public Sound[] sounds;
+    public Sound[] musics;
 
     public static AudioManager instance;
 
@@ -60,5 +61,21 @@ public class AudioManager : MonoBehaviour
 
         // Play the sound
         audioSource.PlayOneShot(audioSource.clip, audioSource.volume);
+    }
+
+    // Searches, plays, and loops the associated music clip
+    public void PlayMusic(string name) {
+        // Search the sounds array for the sound
+        Sound s = System.Array.Find(musics, sound => sound.name == name);
+
+        // If not found, then return out
+        if (s == null)
+        {
+            Debug.Log("Music: " + name + " not found!");
+            return;
+        }
+
+        // Play the sound s
+        CreateTempSound(s);
     }
 }
