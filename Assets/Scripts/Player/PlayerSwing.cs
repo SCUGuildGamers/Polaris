@@ -58,7 +58,12 @@ public class PlayerSwing : MonoBehaviour
                 {
                     Debug.Log("on cooldown");
                 }
-
+                if (GetComponent<Rigidbody2D>().velocity != new Vector2(0,0))
+                {
+                    Debug.Log("movement");
+                    _swingRange = 5f;
+                }
+                else{ _swingRange = 2.5f; }
 
             }
         }
@@ -74,14 +79,21 @@ public class PlayerSwing : MonoBehaviour
         bool reflected = false;
         Plastic minPlastic = null;
         float minDistance = _swingRange;
-        
-        
+
+        Debug.Log(GetComponent<Rigidbody2D>().velocity.x);
         // Find the closest plastic in range
         foreach (Plastic plastic in plasticList)
         {
+            if ((GetComponent<Rigidbody2D>().velocity.x > 0 && plastic.GetComponent<Rigidbody2D>().velocity.x > 0) || (GetComponent<Rigidbody2D>().velocity.x < 0 && plastic.GetComponent<Rigidbody2D>().velocity.x < 0))
+            {
+                Debug.Log("other direction");
+                minDistance = 1f;
+            }
             if (Vector3.Distance(transform.position, plastic.transform.position) <= minDistance && plastic.CanReflect && plastic.getIsCopy())
             {
                 Debug.Log("in range");
+                Debug.Log(plastic.gameObject.name);
+                Debug.Log(plastic.GetComponent<Rigidbody2D>().velocity.x);
                 minPlastic = plastic;
                 minDistance = Vector3.Distance(transform.position, plastic.transform.position);
             }
