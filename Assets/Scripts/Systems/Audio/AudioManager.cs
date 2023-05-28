@@ -8,24 +8,6 @@ public class AudioManager : MonoBehaviour
     public Sound[] sounds;
     public Sound[] musics;
 
-    public static AudioManager instance;
-
-    private void Awake()
-    {
-        // Ensure a single instance of the audio manager
-        if (instance == null)
-            instance = this;
-
-        // If another instance exists, then delete the extra instance
-        else {
-            Destroy(gameObject);
-            return;
-        }
-
-        // Transferring of the audio manager to carry over music
-        DontDestroyOnLoad(gameObject);
-    }
-
     // Searches and plays the associated audio clip
     public void Play(string name)
     {
@@ -38,12 +20,22 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
+        // Pause duplicate sound names if they exist
+        AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
+        for(int i=0; i<audioSources.Length;i++) {
+            if (audioSources[i].gameObject.name.Contains(name)) {
+                // Pause the sound
+                audioSources[i].Pause();
+                break;
+            }
+        }
+
         // Play the sound s
-        CreateTempSound(s);
+        GameObject soundPlayer = CreateTempSound(s);
     }
 
     // Creates a temporary GameObject to play the Sound s; automatically destroyed after played
-    private void CreateTempSound(Sound s) {
+    private GameObject CreateTempSound(Sound s) {
         // Instantiate an empty object
         GameObject gameObject = new GameObject(s.name + "SoundSource");
 
@@ -56,11 +48,14 @@ public class AudioManager : MonoBehaviour
         audioSource.pitch = s.pitch;
         audioSource.loop = s.loop;
 
-        // Destroy the object after the clip is played
-        Destroy(gameObject, s.clip.length);
+        // Destroy the object after the clip is played if not looping
+        if(!audioSource.loop)
+            Destroy(gameObject, s.clip.length);
 
         // Play the sound
-        audioSource.PlayOneShot(audioSource.clip, audioSource.volume);
+        audioSource.Play();
+
+        return gameObject;
     }
 
     // Searches, plays, and loops the associated music clip
