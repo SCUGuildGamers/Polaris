@@ -29,6 +29,9 @@ public class SceneController : MonoBehaviour
         // Restore player health
         playerData.player_health = playerData.max_player_health;
 
+        // Reset player glides
+        FindObjectOfType<GlideCharge>().ResetCharges();
+
         // Reload the current scene
         SceneManager.LoadScene(playerData.checkpoint_string);
     }

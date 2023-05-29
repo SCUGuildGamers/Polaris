@@ -5,81 +5,74 @@ using UnityEngine.UI;
 
 public class GlideCharge : MonoBehaviour
 {
-    // Integer counter to keep track of the number of charges that the player has
-    private int chargeCounter;
+    // Integer to keep track of how many charges the player gains at the beginning of each level
+    public int chargeGain;
 
-    // Integer to keep track of how charges the player starts with in a level
-    public int startingCharge;
+    // Integer to keep track of how many charges the player started with
+    private int startingCharges;
 
     // UI text for # of charges
     public Text text;
 
-    // Sets the startingCharge 
-    public void SetStarting()
-    {
-        chargeCounter = startingCharge;
+    // Reference for tracking glide charges across levels
+    public PlayerData playerData;
+
+    private void Start() {
+        // Keep track of how many charges the player started with
+        startingCharges = playerData.glide_counter;
+
+        // Increase their glides per level
+        playerData.glide_counter += chargeGain;
 
         // Update text
-        text.text = chargeCounter.ToString();
+        text.text = playerData.glide_counter.ToString();
     }
 
     // Resets the charge counter to its default level start value
     public void ResetCharges() {
-        chargeCounter = startingCharge;
-
-        // Update text
-        text.text = chargeCounter.ToString();
+        playerData.glide_counter = startingCharges;
     }
 
     // Increment charge counter
     public void AddCharge()
     {
-        chargeCounter++;
+        // Update counter
+        playerData.glide_counter++;
 
         // Update text
-        text.text = chargeCounter.ToString();
+        text.text = playerData.glide_counter.ToString();
 
         // Debug statement
-        Debug.Log("The player's glide counter is " + chargeCounter);
+        Debug.Log("The player's glide counter is " + playerData.glide_counter);
     }
 
     // Check the player can glide and decrement charge counter if so
     public bool DecreaseCharge() 
     {
-        chargeCounter--;
+        // Update counter
+        playerData.glide_counter--;
 
         // Update text
-        text.text = chargeCounter.ToString();
+        text.text = playerData.glide_counter.ToString();
 
         // Debug statement
-        Debug.Log("The player's glide counter is " + chargeCounter);
+        Debug.Log("The player's glide counter is " + playerData.glide_counter);
 
         // If the player has no charges, then cancel the glide
-        if (chargeCounter == 0) {
+        if (playerData.glide_counter == 0) {
             return false;
         }
 
         return true;
     }
 
-    // Returns the chargeCounter
+    // Set the glide charge counter
+    public void SetChargeCounter(int value) {
+        playerData.glide_counter = value;
+    }
+
+    // Returns the glide charge counter
     public int GetChargeCounter() {
-        return chargeCounter;
-    }
-
-    public void SetChargeCounter(int input) {
-        chargeCounter = input;
-    }
-
-    // Glide-restoring terrain
-    void OnCollisionEnter2D(Collision2D col)
-    {
-        // If the player touches glide restoring terrain
-        if (col.gameObject.GetComponent<GlideRestoreTerrain>())
-        {
-            AddCharge();
-            AddCharge();
-        }
-
+        return playerData.glide_counter;
     }
 }
