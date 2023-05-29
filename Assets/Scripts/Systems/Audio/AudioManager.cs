@@ -48,8 +48,22 @@ public class AudioManager : MonoBehaviour
         audioSource.pitch = s.pitch;
         audioSource.loop = s.loop;
 
+        // Add low pass filter if declared
+        if (s.low_pass_cutoff > 0) {
+            AudioLowPassFilter lowPassFilter = gameObject.AddComponent<AudioLowPassFilter>();
+            lowPassFilter.cutoffFrequency = s.low_pass_cutoff;
+        }
+
+
+        // Add high pass filter if declared
+        if (s.high_pass_cutoff > 0) {
+            AudioHighPassFilter highPassFilter = gameObject.AddComponent<AudioHighPassFilter>();
+            highPassFilter.cutoffFrequency = s.high_pass_cutoff;
+        }
+        
+
         // Destroy the object after the clip is played if not looping
-        if(!audioSource.loop)
+        if (!audioSource.loop)
             Destroy(gameObject, s.clip.length);
 
         // Play the sound

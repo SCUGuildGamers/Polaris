@@ -19,4 +19,8 @@ public class Sound
 
     [HideInInspector]
     public AudioSource source;
+
+    public int low_pass_cutoff;
+
+    public int high_pass_cutoff;
 }
