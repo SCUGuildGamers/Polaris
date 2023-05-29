@@ -84,16 +84,21 @@ public class PlayerSwing : MonoBehaviour
         // Find the closest plastic in range
         foreach (Plastic plastic in plasticList)
         {
-            if ((GetComponent<Rigidbody2D>().velocity.x > 0 && plastic.GetComponent<Rigidbody2D>().velocity.x > 0) || (GetComponent<Rigidbody2D>().velocity.x < 0 && plastic.GetComponent<Rigidbody2D>().velocity.x < 0))
+            // Change the player direction if necessary
+            Vector3 projectile_direction = plastic.transform.position - transform.position;
+            if ((projectile_direction.normalized.x > 0 && !_playerMovement._facingRight) || (projectile_direction.normalized.x < 0 && _playerMovement._facingRight))
             {
                 Debug.Log("other direction");
-                minDistance = 1f;
+                Debug.Log(projectile_direction.normalized.x);
+                minDistance = .5f;
+            }
+            else{
+                minDistance = _swingRange;
             }
             if (Vector3.Distance(transform.position, plastic.transform.position) <= minDistance && plastic.CanReflect && plastic.getIsCopy())
             {
                 Debug.Log("in range");
-                Debug.Log(plastic.gameObject.name);
-                Debug.Log(plastic.GetComponent<Rigidbody2D>().velocity.x);
+                Debug.Log(minDistance);
                 minPlastic = plastic;
                 minDistance = Vector3.Distance(transform.position, plastic.transform.position);
             }
