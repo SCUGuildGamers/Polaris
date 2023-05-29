@@ -70,6 +70,16 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
+        // Pause duplicate sound names if they exist
+        AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
+        for (int i = 0; i < audioSources.Length; i++)
+        {
+            if (audioSources[i].gameObject.name.Contains(name))
+            {
+                return;
+            }
+        }
+
         // Play the sound s
         CreateTempSound(s);
     }
