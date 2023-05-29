@@ -206,6 +206,355 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &443317489
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 443317491}
+  - component: {fileID: 443317490}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &443317490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 443317489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 743186e7dd7acb545bc69109723a3811, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: menu_confirm_01
+    clip: {fileID: 8300000, guid: c48e24a143ee2dc4c84256ca68bae91b, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 8000
+  - name: menu_confirm_02
+    clip: {fileID: 8300000, guid: a7c9f68bfccfe824d94d3426ef78813c, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: menu_confirm_03
+    clip: {fileID: 8300000, guid: 928348401fb4a1942b7c247bc61d240a, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: menu_back
+    clip: {fileID: 8300000, guid: c65ff08e8c713c84fadcd1ebbe1ff3ff, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: menu_gamestart
+    clip: {fileID: 8300000, guid: 3fdc3b38ce1429c4eaa80bb94062c08a, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: cancelwarning
+    clip: {fileID: 8300000, guid: 4d439fd15d9d76d4592ec854482c920b, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: ambience_birdschirping
+    clip: {fileID: 8300000, guid: b0a3a1b562833414dba6d3e3da2787ae, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: ambience_bubbles
+    clip: {fileID: 8300000, guid: 2cb6706b19ec0f649a42c8906d0ec587, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: ambience_cicada
+    clip: {fileID: 8300000, guid: 30adfcb7f52a7934a96543d534d29db1, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: ambience_seagulls
+    clip: {fileID: 8300000, guid: 79fe657213883bb418757d3af2d6d15d, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: ambience_waves_crash
+    clip: {fileID: 8300000, guid: 7e725b64f4c307044916b278dd7f6b33, type: 3}
+    volume: 0.8
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: straw_glimmer
+    clip: {fileID: 8300000, guid: 807d27534be61a343aec12fbd3f39b43, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: npc_dolos_damagetaken
+    clip: {fileID: 8300000, guid: 52de97c9089541d44965e5a34f204b19, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: npc_dolos_text_long
+    clip: {fileID: 8300000, guid: 73c75487202a3c142b430c1a4d2e0e59, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: npc_dolos_text_short
+    clip: {fileID: 8300000, guid: 93f502bd18db0404b8d82ff26d8aeb6b, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: npc_dolos_text_short_2
+    clip: {fileID: 8300000, guid: 8fc52350c95bff94a9ffec6759d2efd9, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: npc_dolos_text_testphrase
+    clip: {fileID: 8300000, guid: 7c5479aae2f84124caf47df44d3a44f5, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: ambience_cave_ambience
+    clip: {fileID: 8300000, guid: 55df730de74dec8409915dd3ac858d70, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: npc_player_heartgain
+    clip: {fileID: 8300000, guid: adf7feadb58b71048aeb40ce3e6f60d7, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: npc_player_heartloss
+    clip: {fileID: 8300000, guid: f5ecaf1409c0d8042928240e7267926d, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: npc_player_waterglide_1
+    clip: {fileID: 8300000, guid: 618581350b12d344c88d40c03fef9f22, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: npc_player_waterglide_2
+    clip: {fileID: 8300000, guid: 4540805413557e942be5196dd6a3df63, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: object_pipe_bubbling_clean
+    clip: {fileID: 8300000, guid: 24e476b8c8c4e444e9e8d00182206818, type: 3}
+    volume: 0.1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: object_pipe_bubbling_dirty
+    clip: {fileID: 8300000, guid: df56583f5362ae04ea85fdaa6257fd54, type: 3}
+    volume: 0.1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: player_collecttrash
+    clip: {fileID: 8300000, guid: 07ae427ec62445a4e80266c9e89cbee1, type: 3}
+    volume: 0.4
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: player_dialogue
+    clip: {fileID: 8300000, guid: 2134674f111af0147a7ae22d91fa2e88, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: player_parry
+    clip: {fileID: 8300000, guid: 8c7c7e87268e03e48a1ea782b1d003c0, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  musics:
+  - name: mx_dolosfight
+    clip: {fileID: 8300000, guid: db9bd33b7f02d8e4eb10b18727ffa165, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: mx_mainttheme
+    clip: {fileID: 8300000, guid: 98aef58ca8c08fd499422ff277c193a4, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: mx_postboss
+    clip: {fileID: 8300000, guid: b0624f26b59fe7e4ba3fecc11356fee6, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: mx_underwaterlevel2
+    clip: {fileID: 8300000, guid: 46be0a995ec74d148bec7345ad102cf7, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: titlescreen
+    clip: {fileID: 8300000, guid: b188c543decee234b83d9a45fe2dcdd7, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: mx_loadingscreen_loop1
+    clip: {fileID: 8300000, guid: 5f957e6e84f2c92429edafe3498b5fff, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 2000
+  - name: mx_loadingscreen_loop2
+    clip: {fileID: 8300000, guid: 4e7a9477c2731ea4cb6d360865a2b200, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: mx_loadingscreen_loop3
+    clip: {fileID: 8300000, guid: 21fa66c1e52ec1648a610709c79f760c, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: mx_loadingscreen_loop4
+    clip: {fileID: 8300000, guid: f8d51919dc253e745b7feb68f7be1953, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: mx_loadingscreen_loop5
+    clip: {fileID: 8300000, guid: e8580087758926248aa871419f04e686, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: mx_loadingscreen_loop6
+    clip: {fileID: 8300000, guid: a33b54e71bbc6a64e87a5710f98d003b, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+--- !u!4 &443317491
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 443317489}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 10.24, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &740400931
 GameObject:
   m_ObjectHideFlags: 0
@@ -616,6 +965,121 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1835434659
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1835434663}
+  - component: {fileID: 1835434662}
+  - component: {fileID: 1835434661}
+  - component: {fileID: 1835434660}
+  m_Layer: 0
+  m_Name: Timeline
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1835434660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1835434659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c71c160ebe9146e4ebad342b8ffba917, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playDirector: {fileID: 1835434662}
+--- !u!114 &1835434661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1835434659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: 6f94e992502077b4680e7fc7d9c0e84f, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 443317490}
+          m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+          m_MethodName: PlayMusic
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: mx_loadingscreen_loop1
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!320 &1835434662
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1835434659}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 3fdde815386d02f49b6ae8c88aa13fd2, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 0
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: -6288561609857382578, guid: 2edc12ae0b4709e44aad544896830a92, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -3944159656248408359, guid: 2edc12ae0b4709e44aad544896830a92, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -4463041613803620383, guid: 2edc12ae0b4709e44aad544896830a92, type: 2}
+    value: {fileID: 1835434661}
+  - key: {fileID: -5644457219722031665, guid: ae6f06624f41abf4c843877850eaee48, type: 2}
+    value: {fileID: 1835434661}
+  - key: {fileID: 6927981873054770197, guid: ae6f06624f41abf4c843877850eaee48, type: 2}
+    value: {fileID: 1835434661}
+  - key: {fileID: -682226271774056459, guid: d7d26c0f29b266845947f3097f419332, type: 2}
+    value: {fileID: 1835434661}
+  - key: {fileID: -8198345905563082654, guid: f41ffe4f59e3fb6499783e040f3263b5, type: 2}
+    value: {fileID: 1835434661}
+  - key: {fileID: 6050318926081456413, guid: f41ffe4f59e3fb6499783e040f3263b5, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -5034998114723829413, guid: f41ffe4f59e3fb6499783e040f3263b5, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -802878543680406100, guid: 55231a00c8b28f34798fecf1621a6a17, type: 2}
+    value: {fileID: 1835434661}
+  - key: {fileID: 7763100310687949183, guid: 3fdde815386d02f49b6ae8c88aa13fd2, type: 2}
+    value: {fileID: 1835434661}
+  m_ExposedReferences:
+    m_References: []
+--- !u!4 &1835434663
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1835434659}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 320.99384, y: 240.56834, z: -756.8619}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1868561810
 GameObject:
   m_ObjectHideFlags: 0
