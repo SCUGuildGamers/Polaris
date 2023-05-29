@@ -271,4 +271,9 @@ public class DialogueManager : MonoBehaviour
         }
         _lineDone = true;
     }
+
+    public bool GetChoosing()
+    {
+        return _choosing;
+    }
 }
