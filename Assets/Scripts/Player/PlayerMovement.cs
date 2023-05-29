@@ -269,6 +269,9 @@ public class PlayerMovement : MonoBehaviour
 			// Start glide animation
 			_animator.SetBool("isSwimming", true);
 
+			// Play glide sound
+			FindObjectOfType<AudioManager>().Play("npc_player_waterglide_1");
+
 			// Decrement the charge counter
 			glideCharge.DecreaseCharge();
 

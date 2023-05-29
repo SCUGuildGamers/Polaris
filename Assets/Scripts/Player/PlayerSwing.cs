@@ -90,6 +90,9 @@ public class PlayerSwing : MonoBehaviour
         // Reflect the closest plastic if it exists
         if (minPlastic != null)
         {
+            // Play parry sound if connects
+            FindObjectOfType<AudioManager>().Play("player_parry");
+
             // Change the player direction if necessary
             Vector3 projectile_direction = minPlastic.transform.position - transform.position;
 
