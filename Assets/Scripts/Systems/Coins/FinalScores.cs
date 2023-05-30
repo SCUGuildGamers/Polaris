@@ -30,10 +30,4 @@ public class FinalScores : MonoBehaviour
 
 
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
