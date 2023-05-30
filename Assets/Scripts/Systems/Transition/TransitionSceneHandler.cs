@@ -63,7 +63,11 @@ public class TransitionSceneHandler : MonoBehaviour
     }
 
     // Returns a random quote depending on where the player is in the game
-    private string GetRandomQuote() {
+    private string GetRandomQuote() 
+    {
+        if (QuoteManager.IsEmpty())
+            QuoteManager.Reset();
+        
         if (IsPollutionQuote())
             return QuoteManager.pollution_queue.Dequeue();
         else 

@@ -42,4 +42,6 @@ public class RandomDequeuer<T>
         // Dequeue a random item
         return dequeueList.Dequeue();
     }
+
+    public bool IsEmpty() { return dequeueList.Count == 0; }
 }

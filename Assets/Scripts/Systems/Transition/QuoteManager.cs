@@ -22,4 +22,19 @@ public static class QuoteManager
     public static RandomDequeuer<string> ocean_queue = new RandomDequeuer<string>(ocean_list);
     public static RandomDequeuer<string> pollution_queue = new RandomDequeuer<string>(pollution_list);
 
+    // Methods
+    public static void Reset()
+    {
+        if (ocean_queue.IsEmpty())
+            ocean_queue = new RandomDequeuer<string>(ocean_list);
+
+        if (pollution_queue.IsEmpty())
+            pollution_queue = new RandomDequeuer<string>(pollution_list);
+ 
+    }
+
+    public static bool IsEmpty()
+    {
+        return ocean_queue.IsEmpty() || pollution_queue.IsEmpty();
+    }
 }
