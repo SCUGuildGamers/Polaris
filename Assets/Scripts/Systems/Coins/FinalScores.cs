@@ -12,16 +12,22 @@ public class FinalScores : MonoBehaviour
 
     public Text PipeValue;
 
+    public Text DeathValue;
+
+    public Text FinalValue;
+
     // Start is called before the first frame update
     void Start()
     {
-        CoinValue.text = "Trash Collected:" + playerData.coin_counter;
-        PipeValue.text = "Pipes Clogged:" + playerData.clogged_pipes_counter;
-    }
+        CoinValue.text = "Trash Collected: " + playerData.coin_counter;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        PipeValue.text = "Pipes Clogged: " + playerData.clogged_pipes_counter;
+
+        DeathValue.text = "Number of Deaths: " + playerData.death_counter;
+
+        FinalValue.text = "Ocean Satisfcation Score: " + .4 * (playerData.coin_counter/ 17) +
+            .4 * (playerData.clogged_pipes_counter / 6) + .2 * (1 / (1 + playerData.death_counter));
+
+
     }
 }

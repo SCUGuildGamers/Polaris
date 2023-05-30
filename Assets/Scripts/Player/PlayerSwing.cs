@@ -58,7 +58,12 @@ public class PlayerSwing : MonoBehaviour
                 {
                     Debug.Log("on cooldown");
                 }
-
+                if (GetComponent<Rigidbody2D>().velocity != new Vector2(0,0))
+                {
+                    Debug.Log("movement");
+                    _swingRange = 5f;
+                }
+                else{ _swingRange = 2.5f; }
 
             }
         }
@@ -74,14 +79,26 @@ public class PlayerSwing : MonoBehaviour
         bool reflected = false;
         Plastic minPlastic = null;
         float minDistance = _swingRange;
-        
-        
+
+        Debug.Log(GetComponent<Rigidbody2D>().velocity.x);
         // Find the closest plastic in range
         foreach (Plastic plastic in plasticList)
         {
+            // Change the player direction if necessary
+            Vector3 projectile_direction = plastic.transform.position - transform.position;
+            if ((projectile_direction.normalized.x > 0 && !_playerMovement._facingRight) || (projectile_direction.normalized.x < 0 && _playerMovement._facingRight))
+            {
+                Debug.Log("other direction");
+                Debug.Log(projectile_direction.normalized.x);
+                minDistance = .5f;
+            }
+            else{
+                minDistance = _swingRange;
+            }
             if (Vector3.Distance(transform.position, plastic.transform.position) <= minDistance && plastic.CanReflect && plastic.getIsCopy())
             {
                 Debug.Log("in range");
+                Debug.Log(minDistance);
                 minPlastic = plastic;
                 minDistance = Vector3.Distance(transform.position, plastic.transform.position);
             }
@@ -90,6 +107,9 @@ public class PlayerSwing : MonoBehaviour
         // Reflect the closest plastic if it exists
         if (minPlastic != null)
         {
+            // Play parry sound if connects
+            FindObjectOfType<AudioManager>().Play("player_parry");
+
             // Change the player direction if necessary
             Vector3 projectile_direction = minPlastic.transform.position - transform.position;
 

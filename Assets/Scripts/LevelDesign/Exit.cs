@@ -10,10 +10,15 @@ public class Exit : MonoBehaviour
     private CoinManager _coinManager;
     private PipeManager _pipeManager;
 
+    private Vector3 _startingPosition;
+
     private void Start()
     {
         _coinManager = FindObjectOfType<CoinManager>();
         _pipeManager = FindObjectOfType<PipeManager>();
+
+        // Set the starting position
+        _startingPosition = transform.position;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -33,5 +38,11 @@ public class Exit : MonoBehaviour
             FindObjectOfType<SceneController>().ChangeSceneTransition(next_scene_name);
         }
 
+    }
+
+    // Move the arrow left and right
+    void Update()
+    {
+        transform.position = _startingPosition + (Vector3.right * (Mathf.Cos(Time.time * 5f) * 0.1f));
     }
 }

@@ -62,11 +62,7 @@ public class PlayerMovement : MonoBehaviour
 		// Toggles gravity depending on if the player is in a level or not
 		if (InLevel) {
 			ToggleGravity(true);
-			playerHealth.HeartStartHandler();
-
-			// For debugging the glide charge system
-			if(glideCharge != null)
-				glideCharge.SetStarting();
+			playerHealth.HeartStartHandler();				
 		}
 			
 		else
@@ -268,6 +264,9 @@ public class PlayerMovement : MonoBehaviour
 		{
 			// Start glide animation
 			_animator.SetBool("isSwimming", true);
+
+			// Play glide sound
+			FindObjectOfType<AudioManager>().Play("npc_player_waterglide_1");
 
 			// Decrement the charge counter
 			glideCharge.DecreaseCharge();

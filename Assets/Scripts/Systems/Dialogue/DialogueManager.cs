@@ -143,6 +143,8 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
+        FindObjectOfType<AudioManager>().Play("player_dialogue");
+
         Pair<Pair<string [], Pair<string [], string []>>, Pair<string, string>> sentence = _sentences.Dequeue();
         StopAllCoroutines();
 
@@ -268,5 +270,10 @@ public class DialogueManager : MonoBehaviour
             } 
         }
         _lineDone = true;
+    }
+
+    public bool GetChoosing()
+    {
+        return _choosing;
     }
 }
