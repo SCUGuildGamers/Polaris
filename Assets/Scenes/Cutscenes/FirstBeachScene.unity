@@ -228,6 +228,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 7825c702410011e4197bbcfbd7b13439, type: 2}
     - {fileID: 11400000, guid: 3d922e2df3caf0d4296a800c803d81fb, type: 2}
     - {fileID: 11400000, guid: 4c51c75dd50557c43b47cb06a1d0de22, type: 2}
+    - {fileID: 11400000, guid: 6f94e992502077b4680e7fc7d9c0e84f, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
@@ -388,6 +389,20 @@ MonoBehaviour:
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 1
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1441417573}
+          m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+          m_MethodName: Play
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: ambience_waves_crash
+            m_BoolArgument: 0
           m_CallState: 2
 --- !u!114 &139393219
 MonoBehaviour:
@@ -1228,6 +1243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InDialogue: 0
+  CanStartDialogue: 1
   TypingDelay: 0.02
   NameText: {fileID: 720114496}
   DialogueText: {fileID: 694565490}
@@ -1245,6 +1261,307 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1441417572
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1441417574}
+  - component: {fileID: 1441417573}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1441417573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1441417572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 743186e7dd7acb545bc69109723a3811, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: menu_confirm_01
+    clip: {fileID: 8300000, guid: c48e24a143ee2dc4c84256ca68bae91b, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: menu_confirm_02
+    clip: {fileID: 8300000, guid: a7c9f68bfccfe824d94d3426ef78813c, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: menu_confirm_03
+    clip: {fileID: 8300000, guid: 928348401fb4a1942b7c247bc61d240a, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: menu_back
+    clip: {fileID: 8300000, guid: c65ff08e8c713c84fadcd1ebbe1ff3ff, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: menu_gamestart
+    clip: {fileID: 8300000, guid: 3fdc3b38ce1429c4eaa80bb94062c08a, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: cancelwarning
+    clip: {fileID: 8300000, guid: 4d439fd15d9d76d4592ec854482c920b, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: ambience_birdschirping
+    clip: {fileID: 8300000, guid: b0a3a1b562833414dba6d3e3da2787ae, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: ambience_bubbles
+    clip: {fileID: 8300000, guid: 2cb6706b19ec0f649a42c8906d0ec587, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: ambience_cicada
+    clip: {fileID: 8300000, guid: 30adfcb7f52a7934a96543d534d29db1, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: ambience_seagulls
+    clip: {fileID: 8300000, guid: 79fe657213883bb418757d3af2d6d15d, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: ambience_waves_crash
+    clip: {fileID: 8300000, guid: 7e725b64f4c307044916b278dd7f6b33, type: 3}
+    volume: 0.8
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: straw_glimmer
+    clip: {fileID: 8300000, guid: 807d27534be61a343aec12fbd3f39b43, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: npc_dolos_damagetaken
+    clip: {fileID: 8300000, guid: 52de97c9089541d44965e5a34f204b19, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: npc_dolos_text_long
+    clip: {fileID: 8300000, guid: 73c75487202a3c142b430c1a4d2e0e59, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: npc_dolos_text_short
+    clip: {fileID: 8300000, guid: 93f502bd18db0404b8d82ff26d8aeb6b, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: npc_dolos_text_short_2
+    clip: {fileID: 8300000, guid: 8fc52350c95bff94a9ffec6759d2efd9, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: npc_dolos_text_testphrase
+    clip: {fileID: 8300000, guid: 7c5479aae2f84124caf47df44d3a44f5, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: ambience_cave_ambience
+    clip: {fileID: 8300000, guid: 55df730de74dec8409915dd3ac858d70, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: npc_player_heartgain
+    clip: {fileID: 8300000, guid: adf7feadb58b71048aeb40ce3e6f60d7, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: npc_player_heartloss
+    clip: {fileID: 8300000, guid: f5ecaf1409c0d8042928240e7267926d, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: npc_player_waterglide_1
+    clip: {fileID: 8300000, guid: 618581350b12d344c88d40c03fef9f22, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: npc_player_waterglide_2
+    clip: {fileID: 8300000, guid: 4540805413557e942be5196dd6a3df63, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: object_pipe_bubbling_clean
+    clip: {fileID: 8300000, guid: 24e476b8c8c4e444e9e8d00182206818, type: 3}
+    volume: 0.1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: object_pipe_bubbling_dirty
+    clip: {fileID: 8300000, guid: df56583f5362ae04ea85fdaa6257fd54, type: 3}
+    volume: 0.1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: player_collecttrash
+    clip: {fileID: 8300000, guid: 07ae427ec62445a4e80266c9e89cbee1, type: 3}
+    volume: 0.4
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: player_dialogue
+    clip: {fileID: 8300000, guid: 2134674f111af0147a7ae22d91fa2e88, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: player_parry
+    clip: {fileID: 8300000, guid: 8c7c7e87268e03e48a1ea782b1d003c0, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  musics:
+  - name: mx_dolosfight
+    clip: {fileID: 8300000, guid: db9bd33b7f02d8e4eb10b18727ffa165, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: mx_mainttheme
+    clip: {fileID: 8300000, guid: 98aef58ca8c08fd499422ff277c193a4, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: mx_postboss
+    clip: {fileID: 8300000, guid: b0624f26b59fe7e4ba3fecc11356fee6, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: mx_underwaterlevel2
+    clip: {fileID: 8300000, guid: 46be0a995ec74d148bec7345ad102cf7, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+  - name: titlescreen
+    clip: {fileID: 8300000, guid: b188c543decee234b83d9a45fe2dcdd7, type: 3}
+    volume: 0.8
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+    low_pass_cutoff: 0
+    high_pass_cutoff: 0
+--- !u!4 &1441417574
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1441417572}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 10.24, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1504650384
 GameObject:
@@ -1963,6 +2280,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: OnButtonPressed()
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1441417573}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: sfx_dialogueselect
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2056338919

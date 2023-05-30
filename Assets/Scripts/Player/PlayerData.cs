@@ -7,6 +7,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlayerData", menuName = "PlayerData")]
 public class PlayerData : ScriptableObject
 {
+    public int glide_counter;
+    
     public int coin_counter;
 
     public float total_coins;

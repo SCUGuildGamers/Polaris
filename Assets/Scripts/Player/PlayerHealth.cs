@@ -181,6 +181,9 @@ public class PlayerHealth : MonoBehaviour
         // Restore player HP
         playerData.player_health = playerData.max_player_health;
 
+        // Resets the player's glide charges to its starting value
+        GetComponent<GlideCharge>().ResetCharges();
+
         // Return player to checkpoint after they die
         GetComponent<CheckpointManager>().ReturnToCheckpoint();
 
@@ -231,6 +234,9 @@ public class PlayerHealth : MonoBehaviour
 
         // Activate trigger
         animator.SetTrigger("HealthLoss");
+
+        // Play heart loss sound 
+        FindObjectOfType<AudioManager>().Play("npc_player_heartloss");
     }
 }
 
