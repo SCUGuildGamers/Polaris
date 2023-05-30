@@ -30,7 +30,7 @@ public class Playback : MonoBehaviour
     public void PauseTimeline()
     {
         Debug.Log("Pause Timeline signal recieved");
-        _playDirector.Pause();
+        _playDirector.playableGraph.GetRootPlayable(0).Pause();
     }
 
     public void setTrigger(bool value)
@@ -51,15 +51,15 @@ public class Playback : MonoBehaviour
     }
 
     // Resets the timeline
-    public void ResetTimeline()
+    public void ResetTimeline(float duration)
     {
         if (_eventManager != null && _eventManager.FlagValue("repeat"))
         {
             _eventManager.ResetChoice("repeat");
-            _playDirector.time = 0;
-            _playDirector.Stop();
+            _playDirector.time -= duration;
+            _playDirector.Pause();
             _playDirector.Evaluate();
-            _playDirector.Play();
+            _playDirector.Resume();
 
         }
     }
@@ -68,7 +68,7 @@ public class Playback : MonoBehaviour
     private void Update()
     {
         if (!_dialogueManager.InDialogue && _trigger)
-            _playDirector.Play();
+            _playDirector.playableGraph.GetRootPlayable(0).Play();
         if (!_movementAllowed)
         {
             if (_playerMovement != null)

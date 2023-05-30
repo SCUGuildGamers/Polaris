@@ -345,8 +345,13 @@ PlayableDirector:
     value: {fileID: 139393218}
   - key: {fileID: -682226271774056459, guid: d7d26c0f29b266845947f3097f419332, type: 2}
     value: {fileID: 139393218}
+  - key: {fileID: -3570994472697318583, guid: d7d26c0f29b266845947f3097f419332, type: 2}
+    value: {fileID: 2046528883}
+  - key: {fileID: 7770961192344884240, guid: d7d26c0f29b266845947f3097f419332, type: 2}
+    value: {fileID: 2046528883}
   m_ExposedReferences:
-    m_References: []
+    m_References:
+    - a8a68dec5eb1a954786b942278bbd69b: {fileID: 2046528880}
 --- !u!4 &139393216
 Transform:
   m_ObjectHideFlags: 0
@@ -438,12 +443,12 @@ MonoBehaviour:
         - m_Target: {fileID: 139393217}
           m_TargetAssemblyTypeName: Playback, Assembly-CSharp
           m_MethodName: ResetTimeline
-          m_Mode: 1
+          m_Mode: 4
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
-            m_FloatArgument: 0
+            m_FloatArgument: 3
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
@@ -1841,7 +1846,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2046528880}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: 0, z: 0}
+  m_LocalPosition: {x: -6, y: 0.5, z: 0}
   m_LocalScale: {x: 7, y: 7, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1857,7 +1862,7 @@ Animator:
   m_GameObject: {fileID: 2046528880}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 96dbbc178e74b4e4cad47f3c5d58551d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
