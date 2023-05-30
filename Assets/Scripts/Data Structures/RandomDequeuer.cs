@@ -4,7 +4,7 @@ using UnityEngine;
 
 using Random = System.Random; // distinguishes between System's and UnityEngine's Random class
 
-public class RandomDequeuer<T> : MonoBehaviour
+public class RandomDequeuer<T>
 {
     // Fields/Variables
     private Queue<T> dequeueList;
@@ -12,23 +12,18 @@ public class RandomDequeuer<T> : MonoBehaviour
     // Constructors
     public RandomDequeuer(List<T> items)
     {
+        //Shuffles list
         ShuffleList(ref items);
         
         // Create a queue from the shuffled list
         dequeueList = new Queue<T>(items);
     }
 
-    public RandomDequeuer(RandomDequeuerData<T> dequeuerData)
-    {
-        ShuffleList(ref dequeuerData.oceanQuoteList);
-        dequeueList = new Queue<T>(dequeuerData.oceanQuoteList);
-    }
-
     // Methods
     private void ShuffleList(ref List<T> items)
     {
+        // Fisher-Yates shuffle algorithm
         Random rnd = new Random();
-
         for (int i = items.Count - 1; i >= 0; i--)
         {
             int k = rnd.Next(i + 1);
