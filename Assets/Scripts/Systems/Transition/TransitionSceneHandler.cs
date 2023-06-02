@@ -41,7 +41,8 @@ public class TransitionSceneHandler : MonoBehaviour
             {"PipeParryIntro", "Dumping Grounds"},
             {"ChasmLevel", "Chasm"},
             {"ChaoticFinal", "Convergence"},
-            {"TheClimb", "Dead Zone"}
+            {"TheClimb", "Dead Zone"},
+            {"Conclusion", "Conclusion" }
         };
 
         StartCoroutine(RunTransition());
