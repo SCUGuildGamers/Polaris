@@ -35,7 +35,7 @@ public class TransitionSceneHandler : MonoBehaviour
 
         // Initializing the dictionary
         quotes_dict = new Dictionary<string, string>(){
-            {"GlideIntro", "Although the global conveyor belt isn't as fast as surface currents, it still transports vital nutrients all over the world! This system of deep ocean currents depends on differences in density, as warm surface waters move downward and push nutrient-rich arctic waters upwards. (1)"},
+            {"GlideIntro", "The global conveyor belt slowly but steadily transports vital nutrients all over the world! This system of deep ocean currents depends on differences in density, as warm surface waters move downward and push nutrient-rich arctic waters upwards. (1)"},
             {"BasicGliding", "Despite their large size, Manta Rays are surprisingly agile. They maneuver with ease through the ocean by utilizing a mix of both powered strokes and unpowered glides. (2)"},
             {"BasicGliding2", "The remote nature of ocean caves yields astonishing evolutionary traits. The olm is a cave salamander which evolved to lose its eyes, with a life span of more than 100 years and the ability to resist starvation for up to eight years. (3)"},
             {"PipeParryIntro", "90% of plastic items are only used once and thrown out, resulting in a prevalence of plastic waste. Research suggests that microplastics are even spread by mosquitoes, as they remain embedded across mosquito life stages in different habitats! (4)"},
