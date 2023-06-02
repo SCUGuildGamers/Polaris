@@ -32,6 +32,9 @@ public class SceneController : MonoBehaviour
         // Reset player glides
         FindObjectOfType<GlideCharge>().ResetCharges();
 
+        // Increase death counter
+        playerData.death_counter++;
+
         // Reload the current scene
         SceneManager.LoadScene(playerData.checkpoint_string);
     }

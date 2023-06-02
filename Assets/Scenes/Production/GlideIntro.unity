@@ -775,12 +775,12 @@ MonoBehaviour:
         - m_Target: {fileID: 359796590}
           m_TargetAssemblyTypeName: Playback, Assembly-CSharp
           m_MethodName: ResetTimeline
-          m_Mode: 1
+          m_Mode: 4
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
-            m_FloatArgument: 0
+            m_FloatArgument: 2
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
@@ -808,6 +808,18 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 2022376873}
+          m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+          m_MethodName: Play
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: straw_glimmer
             m_BoolArgument: 0
           m_CallState: 2
     - m_PersistentCalls:
@@ -4612,7 +4624,7 @@ Animator:
   m_GameObject: {fileID: 1410607178}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: beeb59500c263dd499fa7e1686dc4c8d, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -6665,7 +6677,7 @@ Tilemap:
       - {fileID: -6827269540057101335, guid: 1c374d6f4448e4896ab6a17e17fa1134, type: 3}
       - {fileID: 6107750298673263657, guid: 1c374d6f4448e4896ab6a17e17fa1134, type: 3}
       - {fileID: 7931986938287035675, guid: 1c374d6f4448e4896ab6a17e17fa1134, type: 3}
-      m_AnimationSpeed: 10.000001
+      m_AnimationSpeed: 10
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -7, y: -5, z: 0}
@@ -6917,7 +6929,7 @@ Tilemap:
       - {fileID: -6827269540057101335, guid: 1c374d6f4448e4896ab6a17e17fa1134, type: 3}
       - {fileID: 6107750298673263657, guid: 1c374d6f4448e4896ab6a17e17fa1134, type: 3}
       - {fileID: 7931986938287035675, guid: 1c374d6f4448e4896ab6a17e17fa1134, type: 3}
-      m_AnimationSpeed: 10
+      m_AnimationSpeed: 10.000001
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -11, y: -4, z: 0}
@@ -7029,7 +7041,7 @@ Tilemap:
       - {fileID: -6827269540057101335, guid: 1c374d6f4448e4896ab6a17e17fa1134, type: 3}
       - {fileID: 6107750298673263657, guid: 1c374d6f4448e4896ab6a17e17fa1134, type: 3}
       - {fileID: 7931986938287035675, guid: 1c374d6f4448e4896ab6a17e17fa1134, type: 3}
-      m_AnimationSpeed: 10
+      m_AnimationSpeed: 10.000001
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -3, y: -4, z: 0}

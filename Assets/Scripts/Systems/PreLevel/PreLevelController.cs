@@ -20,13 +20,13 @@ public class PreLevelController : MonoBehaviour
     private void Start() {
         // Initializing the dictionary
         titles_dict = new Dictionary<string, string>(){
-            {"GlideIntro", "GlideIntro"},
-            {"BasicGliding", "BasicGliding"},
-            {"BasicGliding2", "BasicGliding2"},
-            {"PipeParryIntro", "PipeParryIntro"},
-            {"ChasmLevel", "ChasmLevel"},
-            {"ChaoticFinal", "ChaoticFinal"},
-            {"TheClimb", "TheClimb"}
+            {"GlideIntro", "The Bridge"},
+            {"BasicGliding", "Shallows"},
+            {"BasicGliding2", "Grotto"},
+            {"PipeParryIntro", "Dumping Grounds"},
+            {"ChasmLevel", "Chasm"},
+            {"ChaoticFinal", "Convergence"},
+            {"TheClimb", "Dead Zone"}
         };
 
         InitializeScene();
