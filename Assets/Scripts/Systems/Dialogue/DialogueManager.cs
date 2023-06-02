@@ -143,10 +143,14 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        FindObjectOfType<AudioManager>().Play("player_dialogue");
 
         Pair<Pair<string [], Pair<string [], string []>>, Pair<string, string>> sentence = _sentences.Dequeue();
         StopAllCoroutines();
+
+        if (sentence.Second.First == "Dolos")
+            FindObjectOfType<AudioManager>().Play("npc_dolos_text_long");
+        else
+            FindObjectOfType<AudioManager>().Play("player_dialogue");
 
         // while (sentence.First.Second.Second.Length > 0){
             for (int i = 0; i < sentence.First.Second.Second.Length; i++){
