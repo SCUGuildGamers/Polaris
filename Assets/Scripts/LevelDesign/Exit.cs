@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class Exit : MonoBehaviour
 {
     public string next_scene_name;
+    public bool useTransition = true;
 
     private CoinManager _coinManager;
     private PipeManager _pipeManager;
@@ -35,7 +36,10 @@ public class Exit : MonoBehaviour
                 _pipeManager.UpdateCloggedPipes();
 
             // Load next level
-            FindObjectOfType<SceneController>().ChangeSceneTransition(next_scene_name);
+            if(useTransition)
+                FindObjectOfType<SceneController>().ChangeSceneTransition(next_scene_name);
+            else
+                FindObjectOfType<SceneController>().ChangeScene(next_scene_name);
         }
 
     }

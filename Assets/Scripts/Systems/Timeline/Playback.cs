@@ -13,6 +13,7 @@ public class Playback : MonoBehaviour
     private PlayerSwing _playerSwing;
     private bool _trigger;
     private bool _movementAllowed;
+    private bool _requestedClick;
 
     // Start is called before the first frame update
     private void Start()
@@ -24,6 +25,7 @@ public class Playback : MonoBehaviour
         _playerSwing = FindObjectOfType<PlayerSwing>();
         _trigger = true;
         _movementAllowed = false;
+        _requestedClick = false;
     }
 
     // Pauses the timeline
@@ -64,11 +66,22 @@ public class Playback : MonoBehaviour
         }
     }
 
+    public void RequestClick()
+    {
+        _trigger = false;
+        _requestedClick = true;
+    }
+
     // Resumes the timeline once dialogue is over
     private void Update()
     {
         if (!_dialogueManager.InDialogue && _trigger)
             _playDirector.playableGraph.GetRootPlayable(0).Play();
+        if (Input.GetMouseButtonDown(0) && _requestedClick)
+        {
+            _requestedClick = false;
+            _trigger = true;
+        }
         if (!_movementAllowed)
         {
             if (_playerMovement != null)
