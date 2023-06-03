@@ -10,6 +10,7 @@ public class Exit : MonoBehaviour
 
     private CoinManager _coinManager;
     private PipeManager _pipeManager;
+    private SceneFader _sceneFader;
 
     private Vector3 _startingPosition;
 
@@ -17,6 +18,7 @@ public class Exit : MonoBehaviour
     {
         _coinManager = FindObjectOfType<CoinManager>();
         _pipeManager = FindObjectOfType<PipeManager>();
+        _sceneFader = FindObjectOfType<SceneFader>();
 
         // Set the starting position
         _startingPosition = transform.position;
@@ -35,11 +37,8 @@ public class Exit : MonoBehaviour
             if(_pipeManager)
                 _pipeManager.UpdateCloggedPipes();
 
-            // Load next level
-            if(useTransition)
-                FindObjectOfType<SceneController>().ChangeSceneTransition(next_scene_name);
-            else
-                FindObjectOfType<SceneController>().ChangeScene(next_scene_name);
+            // Fade out and load next level
+            StartCoroutine(_sceneFader.FadeToBlack(next_scene_name, useTransition));
         }
 
     }

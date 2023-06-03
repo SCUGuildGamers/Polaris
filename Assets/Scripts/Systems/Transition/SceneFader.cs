@@ -14,7 +14,7 @@ public class SceneFader : MonoBehaviour
 
     public Animator animator;
 
-    public System.Collections.IEnumerator FadeToBlack(string next_scene_name)
+    public System.Collections.IEnumerator FadeToBlack(string next_scene_name, bool useTransition)
     {
         isFading = true;
         animator.SetTrigger("FadeOut");
@@ -22,7 +22,10 @@ public class SceneFader : MonoBehaviour
         yield return new WaitForSeconds(1.2f);
 
         // Load next level
-        FindObjectOfType<SceneController>().ChangeSceneTransition(next_scene_name);
+        if (useTransition)
+            FindObjectOfType<SceneController>().ChangeSceneTransition(next_scene_name);
+        else
+            FindObjectOfType<SceneController>().ChangeScene(next_scene_name);
     }
 
     public void OnFadeCompleted()
