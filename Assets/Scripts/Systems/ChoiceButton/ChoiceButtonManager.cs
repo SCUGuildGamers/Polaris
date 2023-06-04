@@ -36,5 +36,6 @@ public class ChoiceButtonManager : MonoBehaviour
     public void OnButtonPress(){
         _eventManager.ProcessChoice(flag);
         _dialogueManager.KillClones();
+        _dialogueManager.SayDialogue();
     }
 }
