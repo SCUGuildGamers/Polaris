@@ -19,7 +19,7 @@ public class SceneFader : MonoBehaviour
         isFading = true;
         animator.SetTrigger("FadeOut");
 
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(1.75f);
 
         // Load next level
         if (useTransition)
