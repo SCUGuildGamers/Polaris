@@ -188,7 +188,7 @@ public class DialogueManager : MonoBehaviour
     }
 
     // Public function to be universally called by other functions when a button is pressed to simulate the textbox logic
-    private void SayDialogue()
+    public void SayDialogue()
     {
         // Allows that player to press the dialogue button again to clear the textbox
         if (_isStall)
@@ -208,7 +208,6 @@ public class DialogueManager : MonoBehaviour
             // Delay the ability to start dialogue again
             StartCoroutine(DelayedInDialogueSet());
         }
-
         // Else, there is still dialogue left in the queue
         else
         {
