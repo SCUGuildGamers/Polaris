@@ -84,7 +84,7 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
-        // Pause duplicate sound names if they exist
+        // return if duplicate sound names exist
         AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
         for (int i = 0; i < audioSources.Length; i++)
         {
@@ -96,5 +96,28 @@ public class AudioManager : MonoBehaviour
 
         // Play the sound s
         CreateTempSound(s);
+    }
+
+    public void CutMusic(string name){
+        // Search the sounds array for the sound
+        Sound s = System.Array.Find(musics, sound => sound.name == name);
+
+        // If not found, then return out
+        if (s == null)
+        {
+            Debug.Log("Music: " + name + " not found!");
+            return;
+        }
+
+        // Pause duplicate sound names if they exist
+        AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
+        for (int i = 0; i < audioSources.Length; i++)
+        {
+            if (audioSources[i].gameObject.name.Contains(name))
+            {
+                audioSources[i].Stop();
+                return;
+            }
+        }
     }
 }
