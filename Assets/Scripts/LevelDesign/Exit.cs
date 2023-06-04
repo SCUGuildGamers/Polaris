@@ -46,6 +46,9 @@ public class Exit : MonoBehaviour
     // Move the arrow left and right
     void Update()
     {
-        transform.position = _startingPosition + (Vector3.right * (Mathf.Cos(Time.time * 5f) * 0.1f));
+        if (transform.rotation.z == 0 || transform.rotation.z == 180)
+            transform.position = _startingPosition + (Vector3.right * (Mathf.Cos(Time.time * 5f) * 0.1f));
+        else
+            transform.position = _startingPosition + (Vector3.up * (Mathf.Cos(Time.time * 5f) * 0.1f));
     }
 }
