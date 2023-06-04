@@ -20,7 +20,7 @@ public class SceneController : MonoBehaviour
 
     // Changes scene directly with no transition
     public void ChangeScene(string next_scene_string) {
-        SceneManager.LoadScene(transition_scene_string);
+        SceneManager.LoadScene(next_scene_string);
     }
 
     // Reload current level and restore player health

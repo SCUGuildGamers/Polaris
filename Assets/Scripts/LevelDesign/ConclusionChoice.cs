@@ -7,10 +7,10 @@ public class ConclusionChoice : MonoBehaviour
     public Exit exit;
     public PlayerData playerData;
 
-    void Start()
+    void Update()
     {
         float trashCollection = playerData.coin_counter / playerData.total_coins;
-        if (trashCollection < 0.5)
+        if (trashCollection < 0.5f)
         {
             exit.next_scene_name = "BadEnd";
         }
