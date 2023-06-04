@@ -98,7 +98,7 @@ public class AudioManager : MonoBehaviour
         CreateTempSound(s);
     }
 
-    public void FadeMusic(string name){
+    public void CutMusic(string name){
         // Search the sounds array for the sound
         Sound s = System.Array.Find(musics, sound => sound.name == name);
 
