@@ -120,4 +120,38 @@ public class AudioManager : MonoBehaviour
             }
         }
     }
+
+    //find all audio sources playing and put them in a list
+    public List<AudioSource> FindAudioPlaying(){
+        AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
+        List<AudioSource> foundAudio = new List<AudioSource>();
+        Debug.Log("finding audio");
+        for (int i = 0; i < audioSources.Length; i++)
+        {
+            if (audioSources[i].isPlaying)
+            {
+                foundAudio.Add(audioSources[i]);
+            }
+        }
+        return foundAudio;
+    }
+
+    //Fade given audio source to 0 and then stop playing
+    public IEnumerator FadeAudio(AudioSource audioSource, float duration){
+        float currentTime = 0;
+        float start = audioSource.volume;
+        Debug.Log(audioSource.gameObject.name);
+        //fade
+        while (currentTime < duration)
+        {
+            currentTime += Time.deltaTime;
+            audioSource.volume = Mathf.Lerp(start, 0, currentTime / duration);
+            yield return null;
+        }
+        //stop audio source
+        audioSource.Stop ();
+        audioSource.volume = start;
+        yield break;
+    }
+    
 }
