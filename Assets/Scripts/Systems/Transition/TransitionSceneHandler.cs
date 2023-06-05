@@ -28,6 +28,8 @@ public class TransitionSceneHandler : MonoBehaviour
     // Boolean value to keep track of when the typing is complete
     private bool _isTyped;
 
+    private AudioManager _audioManager;
+
     private void Start()
     {
         // Set the typing boolean
@@ -43,7 +45,7 @@ public class TransitionSceneHandler : MonoBehaviour
             {"ChaoticFinal", "Global warming is changing how currents function. Increasingly warmer and faster surface waters are less willing to mix with deep ocean waters, negatively impacting the ocean’s ability to absorb heat and the temperature of marine ecosystems. (6)"},
             {"TheClimb", "Almost 37% of the world population lives in coastal areas. As coastal regions increasingly urbanize, poorly managed urban stormwater runoff endangers underwater ecosystems through chemical and nutrient pollution. (7)"}
         };
-
+        _audioManager = FindObjectOfType<AudioManager>();
         StartCoroutine(RunTransition());
     }
 
@@ -58,8 +60,12 @@ public class TransitionSceneHandler : MonoBehaviour
         // Set and show the loading icon after the quote is typed
         SetRandomLoadingIcon();
 
+        foreach (AudioSource a in _audioManager.FindAudioPlaying()){
+            StartCoroutine(_audioManager.FadeAudio(a, transition_time));
+        }
         // Pause for transition
         yield return new WaitForSeconds(transition_time);
+        
 
         // Load the next scene
         LoadNext();

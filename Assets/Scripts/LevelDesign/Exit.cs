@@ -11,6 +11,7 @@ public class Exit : MonoBehaviour
     private CoinManager _coinManager;
     private PipeManager _pipeManager;
     private SceneFader _sceneFader;
+    private AudioManager _audioManager;
 
     private Vector3 _startingPosition;
 
@@ -19,6 +20,7 @@ public class Exit : MonoBehaviour
         _coinManager = FindObjectOfType<CoinManager>();
         _pipeManager = FindObjectOfType<PipeManager>();
         _sceneFader = FindObjectOfType<SceneFader>();
+        _audioManager = FindObjectOfType<AudioManager>();
 
         // Set the starting position
         _startingPosition = transform.position;
@@ -38,6 +40,10 @@ public class Exit : MonoBehaviour
                 _pipeManager.UpdateCloggedPipes();
 
             // Fade out and load next level
+            List<AudioSource> _audio = _audioManager.FindAudioPlaying();
+            foreach (AudioSource a in _audio){
+                StartCoroutine(_audioManager.FadeAudio(a, 1.75f));
+            }
             StartCoroutine(_sceneFader.FadeToBlack(next_scene_name, useTransition));
         }
 
