@@ -49,9 +49,6 @@ public class DialogueManager : MonoBehaviour
     public Text NameText;
     public Text DialogueText;
 
-    //Event manager element
-    private EventManager _eventManager;
-
     // For reference
     private TrajectoryLine _trajectoryLine;
 
@@ -65,7 +62,6 @@ public class DialogueManager : MonoBehaviour
         _buttons = new Queue<ChoiceButtonManager>();
 
         // For reference
-        _eventManager = FindObjectOfType<EventManager>();
         _playerMovement = FindObjectOfType<PlayerMovement>();
         _playerSwing = FindObjectOfType<PlayerSwing>();
         _dialogueBoxManager = FindObjectOfType<DialogueBoxManager>();
@@ -125,12 +121,6 @@ public class DialogueManager : MonoBehaviour
                 _sentences.Enqueue(new Pair<Pair<string [], Pair<string [], string []>>, Pair<string, string>>(new Pair<string [], Pair<string [], string[]>>(lines.choices, new Pair<string [], string []>(lines.flags, lines.prerequisites)), new Pair<string, string>(lines.speaker, lines.line)));
             }
             DisplayNextSentence();
-
-            // Calls the ProcessFlag function to let the EventManager handle any special flags/events
-            if (Dialogue.flag != "")
-            {
-                _eventManager.ProcessFlag(Dialogue.flag);
-            }
         }
         
     }
@@ -151,16 +141,6 @@ public class DialogueManager : MonoBehaviour
             FindObjectOfType<AudioManager>().Play("npc_dolos_text_long");
         else
             FindObjectOfType<AudioManager>().Play("player_dialogue");
-
-        // while (sentence.First.Second.Second.Length > 0){
-            for (int i = 0; i < sentence.First.Second.Second.Length; i++){
-                if(!_eventManager.FlagValue(sentence.First.Second.Second[i])){
-                    Debug.Log(sentence.First.Second.Second[i]);
-                    DisplayNextSentence();
-                    return;
-                }
-            }
-        // }
         
 
         NameText.text = sentence.Second.First;
@@ -229,9 +209,6 @@ public class DialogueManager : MonoBehaviour
         // 2 second cooldown for starting new dialogue
         yield return new WaitForSeconds(2f);
         CanStartDialogue = true;
-
-        // Performs the internal update delayed in case any dialogue needs to be played after
-        _eventManager.InternalUpdate();
     }
 
     // Clears the dialogue box

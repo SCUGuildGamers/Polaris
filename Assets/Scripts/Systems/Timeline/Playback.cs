@@ -75,22 +75,26 @@ public class Playback : MonoBehaviour
     // Resumes the timeline once dialogue is over
     private void Update()
     {
-        if (!_dialogueManager.InDialogue && _trigger)
-            _playDirector.playableGraph.GetRootPlayable(0).Play();
-        if (Input.GetMouseButtonDown(0) && _requestedClick)
+        if (_dialogueManager)
         {
-            _requestedClick = false;
-            _trigger = true;
-        }
-        if (!_movementAllowed)
-        {
-            if (_playerMovement != null)
+            if (!_dialogueManager.InDialogue && _trigger)
+                _playDirector.playableGraph.GetRootPlayable(0).Play();
+            if (Input.GetMouseButtonDown(0) && _requestedClick)
             {
-                _playerMovement.CanPlayerMove = false;
-                _playerMovement.CanPlayerGlide = false;
+                _requestedClick = false;
+                _trigger = true;
             }
-            if (_playerSwing != null)
-                _playerSwing.CanPlayerSwing = false;
+            if (!_movementAllowed)
+            {
+                if (_playerMovement != null)
+                {
+                    _playerMovement.CanPlayerMove = false;
+                    _playerMovement.CanPlayerGlide = false;
+                }
+                if (_playerSwing != null)
+                    _playerSwing.CanPlayerSwing = false;
+            }
         }
+        
     }
 }
