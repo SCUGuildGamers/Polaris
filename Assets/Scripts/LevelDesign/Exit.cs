@@ -6,9 +6,12 @@ using UnityEngine.SceneManagement;
 public class Exit : MonoBehaviour
 {
     public string next_scene_name;
+    public bool useTransition = true;
 
     private CoinManager _coinManager;
     private PipeManager _pipeManager;
+    private SceneFader _sceneFader;
+    private AudioManager _audioManager;
 
     private Vector3 _startingPosition;
 
@@ -16,6 +19,8 @@ public class Exit : MonoBehaviour
     {
         _coinManager = FindObjectOfType<CoinManager>();
         _pipeManager = FindObjectOfType<PipeManager>();
+        _sceneFader = FindObjectOfType<SceneFader>();
+        _audioManager = FindObjectOfType<AudioManager>();
 
         // Set the starting position
         _startingPosition = transform.position;
@@ -34,8 +39,12 @@ public class Exit : MonoBehaviour
             if(_pipeManager)
                 _pipeManager.UpdateCloggedPipes();
 
-            // Load next level
-            FindObjectOfType<SceneController>().ChangeSceneTransition(next_scene_name);
+            // Fade out and load next level
+            List<AudioSource> _audio = _audioManager.FindAudioPlaying();
+            foreach (AudioSource a in _audio){
+                StartCoroutine(_audioManager.FadeAudio(a, 1.75f));
+            }
+            StartCoroutine(_sceneFader.FadeToBlack(next_scene_name, useTransition));
         }
 
     }
@@ -43,6 +52,9 @@ public class Exit : MonoBehaviour
     // Move the arrow left and right
     void Update()
     {
-        transform.position = _startingPosition + (Vector3.right * (Mathf.Cos(Time.time * 5f) * 0.1f));
+        if (transform.rotation.z == 0 || transform.rotation.z == 180)
+            transform.position = _startingPosition + (Vector3.right * (Mathf.Cos(Time.time * 5f) * 0.1f));
+        else
+            transform.position = _startingPosition + (Vector3.up * (Mathf.Cos(Time.time * 5f) * 0.1f));
     }
 }

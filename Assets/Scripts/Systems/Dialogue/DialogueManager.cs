@@ -143,10 +143,14 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        FindObjectOfType<AudioManager>().Play("player_dialogue");
 
         Pair<Pair<string [], Pair<string [], string []>>, Pair<string, string>> sentence = _sentences.Dequeue();
         StopAllCoroutines();
+
+        if (sentence.Second.First == "Dolos")
+            FindObjectOfType<AudioManager>().Play("npc_dolos_text_long");
+        else
+            FindObjectOfType<AudioManager>().Play("player_dialogue");
 
         // while (sentence.First.Second.Second.Length > 0){
             for (int i = 0; i < sentence.First.Second.Second.Length; i++){
@@ -184,7 +188,7 @@ public class DialogueManager : MonoBehaviour
     }
 
     // Public function to be universally called by other functions when a button is pressed to simulate the textbox logic
-    private void SayDialogue()
+    public void SayDialogue()
     {
         // Allows that player to press the dialogue button again to clear the textbox
         if (_isStall)
@@ -204,7 +208,6 @@ public class DialogueManager : MonoBehaviour
             // Delay the ability to start dialogue again
             StartCoroutine(DelayedInDialogueSet());
         }
-
         // Else, there is still dialogue left in the queue
         else
         {
