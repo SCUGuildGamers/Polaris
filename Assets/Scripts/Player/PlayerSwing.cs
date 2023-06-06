@@ -61,7 +61,7 @@ public class PlayerSwing : MonoBehaviour
                 if (GetComponent<Rigidbody2D>().velocity != new Vector2(0,0))
                 {
                     Debug.Log("movement");
-                    _swingRange = 5f;
+                    _swingRange = 3f;
                 }
                 else{ _swingRange = 2.5f; }
 
