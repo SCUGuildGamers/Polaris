@@ -25,8 +25,8 @@ public class FinalScores : MonoBehaviour
 
         DeathValue.text = "Number of Deaths: " + playerData.death_counter;
 
-        FinalValue.text = "Ocean Satisfcation Score: " + .4 * (playerData.coin_counter/ 17) +
-            .4 * (playerData.clogged_pipes_counter / 6) + .2 * (1 / (1 + playerData.death_counter));
+        float score = (.5f * (playerData.coin_counter/ 17f) + .4f * (playerData.clogged_pipes_counter / 6f) + .1f * (1f / (1f + playerData.death_counter)))*100;
+        FinalValue.text = "Ocean Satisfcation Score: " + score + "%";
 
 
     }

@@ -112,11 +112,13 @@ public class PlayerHealth : MonoBehaviour
     {
         // Kill the player if they leave the level border
         if (collision.gameObject.GetComponent<LevelBorder>()) {
-            // Increment death counter
             playerData.death_counter++;
 
             // Restore player HP
             playerData.player_health = playerData.max_player_health;
+
+            // Resets the player's glide charges to its starting value
+            GetComponent<GlideCharge>().ResetCharges();
 
             // Return player to checkpoint after they die
             GetComponent<CheckpointManager>().ReturnToCheckpoint();

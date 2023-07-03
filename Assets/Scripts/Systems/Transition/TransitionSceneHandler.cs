@@ -43,7 +43,8 @@ public class TransitionSceneHandler : MonoBehaviour
             {"PipeParryIntro", "90% of plastic items are only used once and thrown out, resulting in a prevalence of plastic waste. Research suggests that microplastics are even spread by mosquitoes, as they remain embedded across mosquito life stages in different habitats! (4)"},
             {"ChasmLevel", "Pollution is found even in the deepest parts of the ocean, such as the Mariana Trench. Due to the absence of sunlight and low oxygen levels, debris which reaches the deep ocean takes far longer to degrade (sometimes even thousands of years)! (5)"},
             {"ChaoticFinal", "Global warming is changing how currents function. Increasingly warmer and faster surface waters are less willing to mix with deep ocean waters, negatively impacting the ocean’s ability to absorb heat and the temperature of marine ecosystems. (6)"},
-            {"TheClimb", "Almost 37% of the world population lives in coastal areas. As coastal regions increasingly urbanize, poorly managed urban stormwater runoff endangers underwater ecosystems through chemical and nutrient pollution. (7)"}
+            {"TheClimb", "Almost 37% of the world population lives in coastal areas. As coastal regions increasingly urbanize, poorly managed urban stormwater runoff endangers underwater ecosystems through chemical and nutrient pollution. (7)"},
+            {"TitleProduction", "Thanks For Playing!"}
         };
         _audioManager = FindObjectOfType<AudioManager>();
         StartCoroutine(RunTransition());
